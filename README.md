@@ -29,6 +29,7 @@
 	    python manage.py runserver
 	```
 ## Snapshots of Figma
-![image]
+<img width="720" alt="UpCycleHome" src="https://user-images.githubusercontent.com/88571833/174367515-617b9c6a-62ea-4a5c-91c3-b09b6fc60b10.png">
+
 
 Figma Link [UpCycle](https://www.figma.com/file/V4JOy3MOkOD7CRvgZczZPW/UI-AlphaByte?node-id=0%3A1) 
