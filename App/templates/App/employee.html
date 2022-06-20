@@ -12,9 +12,80 @@
 
 <body>
     {% block content %}
-
-    employee
-
+    <div class="content bg-slate-900 p-24">
+        <div class="min-w-full font-space">
+            <h1 class="text-green-300 text-7xl font-bold ">Hello, Employee</h1>
+            <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To/From Warehouse</div>
+        </div>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl">Company Name</th>
+                        <th>Contact</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th class="rounded-tr-xl">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Recycle Co</div>Recycle Co</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>RecycleCo@gmail.com</span><br>824 2249582</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-yellow-100 text-yellow-800 w-fit px-1 rounded m-auto">Departing</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
+                        <td class="border-b border-slate-300">Mangaluru</td>
+                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>  
+                </tbody>
+            </table>
+            <div class="w-full h-5 my-4 text-center">
+                Page 1 Showing 10 of 430 Entries....
+            </div>
+            
+        </div>
+    </div>
     {% endblock %}
 </body>
 </html>
