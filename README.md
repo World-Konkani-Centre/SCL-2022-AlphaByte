@@ -29,7 +29,16 @@
 	    python manage.py runserver
 	```
 ## Snapshots of Figma
-<img width="720" alt="UpCycleHome" src="https://user-images.githubusercontent.com/88571833/174367515-617b9c6a-62ea-4a5c-91c3-b09b6fc60b10.png">
+<img width="300" alt="UpCycleHome" src="https://user-images.githubusercontent.com/88571833/174367515-617b9c6a-62ea-4a5c-91c3-b09b6fc60b10.png">
 
 
-Figma Link [UpCycle](https://www.figma.com/file/V4JOy3MOkOD7CRvgZczZPW/UI-AlphaByte?node-id=0%3A1) 
+Figma Link [UpCycle](https://www.figma.com/file/V4JOy3MOkOD7CRvgZczZPW/UI-AlphaByte?node-id=0%3A1)
+
+## TEAM ALPHABYTE
+[Vidyesh Kumar](https://github.com/vidyesh-kumar)
+[Satvik S Nayak](https://github.com/satviknayak)
+[Shravya Mallya](https://github.com/ShravyaMallya)
+[Sahana Prabhu](https://github.com/Sahanaprabhu14)
+[Namratha Nayak](https://github.com/Namratha-Nayak67)
+[Yash S Prabhudesai](https://github.com/yash123-ysp)
+[Darshan Rao](https://github.com/Dar-2002)
