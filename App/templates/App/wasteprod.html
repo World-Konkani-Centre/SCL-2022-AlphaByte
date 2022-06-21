@@ -12,7 +12,143 @@
 
 <body>
     {% block content %}
-    Add Waste
+    <div class="content bg-slate-900 p-24">
+        <div class="min-w-full font-space my-24">
+            <h1 class="text-green-300 text-7xl font-bold ">Hello, User</h1>
+            <div class="my-9 w-fit bg-green-300 px-2 rounded-md absolute right-24">Add Items For Recycling</div>
+        </div>
+        <div class="Table min-w-4/5 p-2 bg-slate-50 rounded-2xl overflow-auto">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl text-left px-4 py-1">Type</th>
+                        <th>Quantity</th>
+                        <th>Approx. Price</th>
+                        <th class="rounded-tr-xl">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Paper</div>Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Paper</div>Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
+                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
+                        <td class="border-b border-slate-300">20</td>
+                        <td class="border-b border-slate-300 border-r"></td>
+                    </tr>  
+                </tbody>
+            </table>
+            <div class="w-full h-5 my-4 text-center">
+                Page 1 Showing 10 of 430 Entries....
+            </div>   
+        </div>
+        <div class="flex flex-wrap gap-8 my-8 mt-16 justify-center">
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                        <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
+                    </div>
+                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
+                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                </div>
+        </div>
+    </div>
     {% endblock %}
 </body>
 </html>
