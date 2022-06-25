@@ -8,6 +8,9 @@ urlpatterns = [
     path('addWaste/',views.addWaste,name='addwaste'),
     path('schedule/',views.schedule,name='schedule'),
     path('login/',views.loginPage,name='login'),
-    path('register/',views.register,name='register')
+    path('logout/',views.logOutUser,name='logout'),
+    path('register/',views.register,name='register'),
+    path('Profile/',views.ProfilePage,name='profile'),
+    path('awareness/',views.Awareness,name='awareness'),
 
 ]
