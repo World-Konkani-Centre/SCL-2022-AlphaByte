@@ -13,3 +13,11 @@ def schedule(request):
 
 def addWaste(request):
     return render(request,'App/wasteprod.html')
+
+def loginPage(request):
+
+    return render(request,'App/login.html')
+
+def register(request):
+    
+    return render(request,'App/register.html')
