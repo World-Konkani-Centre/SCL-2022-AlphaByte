@@ -63,15 +63,32 @@
   <pre> 
   
   </pre>
-<div class="my-4">
-  <hr>
+  <div class="my-4"> 
+    <hr>
   <pre>
   
+  
   </pre>
-  <p class="text-white text-center text-2xl">Contact Us</p> </br>  
-<!email and query and consent and send>
-      </div>
-     </div></div>
+  <h1 class="text-slate-50 text-xl text-center"><b>Contact Us</b></h1>
+  <div class="max-w-screen flex flex-col items-center justify-center">
+      <form class="w-4/5">
+        <div class="w-full relative">
+          <p class="text-slate-50 text-left mt-5">Your Email</p>
+          <input class="w-full my-2 bg-black border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-white" type="text" placeholder="Email Id"></input>
+        </div><br>
+        <div class="w-auto relative min-w-4/5">
+          <p class="text-slate-50 text-left">Your Query</p>
+          <textarea class="w-full h-40 my-2 bg-black border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-white" placeholder="Your Text Here">                     </textarea>
+        </div>  
+        <div class="w-auto relative min-w-4/5">
+          <br>
+          <input type="checkbox" class="mx-1"><span class="text-white text-lg">I have read and consent to the privacy policy<br></span></input><br>
+          <button class="w-full h-12 my-2 bg-white border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-black">Send</button>
+        </div>  
+    </form>
+  </div>
+</div>
+    </div>
 
 {% endblock %}
 </body>
