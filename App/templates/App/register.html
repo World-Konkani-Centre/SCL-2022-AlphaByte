@@ -41,14 +41,7 @@
         <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Company Name" type="text" name="username" id="id_username" autofocus required maxlength="150"></div>
         <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Password" type="password" name="password1" autocomplete="new-password" required id="id_password1"></div>
         <div class="mb-[1rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Confirm Password" type="password" name="password2" autocomplete="new-password" required id_password2></div>
-        <!-- <div class="mb-[1rem] mx-auto w-[320px] min-h-[44px] bg-[#f0f8ff5c] rounded-lg text-white justify-between flex font-normal text-md">
-          <select name="type" class="bg-transparent outline-none border-none w-3/4 m-auto text-lg text-center" required id="id_type">
-            <option class="bg-black" value selected>-------</option>
-            <option class="bg-black" value="RECYCLER">Recycler</option>
-            <option class="bg-black" value="COMPANY">Company</option>
-          </select>
-        </div> -->
-        {{form.errors}}
+        <div class="text-white">{{form.errors}}</div>
         <h5 class="my-[1rem] text-white">Already a User? <a class="decoration-solid text-sky-500" href="/login/">SignIn</a></h5>
         <input type="submit" class="w-[300px] text-lg p-[5px] cursor-pointer outline-none border-none bg-lightgreen rounded-lg">
         </form></div>
