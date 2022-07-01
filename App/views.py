@@ -48,7 +48,7 @@ def Awareness(request):
 
 @login_required(login_url='login')
 def ProfilePage(request):
-    return render(request,'App/home.html')
+    return render(request,'App/profile.html')
 
 @login_required(login_url='login')
 def report(request):
