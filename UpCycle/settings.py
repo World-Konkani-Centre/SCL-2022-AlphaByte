@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'App',
+    'App.apps.AppConfig',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +127,7 @@ MEDIA_URL = 'IMGS/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/IMGS')
 
 
 # Default primary key field type
