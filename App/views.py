@@ -60,7 +60,7 @@ def Awareness(request):
 def ProfilePage(request):
     groups = grouplist(request.user)
     context = {'groups':groups}
-    return render(request,'App/home.html',context)
+    return render(request,'App/profile.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Employee'])
