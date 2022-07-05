@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
 
-from .forms import CreateUserForm
+from .forms import CreateUserForm,UserUpdateForm,ProfileUpdateForm
 from .decorators import allowed_user, unauthenticated_user
 
 
@@ -59,7 +59,18 @@ def Awareness(request):
 @login_required(login_url='login')
 def ProfilePage(request):
     groups = grouplist(request.user)
-    context = {'groups':groups}
+    if request.method == 'POST':
+        # u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        if p_form.is_valid():
+            # u_form.save()
+            p_form.save()
+            messages.success(request,'Profile Updated!!')
+            return redirect('profile')
+    else:
+        # u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {'groups':groups,'p_form':p_form}
     return render(request,'App/profile.html',context)
 
 @login_required(login_url='login')
