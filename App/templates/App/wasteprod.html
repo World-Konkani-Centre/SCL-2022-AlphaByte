@@ -15,61 +15,35 @@
     <div class="content bg-slate-900 p-24">
         <div class="min-w-full font-space my-24">
             <h1 class="text-green-300 text-7xl font-bold ">Hello, User</h1>
-            <div class="my-9 w-fit bg-green-300 px-2 rounded-md absolute right-24">Add Items For Recycling</div>
+            <button type="button" class="closeAddWaste my-9 w-fit bg-green-300 px-2 rounded-md absolute right-24">Add Items For Recycling</button>
         </div>
         <div class="Table min-w-4/5 p-2 bg-slate-50 rounded-2xl overflow-auto">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl text-left px-4 py-1">Type</th>
+                        <th class="rounded-tl-xl text-left px-4 py-1">ID</th>
+                        <th class="px-4 py-1">Type</th>
                         <th>Quantity</th>
                         <th>Approx. Price</th>
                         <th class="rounded-tr-xl">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for waste in wastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300"><div class="font-bold">{{waste.type}}</div></td>
+                        <td class="text-center py-1 border-b border-slate-300">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300 border-r">
+                            {% if waste.pickup_done %}
+                            <button type="button" disabled class="" >Picked Up</button>
+                            {% else %}
+                            <button type="button" disabled class="" >Not Picked Up</button>
+                            {% endif %}
+                        </td>
                     </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Paper</div>Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Paper</div>Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Plastics</div>Non-Biodegradable</td>
-                        <td class="text-center py-1 border-b border-slate-300">1 Kg</td>
-                        <td class="border-b border-slate-300">20</td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>  
+                    {% endfor %} 
                 </tbody>
             </table>
             <div class="w-full h-5 my-4 text-center">
@@ -150,6 +124,25 @@
         </div>
     </div>
     
+
+    <div class="flex fixed top-0 left-0 w-full h-screen bg-[#00000080] z-[990] hidden" id="modalAddWaste">
+        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
+            <button type="button" class="closeAddWaste absolute top-[10px] sm:top-[20px] right-[10px] sm:right-[20px] text-black"><i class="bi bi-x-lg text-[1.25rem]"></i></button>
+            <form action="" method="POST" >
+                {% csrf_token %}
+                {{addWasteForm}}
+                <button type="submit">Submit</button>
+                <button type="reset" class="closeAddWaste">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $(".closeAddWaste").click(function (){
+                $("#modalAddWaste").toggleClass("hidden");
+            });
+        });
+    </script>
     {% endblock %}
 </body>
 </html>
