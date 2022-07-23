@@ -14,10 +14,10 @@
     {% block content %}
     <div class="bg-slate-900 min-h-screen px-16">
       <div class="lg:flex lg:gap-8 lg:flex-row-reverse">
-        <div>
-          <img src="{% static '/IMGS/Earth.png' %}" alt="" srcset="" class="py-10">
+        <div class="sm:my-auto sm:py-10">
+          <img src="{% static '/IMGS/Earth.png' %}" alt="" srcset="">
         </div>
-        <div class="font-space py-10 lg:w-4/5 md:w-3/5">
+        <div class="font-space py-10 lg:w-4/5 w-full">
           <h1 class="sm:text-7xl text-4xl text-green-300 font-bold">Do something drastic,<span class="block sm:my-4 my-2">Cut the Plastic !!</span></h1>
           <p class="py-5 text-white sm:text-lg text-sm">
             The world as we know it, is constantly evolving. And this evolution comes with its fair share of issues - one of them being sustainability. 
@@ -31,7 +31,7 @@
           </button>
         </div>
       </div>
-      <div class="py-10 flex flex-wrap md:flex-nowrap gap-4 mb-1">
+      <div class="py-10 flex flex-wrap lg:flex-nowrap gap-4 mb-1">
           <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
             <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
             <h3 class="text-sm sm:text-lg">Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
