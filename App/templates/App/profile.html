@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Report</title>    
+=======
+    <title>Profile</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.css" integrity="sha512-iAcZ4OrGhQ7KDqtM+LMc+iuv63aJ9O7hPyWBzCXsrZYuhJ6jhdeh40+hf9o4QmZVu8QrH/cWy/JTmoKNOL4Urw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" integrity="sha512-E+gDQcIvNXE60SjCS38ysf1mGh4ObBpKcUOp0oEaHQHQAdaN2p7GelOpgEdpTuCLoIJyLkNXiqFZbyD9Ak/Ygw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+>>>>>>> 0f3451250edacf09e5c014b9caa0703b93da72ac
 </head>
 
 {% extends 'App/base.html' %}
@@ -12,6 +19,7 @@
 
 <body>
     {% block content %}
+<<<<<<< HEAD
     <div class="content bg-slate-900 sm:p-24 p-4 w-full">
         <div class="min-w-full font-space mb-16">
             <h1 class="text-green-300 lg:text-7xl md:text-4xl text-2xl font-bold ">Hello, Company ABC</h1>
@@ -50,6 +58,135 @@
             </div>
         </div> 
     </div>
+=======
+    <div class="bg-slate-900 flex w-full min-h-screen font-inter">
+        <ul class="fixed left-[12%] sm:left-[30px] mt-[30px] sm:mt-[75px] flex w-3/4 sm:w-[200px] rounded-lg p-[10px] bg-[#f0f8ff5c] flex-row sm:flex-col">
+            <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href=""><i class="bi bi-person-circle text-[1.35rem] hover:text-fuchsia-600"></i><span class="hidden sm:block mx-[5px] my-auto">Profile</span></a></li>
+            <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href=""><i class="bi bi-graph-up text-[1.35rem] hover:text-yellow-400"></i><span class="hidden sm:block mx-[5px] my-auto">Analytics</span></a></li>
+            <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href=""><i class="bi bi-coin text-[1.35rem] hover:text-lime-500"></i><span class="hidden sm:block mx-[5px] my-auto">Subscription</span></a></li>
+            <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/logout/"><i class="bi bi-power text-[1.35rem] hover:text-rose-600"></i><span class="hidden sm:block mx-[5px] my-auto">LogOut</span></a></li>
+        </ul>
+        
+        
+        <div class="ml-[20px] sm:ml-[260px] mr-[20px] sm:mr-[50px] mt-[110px] sm:mt-[77px] rounded-lg flex flex-col w-full  bg-white p-[10px] sm:p-[20px]">
+            <div class="flex relative">
+            <button class="absolute top-[8px] right-[8px] p-[5px] rounded-md text-white bg-slate-900 text-[1.25rem] md:text-[1.5rem] closeUpdate"><i class="bi bi-pencil-square"></i></button>
+            <div class="my-auto w-[50px] h-[50px] sm:w-[75px] sm:h-[75px] md:w-[100px] md:h-[100px] bg-slate-900 flex rounded-full overflow-hidden"><img src="{{user.profile.profile_pic.url}}" alt="" class="w-full"></div>
+            <div class="ml-[10px] sm:ml-[20px] md:ml-[30px] my-auto"><h1 class="text-[1.25rem] sm:text-[1.5rem]">{{user.username}}</h1><h3 class="text-[1rem] sm:text-[1.25rem]">{{user.email}}</h3></div>
+            </div>
+
+            <div class="flex flex-col">
+                <div>{{user.profile.name}}</div>
+                <div>{{user.profile.about}}</div>
+                <div>{{user.profile.location}}</div>
+                <div>{{user.profile.phone}}</div>
+            </div>
+
+            <div class="relative bg-slate-900 text-white p-[10px] hidden" id="Update">
+                <button class="absolute top-[10px] right-[10px] closeUpdate hidden" ><i class="bi bi-x-lg text-white text-[1.5rem]"></i></button>
+            <form action="" method="POST" enctype="multipart/form-data" id="ProfileUpdate">
+                {% csrf_token %}
+                <h1 class="text-[1.5rem] sm:text-[2rem] font-bold text-center">Update Profile</h1>
+                <div><label for="id_name">Name:</label><br><input class="bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" type="text" name="name" id="id_name" value="{{user.profile.name}}" required maxlength="50"></div>
+                <div><label for="id_about">About:</label><br><textarea class="w-[300px] h-[150px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="about" id="id_about">{{user.profile.about}}</textarea></div>
+                <div><label for="id_location">Location:</label><br><textarea class="w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="location" id="id_location">{{user.profile.location}}</textarea></div>
+                <div><label for="id_phone">Phone</label><br><input class="bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" type="tel" name="phone" value="{{user.profile.phone}}" id="id_phone"></div>
+                <div><label for="id_profile_pic">Profile Picture:</label><br>"Currently: "<a href="{{user.profile.profile_pic.url}}">{{user.profile.profile_pic}}</a><br>"Change: "<input type="file" name="profile_pic" id="id_profile_pic" accept="image/*">
+                    <input type="hidden" name="x" id="id_x"><input type="hidden" name="y" id="id_y"><input type="hidden" name="width" id="id_width"><input type="hidden" name="height" id="id_height">
+                </div>
+                <div class="flex w-full my-[15px]"><button class="mx-auto bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white ease-in-out rounded-lg p-[3px] border-2" type="submit">Update</button><button class="mx-auto ease-in-out bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white border-2 p-[3px] rounded-lg" type="reset">Cancel</button></div>
+            </form>  
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="fixed top-0 w-full h-screen flex bg-[#00000090] z-[999] hidden" id="modalCrop">
+        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
+            <div class="modal-content w-full">
+            <div class="modal-header">
+                <button class="absolute top-[10px] right-[10px] closeModalCrop" ><i class="bi bi-x-lg text-black text-[20px]"></i></button>
+                <h2 class="text-center text-[1.2rem]">Crop The Image</h2>
+            </div>
+            <div class="modal-body w-full h-[85%] flex"><img src="" id="image" class="max-w-[80%] max-h-[360px] my-auto mx-auto"></div>
+            <div class="modal-footer absolute bottom-[20px]">
+                <button type="button" class="js-crop-and-upload border-[1px] bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white rounded-lg p-[3px]">Crop and Upload</button>
+                <button type="button" class="border-[1px] bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white rounded-lg p-[3px] closeModalCrop">Cancel</button>
+            </div>
+            <div class="absolute top-[80%] right-[5%] zoom-bar bg-black text-white text-[15px] sm:text-[20px] px-[5px] w-max rounded-md"><button type="button" class="m-[5px] js-zoom-in"><i class="bi bi-zoom-in"></i></button><button type="button" class="m-[5px] js-zoom-out"><i class="bi bi-zoom-out"></i></button></div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.css" integrity="sha512-iAcZ4OrGhQ7KDqtM+LMc+iuv63aJ9O7hPyWBzCXsrZYuhJ6jhdeh40+hf9o4QmZVu8QrH/cWy/JTmoKNOL4Urw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" integrity="sha512-E+gDQcIvNXE60SjCS38ysf1mGh4ObBpKcUOp0oEaHQHQAdaN2p7GelOpgEdpTuCLoIJyLkNXiqFZbyD9Ak/Ygw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(function () {
+        $(".closeUpdate").click(function () {
+            $("#Update").toggleClass("hidden");
+            $(".closeUpdate").toggleClass("hidden");
+        });
+
+        /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+        $("#id_profile_pic").change(function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#image").attr("src", e.target.result);
+                        $("#modalCrop").toggleClass("hidden");
+                        $("#modalCrop").toggleClass("shown");
+                    }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+        $(".closeModalCrop").click(function () {
+            $("#modalCrop").addClass("hidden");
+            $("#modalCrop").toggleClass("shown");
+        });
+
+        var $image = $("#image");
+        var cropBoxData;
+        var canvasData;
+        $("#image").click(function () {
+            $image.cropper({
+                viewMode: 1,
+                aspectRatio: 1/1,
+                minCropBoxWidth: 200,
+                minCropBoxHeight: 200,
+                ready: function () {
+                    $image.cropper("setCanvasData", canvasData);
+                    $image.cropper("setCropBoxData", cropBoxData);
+                }
+            });
+        });
+
+        $(".js-zoom-in").click(function () {
+            $image.cropper("zoom", 0.1);
+        });
+
+        $(".js-zoom-out").click(function () {
+            $image.cropper("zoom", -0.1);
+        });
+
+        /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+        $(".js-crop-and-upload").click(function () {
+            var cropData = $image.cropper("getData");
+            $("#id_x").val(cropData["x"]);
+            $("#id_y").val(cropData["y"]);
+            $("#id_height").val(cropData["height"]);
+            $("#id_width").val(cropData["width"]);
+            $("#ProfileUpdate").submit();
+        });
+    });
+</script>
+
+
+  
+>>>>>>> 0f3451250edacf09e5c014b9caa0703b93da72ac
     {% endblock %}
 </body>
 </html>

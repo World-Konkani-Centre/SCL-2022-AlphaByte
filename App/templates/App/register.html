@@ -38,19 +38,17 @@
         <h1 class="font-space font-normal text-[64px] leading-[80px] text-center text-white mb-[20px]">Register</h1>
         {% csrf_token %}
         <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Email" type="email" name="email" id="id_email" required maxlength="254"></div>
-        <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Company Name" type="text" name="username" id="id_username" autofocus required maxlength="150"></div>
+        <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Username" type="text" name="username" id="id_username" autofocus required maxlength="150"></div>
+        <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><select class="bg-transparent w-[200px] outline-none border-none text-white" name="group" id="id_group">
+        <option class="bg-slate-900" value="" selected>---------</option>
+        <option class="bg-slate-900" value="2">Company</option>
+        <option class="bg-slate-900" value="3">Recycler</option>
+        </select></div>
         <div class="mb-[2rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Password" type="password" name="password1" autocomplete="new-password" required id="id_password1"></div>
         <div class="mb-[1rem] mx-auto w-[320px] bg-[#f0f8ff5c] rounded-lg p-[10px]"><input class="w-[300px] bg-transparent outline-none border-none text-base text-white" placeholder="Confirm Password" type="password" name="password2" autocomplete="new-password" required id_password2></div>
-        <!-- <div class="mb-[1rem] mx-auto w-[320px] min-h-[44px] bg-[#f0f8ff5c] rounded-lg text-white justify-between flex font-normal text-md">
-          <select name="type" class="bg-transparent outline-none border-none w-3/4 m-auto text-lg text-center" required id="id_type">
-            <option class="bg-black" value selected>-------</option>
-            <option class="bg-black" value="RECYCLER">Recycler</option>
-            <option class="bg-black" value="COMPANY">Company</option>
-          </select>
-        </div> -->
-        {{form.errors}}
         <h5 class="my-[1rem] text-white">Already a User? <a class="decoration-solid text-sky-500" href="/login/">SignIn</a></h5>
-        <input type="submit" class="w-[300px] text-lg p-[5px] cursor-pointer outline-none border-none bg-lightgreen rounded-lg">
+        <input type="submit" class="w-[300px] mb-[2rem] text-lg p-[5px] cursor-pointer outline-none border-none bg-lightgreen rounded-lg">
+        <div class="mx-auto w-[320px] text-white bg-[#f0f8ff5c] rounded-lg p-[10px]">{{form.errors}}</div>
         </form></div>
         </div>          
 </body>
