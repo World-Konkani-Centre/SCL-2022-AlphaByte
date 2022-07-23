@@ -59,9 +59,6 @@ def Awareness(request):
 
 @login_required(login_url='login')
 def ProfilePage(request):
-<<<<<<< HEAD
-    return render(request,'App/profile.html')
-=======
     groups = grouplist(request.user)
     if request.method == 'POST':
         # u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -79,7 +76,6 @@ def ProfilePage(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {'groups':groups,'p_form':p_form,'img_form':img_form}
     return render(request,'App/profile.html',context)
->>>>>>> 0f3451250edacf09e5c014b9caa0703b93da72ac
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Employee'])
