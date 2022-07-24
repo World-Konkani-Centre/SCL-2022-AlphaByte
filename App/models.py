@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.utils.crypto import get_random_string
+import uuid
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -26,7 +27,7 @@ class Waste(models.Model):
         BIODEGRADABLE = "BIO-DEGRADABLE","Bio-Degradable"
         PAPER = "PAPER","Paper"
         EWASTE = "E-WASTE","E-Waste"
-    id = models.CharField(primary_key=True,default=get_random_string(length=15),max_length=15,unique=True)
+    id = models.UUIDField(primary_key=True,unique=True,default=uuid.uuid4)
     recycler = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='recycler')
     company = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='company')
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='employee')
@@ -38,5 +39,5 @@ class Waste(models.Model):
     type = models.CharField(_("Types"),max_length=50,choices=Types.choices)
     pickup_done = models.BooleanField(default=False)
     dropdown_done = models.BooleanField(default=False)
-    def __str__(self):
+    def __uuid__(self):
         return self.id

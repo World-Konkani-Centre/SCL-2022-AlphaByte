@@ -53,17 +53,14 @@ def loginPage(request):
 def updateInfo(request):
     groups = grouplist(request.user)
     if request.method == 'POST':
-        img_form = ProfImageUpdateForm(request.POST,request.FILES,instance=request.user.profile)
         p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
-        if p_form.is_valid() or img_form.is_valid():
-            img_form.save()
+        if p_form.is_valid():
             p_form.save()
             messages.success(request,'Profile Updated!!')
             return redirect('home')
     else:
-        img_form = ProfImageUpdateForm(instance=request.user.profile)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-    context = {'groups':groups,'p_form':p_form,'img_form':img_form}
+    context = {'groups':groups,'p_form':p_form}
     return render(request,'App/register_update.html',context)
 
 def logOutUser(request):

@@ -45,17 +45,17 @@ class ProfImageUpdateForm(ModelForm):
 class AddWasteForm(ModelForm):
     class Meta:
         model = Waste
-        fields = ['company','type','weight','entry_date']
+        fields = ['id','company','type','weight','entry_date']
 
 class PickUpDate(ModelForm):
     class Meta:
         model = Waste
-        fields = ['id','employee','entry_date']
+        fields = ['employee','entry_date']
 
 class DropdownDate(ModelForm):
     class Meta:
         model = Waste
-        fields = ['id','employee','recycler','dropdown_date']
+        fields = ['employee','recycler','dropdown_date']
 
 class PickUpDone(ModelForm):
     class Meta:
