@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group,User
+from django.core.paginator import Paginator
 
 
 from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
@@ -16,6 +17,8 @@ def grouplist(user):
         for i in range(len(user.groups.all())):
             groups.append(user.groups.all()[i].name)
     return groups
+
+
 
 @unauthenticated_user
 def register(request):
@@ -38,10 +41,30 @@ def loginPage(request):
         password = request.POST.get('password')
         user = authenticate(request,username=username,password=password)
         if user is not None:
-                login(request,user)
+            login(request,user)
+            if user.profile.location is None:
+                return redirect('updateInfo')
+            else:
                 return redirect('home')
     context = {}
     return render(request,'App/login.html',context)
+
+@login_required(login_url='login')
+def updateInfo(request):
+    groups = grouplist(request.user)
+    if request.method == 'POST':
+        img_form = ProfImageUpdateForm(request.POST,request.FILES,instance=request.user.profile)
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        if p_form.is_valid() or img_form.is_valid():
+            img_form.save()
+            p_form.save()
+            messages.success(request,'Profile Updated!!')
+            return redirect('home')
+    else:
+        img_form = ProfImageUpdateForm(instance=request.user.profile)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    context = {'groups':groups,'p_form':p_form,'img_form':img_form}
+    return render(request,'App/register_update.html',context)
 
 def logOutUser(request):
     logout(request)
@@ -75,20 +98,28 @@ def ProfilePage(request):
         img_form = ProfImageUpdateForm(instance=request.user.profile)
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {'groups':groups,'p_form':p_form,'img_form':img_form}
-    return render(request,'App/profile.html',context)
+    return render(request,'App/profileUpdate.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Employee'])
 def report(request):
     groups = grouplist(request.user)
-    context = {'groups':groups}
+    user = User.objects.get(username = request.user.username)
+    all_wastes = Waste.objects.filter(employee = user)
+    W = Paginator(all_wastes,10)
+    wastes = W.get_page(request.GET.get('page'))
+    context = {'groups':groups,'wastes':wastes}
     return render(request,'App/employee.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
 def schedule(request):
     groups = grouplist(request.user)
-    context = {'groups':groups}
+    user = User.objects.get(username = request.user.username)
+    all_wastes = Waste.objects.filter(recycler = user)
+    W = Paginator(all_wastes,10)
+    wastes = W.get_page(request.GET.get('page'))
+    context = {'groups':groups,'wastes':wastes}
     return render(request,'App/recyclecomp.html',context)
 
 @login_required(login_url='login')
@@ -96,7 +127,9 @@ def schedule(request):
 def addWaste(request):
     groups = grouplist(request.user)
     user = User.objects.get(username = request.user.username)
-    wastes = Waste.objects.filter(company = user)
+    all_wastes = Waste.objects.filter(company = user)
+    W = Paginator(all_wastes,10)
+    wastes = W.get_page(request.GET.get('page'))
     addWasteForm = AddWasteForm()
     if request.method == 'POST':
         form = AddWasteForm(request.POST)
@@ -105,3 +138,13 @@ def addWaste(request):
             return redirect('addwaste')
     context = {'groups':groups,'addWasteForm':addWasteForm,'wastes':wastes}
     return render(request,'App/wasteprod.html',context)
+
+@login_required(login_url='login')
+def subscriptions(request):
+    context = {}
+    return render(request,'App/subscriptions.html',context)
+
+@login_required(login_url='login')
+def Charts(request):
+    context = {}
+    return render(request,'App/charts.html',context)

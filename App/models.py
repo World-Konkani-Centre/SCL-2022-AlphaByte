@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 from django.utils.crypto import get_random_string
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -12,7 +11,10 @@ class Profile(models.Model):
     name = models.CharField(max_length=50)
     about = models.TextField(blank=True,null=True)
     profile_pic = models.ImageField(default='avatar.png',upload_to='Profile')
-    location = models.TextField(blank=True,null=True)
+    location = models.CharField(max_length=50,blank=True,null=True)
+    street = models.CharField(max_length=50,blank=True,null=True)
+    city = models.CharField(max_length=30,blank=True,null=True)
+    state = models.CharField(max_length=30,blank=True,null=True)
     phone = PhoneNumberField(blank=True,null=True)
     def __str__(self):
         return self.name
@@ -28,7 +30,7 @@ class Waste(models.Model):
     recycler = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='recycler')
     company = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='company')
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='employee')
-    entry_date = models.DateField(default=timezone.now())
+    entry_date = models.DateField(null=True,blank=True)
     pickup_date = models.DateField(null=True,blank=True)
     dropdown_date = models.DateField(null=True,blank=True)
     weight = models.FloatField(null=True,blank=True)

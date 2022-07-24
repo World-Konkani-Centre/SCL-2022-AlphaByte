@@ -2,7 +2,6 @@ from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.core.files import File
 
 from .models import Profile,Waste
 
@@ -21,7 +20,7 @@ class UserUpdateForm(ModelForm):
 class ProfileUpdateForm(ModelForm):
     class Meta:   
         model = Profile
-        fields = ['name','about','location','phone']
+        fields = ['name','about','location','street','city','state','phone']
 
 class ProfImageUpdateForm(ModelForm):
     x = forms.FloatField(widget=forms.HiddenInput())
@@ -46,4 +45,24 @@ class ProfImageUpdateForm(ModelForm):
 class AddWasteForm(ModelForm):
     class Meta:
         model = Waste
-        fields = ['company','type','weight']
+        fields = ['company','type','weight','entry_date']
+
+class PickUpDate(ModelForm):
+    class Meta:
+        model = Waste
+        fields = ['id','employee','entry_date']
+
+class DropdownDate(ModelForm):
+    class Meta:
+        model = Waste
+        fields = ['id','employee','recycler','dropdown_date']
+
+class PickUpDone(ModelForm):
+    class Meta:
+        model = Waste
+        fields = ['id','pickup_done']
+
+class DropdownDone(ModelForm):
+    class Meta:
+        model = Waste
+        fields = ['id','dropdown_done']
