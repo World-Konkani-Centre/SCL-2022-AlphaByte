@@ -29,59 +29,27 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for waste in wastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">{{waste.id}}</div>XYZ</td>
                         <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
                         <td class="border-b border-slate-300">Mangaluru</td>
                         <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
                         <td class="border-b border-slate-300 border-r"></td>
                     </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Recycle Co</div>Recycle Co</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>RecycleCo@gmail.com</span><br>824 2249582</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-yellow-100 text-yellow-800 w-fit px-1 rounded m-auto">Departing</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">Company XYZ</div>XYZ</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>xyz@gmail.com</span><br>824 2249581</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Arriving</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
-                    </tr>  
+                    {% endfor %} 
                 </tbody>
             </table>
-            <div class="w-full h-5 my-4 text-center">
-                Page 1 Showing 10 of 430 Entries....
+            <div class="w-full text-[1 rem] h-5 my-4 text-center">
+                {% if wastes.has_previous %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                {% endif %}
+                <button class="p-[5px] m-[5px]" type="button">Page {{wastes.number}} of {{wastes.paginator.num_pages}}</button>
+                {% if wastes.has_next %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                {% endif %}
             </div>
             
         </div>
