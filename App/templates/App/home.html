@@ -12,84 +12,65 @@
 
 <body>
     {% block content %}
-    <div class="main bg-slate-900 h-5000 py-20 px-10 ">
-        <div class="text-3x1 text-green-300 flex place-content-around ">
-          <div class="w-3/5">
-           <h1 class="max-w text-5xl font-bold leading-10"> Do something drastic</h1><br>
-           <p class="max-w-md text-5xl font-bold leading-10"> Cut the plastic!</p>
-           <br>
-           <p class="py-5 text-white text-md"><br><br>The world as we know it, is constantly evolving. And this evolution comes with its fair share of issues - one of them being sustainability. Despite there being a lot of aspects to sustainability, waste disposal and management is something that is often overlooked. <br>This is what we, at <b>UP-CYCLE</b> aim at solving.<br><br>Not only will we assist your company in disposing of your waste the right way, we will also take care of the logistics, right from storage to transportation. You will have nothing to worry about. With reasonable prices and great benefits, UP-CYCLE is here to flip the narrative. <br><br>So what are you waiting for? <br>Go ahead and plan your waste management, the right way.<br><br> <b>Your journey with sustainability begins right here! </b></p> 
-          </div>
-          
-         <div>
-           <img src="{% static '/IMGS/Earth.png' %}" alt="" srcset="" style="float:right" class="px-10">
-         </div>
-          
-      </div>
-      <div class="buttons">
-            <div class="my-4">
-             <button class="bg-green-300 px-7 py-3 rounded-lg text-black-bold hover:text-slate-900 hover:bg-green-700">Get started</button>
+    <div class="bg-slate-900 min-h-screen px-16">
+      <div class="lg:flex lg:gap-8 lg:flex-row-reverse">
+        <div class="sm:my-auto sm:py-10">
+          <img src="{% static '/IMGS/Earth.png' %}" alt="" srcset="">
         </div>
-    </div>
-      <br><br><br>
-        
-<div class="max-w-screen">
-    <div class="flex gap-6">
-        <div class="w-full sm:w-1/2 lg:w-1/4 text-white">
-            <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
-              <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
-                <h3>Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
- </div>
-    </div>
-    <div class="w-full sm:w-1/2 lg:w-1/4">
-      <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
-              <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
-                <h3>Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
- </div>  
+        <div class="font-space py-10 lg:w-4/5 w-full">
+          <h1 class="sm:text-7xl text-4xl text-green-300 font-bold">Do something drastic,<span class="block sm:my-4 my-2">Cut the Plastic !!</span></h1>
+          <p class="py-5 text-white sm:text-lg text-sm">
+            The world as we know it, is constantly evolving. And this evolution comes with its fair share of issues - one of them being sustainability. 
+            Despite there being a lot of aspects to sustainability, waste disposal and management is something that is often overlooked. 
+            <br>This is what we, at <b>UP-CYCLE</b> aim at solving.<br><br>Not only will we assist your company in disposing of your waste the right way, we will also take care of the logistics, right from storage to transportation. 
+            You will have nothing to worry about. With reasonable prices and great benefits, <b>UP-CYCLE</b> is here to flip the narrative.<br><br>So what are you waiting for? Go ahead and plan your waste management, the right way.
+            <br><b>Your journey with sustainability begins right here!</b>
+          </p>
+          <button class="bg-green-300 px-7 py-3 rounded-lg text-black-bold hover:text-slate-900 hover:bg-green-400">
+            Get started
+          </button>
+        </div>
       </div>
-    <div class="w-full sm:w-1/2 lg:w-1/4">
-       <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
-              <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
-                <h3>Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
- </div>
-</div>
-          <div class="w-full sm:w-1/2 lg:w-1/4">
-       <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
-              <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
-                <h3>Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
- </div>
-</div>
-</div>
-  <pre> 
-  
-  </pre>
-  <div class="my-4"> 
-    <hr>
-  <pre>
-  
-  
-  </pre>
-  <h1 class="text-slate-50 text-xl text-center"><b>Contact Us</b></h1>
-  <div class="max-w-screen flex flex-col items-center justify-center">
-      <form class="w-4/5">
-        <div class="w-full relative">
-          <p class="text-slate-50 text-left mt-5">Your Email</p>
-          <input class="w-full my-2 bg-slate-900 border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-white" type="text" placeholder="Email Id"></input>
-        </div><br>
-        <div class="w-auto relative min-w-4/5">
-          <p class="text-slate-50 text-left">Your Query</p>
-          <textarea class="w-full h-40 my-2 bg-slate-900 border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-white py-2" placeholder="Your Text Here"></textarea>
-        </div>  
-        <div class="w-auto relative min-w-4/5">
-          <br>
-          <input type="checkbox" class="mx-1"><span class="text-white text-lg">I have read and consent to the privacy policy<br></span></input><br>
-          <button class="w-full h-12 my-2 bg-white border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-black">Send</button>
-        </div>  
-    </form>
-  </div>
-</div>
-    </div></div>
-
-{% endblock %}
+      <div class="py-10 flex flex-wrap lg:flex-nowrap gap-4 mb-1">
+          <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
+            <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
+            <h3 class="text-sm sm:text-lg">Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
+          </div>
+          <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
+            <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
+            <h3 class="text-sm sm:text-lg">Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
+          </div>
+          <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
+            <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
+            <h3 class="text-sm sm:text-lg">Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
+          </div>
+          <div class="px-4 py-7 border-white border text-white rounded-lg shadow-lg">
+            <img src="{% static '/IMGS/avatar.png' %}" class="rounded-full h-14" ><br>
+            <h3 class="text-sm sm:text-lg">Great website. Made it so much easier for the company to deal with waste management. Thank you UP-CYCLE!</h3>
+          </div>
+      </div>
+      <hr>
+      <div class="pt-10 pb-20">
+        <h1 class="text-slate-50 font-space sm:text-2xl text-lg text-center"><b>Contact Us</b></h1>
+        <div class="max-w-screen flex flex-col items-center justify-center">
+          <form class="sm:w-4/5 w-full">
+            <div class="w-full relative">
+              <p class="text-slate-50 text-left mt-5">Your Email</p>
+              <input class="w-full my-2 bg-slate-900 border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-white" type="text" placeholder="Email Id"></input>
+            </div><br>
+            <div class="w-auto relative min-w-4/5">
+              <p class="text-slate-50 text-left">Your Query</p>
+              <textarea class="w-full h-40 my-2 bg-slate-900 border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-white py-2" placeholder="Your Text Here"></textarea>
+            </div>  
+            <div class="w-auto relative min-w-4/5">
+              <br>
+              <input type="checkbox" class="mx-1"><span class="text-white text-lg">I have read and consent to the privacy policy<br></span></input><br>
+              <button class="w-full h-12 my-2 bg-white border-white border rounded-sm hover:border-slate-500 indent-3 h-12 text-black">Send</button>
+            </div>  
+          </form>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
 </body>
 </html>
