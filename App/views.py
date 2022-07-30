@@ -2,6 +2,9 @@ from datetime import datetime, timedelta
 from django.utils import timezone
 import razorpay
 from django.conf import settings
+from email.policy import default
+from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,6 +13,17 @@ from django.core.paginator import Paginator
 from django.shortcuts import redirect, render
 from django.views.decorators.csrf import csrf_exempt
 
+from django.urls import reverse_lazy
+from django.contrib.auth.tokens import default_token_generator
+
+from django.views.generic.edit import FormView
+from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import gettext_lazy as _
+
+###
+from matplotlib.pyplot import title
+
+from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
 from .decorators import allowed_user, unauthenticated_user
 from .forms import (AddWasteForm, CreateUserForm, ProfileUpdateForm,
                     ProfImageUpdateForm, UserUpdateForm)
