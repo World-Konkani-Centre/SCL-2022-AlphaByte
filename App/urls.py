@@ -15,5 +15,5 @@ urlpatterns = [
     path('User/Analytics/',views.Charts,name='charts'),
     path('awareness/',views.Awareness,name='awareness'),
     path('RegisterInfo/',views.updateInfo,name='updateInfo'),
-
+    path('User/Success/',views.successpayment,name='success'),
 ]

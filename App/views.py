@@ -1,14 +1,19 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login,logout
+from datetime import datetime, timedelta
+from django.utils import timezone
+import razorpay
+from django.conf import settings
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group,User
+from django.contrib.auth.models import Group, User
 from django.core.paginator import Paginator
+from django.shortcuts import redirect, render
+from django.views.decorators.csrf import csrf_exempt
 
-
-from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
 from .decorators import allowed_user, unauthenticated_user
-from .models import Profile,Waste
+from .forms import (AddWasteForm, CreateUserForm, ProfileUpdateForm,
+                    ProfImageUpdateForm, UserUpdateForm)
+from .models import Profile, Subscription, Waste
 
 
 def grouplist(user):
@@ -137,11 +142,78 @@ def addWaste(request):
     return render(request,'App/wasteprod.html',context)
 
 @login_required(login_url='login')
-def subscriptions(request):
-    context = {}
-    return render(request,'App/subscriptions.html',context)
-
-@login_required(login_url='login')
 def Charts(request):
     context = {}
     return render(request,'App/charts.html',context)
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Recycler'])
+def subscriptions(request):
+    subscription = Subscription.objects.filter(name=request.user).first()
+    payment = []
+    showPrem = showBasic = True
+    if subscription.paid:
+        if subscription.suscription_end <= timezone.now():
+            subscription.paid = False
+            subscription.save()
+    if request.method == 'POST':
+        name= request.POST.get('name')
+        amount = int(request.POST.get('amount'))*100   
+        if amount==2400000:
+            showBasic=False
+        else:
+            showPrem=False 
+        client = razorpay.Client(auth=('rzp_test_zdPB2yUq5SbCeW','TvzdDOGzQz7Xlj42qppCZVs6'))
+        payment = client.order.create({"amount":amount,"currency":"INR","payment_capture":"1"})
+        subscription.suscription_date = timezone.now()
+        subscription.suscription_end = timezone.now()+ timedelta(days=365)
+        subscription.subscription_id = payment['id']
+        subscription.amount = amount
+        subscription.save()
+    if subscription.paid:
+        duration=subscription.suscription_end-timezone.now()
+        hours=0
+        if duration.days<=0:
+            seconds=duration.total_seconds()
+            hours=seconds/3600
+        if subscription.amount==2400000:
+            showBasic=False
+        else:
+            showPrem=False
+        context = { 'payment':payment,
+                    'showBasic':showBasic,
+                    'showPrem':showPrem,
+                    'paid':subscription.paid,
+                    'days1':duration.days%10,
+                    'days2':int((duration.days/10)%10),
+                    'days3':int((duration.days/100)%10),
+                    'time1':int(hours%10),
+                    'time2':int((hours/10)%10),
+                    'date':subscription.suscription_date.date(),
+                    'end':subscription.suscription_end.date()
+                }
+    else:
+        context = {'payment':payment,
+                   'showBasic':showBasic,
+                   'showPrem':showPrem,
+                   'paid':subscription.paid,
+                  }
+    return render(request,'App/subscriptions.html',context)
+    
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Recycler'])
+@csrf_exempt
+def successpayment(request):
+    if request.method == 'POST':
+        a = request.POST
+        order_id = ""
+        for key,val in a.items():
+            if key == 'razorpay_order_id':
+                order_id = val
+                break
+        user = Subscription.objects.filter(name = request.user).first()
+        if user.subscription_id == order_id:
+            user.paid = True
+            user.save()
+    return render(request,"App/success.html")

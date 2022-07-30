@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
 from django.utils.crypto import get_random_string
+from django.db.models.fields import CharField
 import uuid
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -41,3 +42,14 @@ class Waste(models.Model):
     dropdown_done = models.BooleanField(default=False)
     def __uuid__(self):
         return self.id
+
+#RazorPay Order Schema
+class Subscription(models.Model):
+    name= models.ForeignKey(User,on_delete=models.CASCADE,primary_key=True,unique=True)
+    subscription_id = models.CharField(max_length=100,null=True,blank=True)
+    paid = models.BooleanField(default=False)
+    suscription_date = models.DateTimeField(blank=True,null=True)
+    suscription_end = models.DateTimeField(blank=True,null=True)
+    amount = models.IntegerField(blank=True,null=True)
+    def __str__(self):
+        return self.name.username
