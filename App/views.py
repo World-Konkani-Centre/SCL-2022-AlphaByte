@@ -11,22 +11,11 @@ from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 import uuid
 
-<<<<<<< HEAD
 from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
 from .models import Profile,Waste,Subscription
 
 import razorpay
-=======
-from django.views.generic.edit import FormView
-from django.views.decorators.csrf import csrf_protect
-from django.utils.translation import gettext_lazy as _
-from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
-from .decorators import allowed_user, unauthenticated_user
-from .forms import (AddWasteForm, CreateUserForm, ProfileUpdateForm,
-                    ProfImageUpdateForm, UserUpdateForm)
-from .models import Profile, Subscription, Waste
->>>>>>> 1660365bb02aedaa96a12181e6996e1f8fb0a839
 
 
 def grouplist(user):
