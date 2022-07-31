@@ -14,32 +14,36 @@
     {% block content %}
     <div class="content bg-slate-900 p-24">
         <div class="min-w-full font-space my-24">
-            <h1 class="text-green-300 text-7xl font-bold ">Hello, User</h1>
+            <h1 class="text-green-300 text-7xl font-bold ">Hello, {{user.profile.name}}</h1>
             <button type="button" class="closeAddWaste my-9 w-fit bg-green-300 px-2 rounded-md absolute right-24">Add Items For Recycling</button>
         </div>
         <div class="Table min-w-4/5 p-2 bg-slate-50 rounded-2xl overflow-auto">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl text-left px-4 py-1">ID</th>
+                        <th class="rounded-tl-xl text-center px-4 py-1 w-[150px] md:w-[300px]">ID</th>
                         <th class="px-4 py-1">Type</th>
+                        <th class="px-4 py-1">Entry Date</th>
                         <th>Quantity</th>
                         <th>Approx. Price</th>
+                        <th>Pickup Date</th>
                         <th class="rounded-tr-xl">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in wastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l flex">{{waste.id}}</td>
                         <td class="text-center px-4 py-1 border-b border-slate-300"><div class="font-bold">{{waste.type}}</div></td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300">{{waste.entry_date}}</td>
                         <td class="text-center py-1 border-b border-slate-300">{{waste.weight}}</td>
                         <td class="border-b border-slate-300">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.pickup_date}}</td>
                         <td class="border-b border-slate-300 border-r">
                             {% if waste.pickup_done %}
-                            <button type="button" disabled class="" >Picked Up</button>
+                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Picked Up</button>
                             {% else %}
-                            <button type="button" disabled class="" >Not Picked Up</button>
+                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Not Picked Up</button>
                             {% endif %}
                         </td>
                     </tr>
@@ -134,13 +138,30 @@
     
 
     <div class="flex fixed top-0 left-0 w-full h-screen bg-[#00000080] z-[990] hidden" id="modalAddWaste">
-        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
+        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] bg-white rounded-lg">
             <button type="button" class="closeAddWaste absolute top-[10px] sm:top-[20px] right-[10px] sm:right-[20px] text-black"><i class="bi bi-x-lg text-[1.25rem]"></i></button>
-            <form action="" method="POST" >
+            <form action="" method="POST" class="w-full">
                 {% csrf_token %}
-                {{addWasteForm}}
-                <button type="submit">Submit</button>
-                <button type="reset" class="closeAddWaste">Cancel</button>
+                <h1 class="text-center text-forestgreen text-[2rem] mb-[20px]">Add Waste</h1>
+                <div class="mb-[25px] text-[1.05rem]"><label class="font-bold" for="id_id">ID:</label><input type="text" name="id" id="id_id" value="{{uuid}}" hidden> {{uuid}} </div>
+                <div class="mb-[25px] text-[1.05rem] flex flex-wrap space-between">
+                    <div class="mb-[10px] mr-[30px]"><label class="font-bold" for="id_company">Company Name:</label><input type="text" name="company" id="id_company" value="{{user.id}}" hidden> <span>{{user.username}}</span></div> 
+                    <div><label class="font-bold" for="id_entry_date">Date:</label><input type="text" id="id_entry_date" name="entry_date" value="{{date}}" hidden> <span>{{date}}</span></div>
+                </div>
+                <div class="mb-[25px] text-[1.05rem] flex flex-wrap space-between">
+                    <div class="mb-[10px] mr-[40px]"><label class="font-bold" for="id_weight">Weight:</label><input class="w-[150px] border-none outline-none" type="number" step="0.5" name="weight" id="id_weight"></div>
+                    <div><label class="font-bold" for="id_type">Type:</label><select name="type" id="id_type" class="border-none outline-none">
+                    <option value="-------" selected>-------</option>
+                    <option value="STEEL">Steel</option>
+                    <option value="BIO-DEGRADABLE">Bio-Degradable</option>
+                    <option value="PAPER">Paper</option>
+                    <option value="E-WASTE">E-Waste</option>
+                    </select></div>
+                </div>
+                <div class="flex my-[25px] w-full">
+                <button type="submit" class="mx-auto border-[1px] hover:bg-green-800 border-green-800 text-green-800 hover:text-white bg-white px-[5px] py-[3px] text-[1rem] rounded-[3px]">Submit</button>
+                <button type="reset" class="closeAddWaste mx-auto border-[1px] hover:bg-red-800 border-red-800 text-red-800 hover:text-white bg-white px-[5px] py-[3px] text-[1rem] rounded-[3px]">Cancel</button>
+                </div>
             </form>
         </div>
     </div>

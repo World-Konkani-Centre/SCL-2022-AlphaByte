@@ -1,14 +1,20 @@
+from datetime import datetime, timedelta
+from tokenize import group
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group,User
 from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+import uuid
 
 
-from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
+from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
-from .models import Profile,Waste
+from .models import Profile,Waste,Subscription
+
+import razorpay
 
 
 def grouplist(user):
@@ -29,6 +35,10 @@ def register(request):
             user=form.save()
             username = form.cleaned_data.get('username')
             user.groups.add(request.POST.get('group'))
+            if request.POST.get('group') is '3':
+                subUser = Subscription(name = user)
+                print(subUser)
+                subUser.save()
             messages.success(request,'Account was created for '+ username)
             return redirect('login')
     context = {'form':form}
@@ -81,17 +91,14 @@ def Awareness(request):
 def ProfilePage(request):
     groups = grouplist(request.user)
     if request.method == 'POST':
-        # u_form = UserUpdateForm(request.POST, instance=request.user)
         img_form = ProfImageUpdateForm(request.POST,request.FILES,instance=request.user.profile)
         p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
         if p_form.is_valid() and img_form.is_valid():
-            # u_form.save()
             img_form.save()
             p_form.save()
             messages.success(request,'Profile Updated!!')
             return redirect('profile')
     else:
-        # u_form = UserUpdateForm(instance=request.user)
         img_form = ProfImageUpdateForm(instance=request.user.profile)
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {'groups':groups,'p_form':p_form,'img_form':img_form}
@@ -103,9 +110,25 @@ def report(request):
     groups = grouplist(request.user)
     user = User.objects.get(username = request.user.username)
     all_wastes = Waste.objects.filter(employee = user)
-    W = Paginator(all_wastes,10)
-    wastes = W.get_page(request.GET.get('page'))
-    context = {'groups':groups,'wastes':wastes}
+    wastesP = all_wastes.filter(pickup_date = datetime.date(datetime.now()))
+    W1 = Paginator(wastesP,10)
+    Pwastes_today = W1.get_page(request.GET.get('page'))
+    wastesD = all_wastes.filter(dropdown_date = datetime.date(datetime.now()))
+    W2 = Paginator(wastesD,10)
+    Dwastes_today = W2.get_page(request.GET.get('page'))
+    all_wastesP = all_wastes.filter(dropdown_done = False)
+    W3 = Paginator(all_wastesP,10)
+    Pwastes = W3.get_page(request.GET.get('page'))
+    all_wastesD = all_wastes.filter(pickup_done = True)
+    W4 = Paginator(all_wastesD,10)
+    Dwastes = W4.get_page(request.GET.get('page'))
+    if request.method == 'POST':
+        print(request.POST)
+        form = Done(request.POST,instance=Waste.objects.filter(id = request.POST.get('id')).first())
+        if form.is_valid():
+            form.save()
+            return redirect('report')  
+    context = {'groups':groups,'Pwastes_today':Pwastes_today,'Dwastes_today':Dwastes_today,'Pwastes':Pwastes,'Dwastes':Dwastes}
     return render(request,'App/employee.html',context)
 
 @login_required(login_url='login')
@@ -113,7 +136,7 @@ def report(request):
 def schedule(request):
     groups = grouplist(request.user)
     user = User.objects.get(username = request.user.username)
-    all_wastes = Waste.objects.filter(recycler = user)
+    all_wastes = Waste.objects.filter(recycler = user).order_by('dropdown_date')
     W = Paginator(all_wastes,10)
     wastes = W.get_page(request.GET.get('page'))
     context = {'groups':groups,'wastes':wastes}
@@ -124,24 +147,95 @@ def schedule(request):
 def addWaste(request):
     groups = grouplist(request.user)
     user = User.objects.get(username = request.user.username)
-    all_wastes = Waste.objects.filter(company = user)
+    all_wastes = Waste.objects.filter(company = user).order_by('-entry_date')
     W = Paginator(all_wastes,10)
     wastes = W.get_page(request.GET.get('page'))
     addWasteForm = AddWasteForm()
+    uid = uuid.uuid1()
+    date = datetime.date(datetime.now())
     if request.method == 'POST':
-        form = AddWasteForm(request.POST)
+        form = AddWasteForm(request.POST)  
         if form.is_valid():
             form.save()
             return redirect('addwaste')
-    context = {'groups':groups,'addWasteForm':addWasteForm,'wastes':wastes}
+    context = {'groups':groups,'addWasteForm':addWasteForm,'wastes':wastes,'uuid':uid,'date':date}
     return render(request,'App/wasteprod.html',context)
 
 @login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Manager'])
+def manager(request):
+    groups = grouplist(request.user)
+    all_wastes_pickup = Waste.objects.filter(pickup_done=False)
+    wastes_pickup = all_wastes_pickup.filter(pickup_date=None).order_by('entry_date')
+    W1 = Paginator(wastes_pickup,10)
+    update_pickup = W1.get_page(request.GET.get('page'))
+    W2 = Paginator(all_wastes_pickup,10)
+    pickup = W2.get_page(request.GET.get('page'))
+    all_wastes_dropdown = Waste.objects.filter(pickup_done=True)
+    wastes_dropdown = all_wastes_dropdown.filter(dropdown_date=None).order_by('pickup_date')
+    W3 = Paginator(wastes_dropdown,10)
+    update_dropdown = W3.get_page(request.GET.get('page'))
+    W4 = Paginator(all_wastes_dropdown,10)
+    dropdown = W4.get_page(request.GET.get('page'))
+    employees = User.objects.filter(groups='4')
+    recyclers = User.objects.filter(groups='3')
+    UWaste=[]
+    if request.method == 'POST':
+        if 'pickup_date' not in request.POST:
+            UWaste = Waste.objects.filter(id=request.POST.get('id')).first()
+        else:
+            form = SetDate(request.POST,instance=Waste.objects.filter(id = request.POST.get('id')).first())
+            if form.is_valid():
+                form.save()
+                return redirect('manager')
+    context = {'groups':groups,'update_pickup':update_pickup,'pickup':pickup,'update_dropdown':update_dropdown,'dropdown':dropdown,'employees':employees,'recyclers':recyclers,'Waste':UWaste}
+    return render(request,'App/manager.html',context)
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Recycler'])
 def subscriptions(request):
-    context = {}
+    groups = grouplist(request.user)
+    subscription = Subscription.objects.filter(name=request.user).first()
+    payment = []
+    date = datetime.date(datetime.now())
+    if subscription.paid:
+        if  datetime.date(subscription.subscription_ends) >= date:
+            subscription.paid = False
+            subscription.save()
+    if request.method == 'POST':
+        print(request.POST)
+        name = request.POST.get('name')
+        amount = int(request.POST.get('amount'))*100
+        client = razorpay.Client(auth=("rzp_test_eqkG4IC5vE1kO0", "mwlBEHjhFJHsxPvbu2T9f9tz"))
+        payment = client.order.create({ "amount": amount, "currency": "INR", "payment_capture":"1" })
+        subscription.subscription_date = datetime.now()
+        subscription.subscription_ends = datetime.now()+timedelta(days=1)
+        subscription.subscription_id = payment['id']
+        subscription.amount = amount
+        subscription.save()
+    context = {'groups':groups,'payment':payment}
     return render(request,'App/subscriptions.html',context)
 
 @login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Recycler'])
+@csrf_exempt
+def sucesspayment(request):
+    if request.method == 'POST':
+        a = request.POST
+        order_id = ""
+        for key,val in a.items():
+            if key == 'razorpay_order_id':
+                order_id = val
+                break
+        user = Subscription.objects.filter(name = request.user).first()
+        if user.subscription_id == order_id:
+            user.paid = True
+            user.save()
+    return render(request,"App/sucess.html")
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Company','Recycler'])
 def Charts(request):
-    context = {}
+    groups = grouplist(request.user)
+    context = {'groups':groups}
     return render(request,'App/charts.html',context)

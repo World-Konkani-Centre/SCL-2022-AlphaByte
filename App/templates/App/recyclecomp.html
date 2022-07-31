@@ -14,28 +14,36 @@
     {% block content %}
     <div class="content bg-slate-900 p-24">
         <div class="min-w-full font-space">
-            <h1 class="text-green-300 text-7xl font-bold ">Company Name</h1>
-            <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To Arrive Today</div>
+            <h1 class="text-green-300 text-7xl font-bold ">{{user.profile.name}}</h1>
+            <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To Arrive</div>
         </div>
         <div class="Table min-w-4/5 p-2 bg-slate-50 rounded-2xl overflow-auto">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl">Name</th>
-                        <th>Contact</th>
-                        <th>Location</th>
-                        <th>Status</th>
-                        <th class="rounded-tr-xl">Action</th>
+                        <th class="rounded-tl-xl">ID</th>
+                        <th>Type</th>
+                        <th>Quantity</th>
+                        <th>Employee Info</th>
+                        <th>Dropdown Date</th>
+                        <th class="rounded-tr-xl">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in wastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">{{waste.id}}</div>Vidyesh</td>
-                        <td class="text-left px-4 py-1 border-b border-slate-300"><span>kumarvidyesh@gmail.com</span><br>+91 8310137461</td>
-                        <td class="border-b border-slate-300">Mangaluru</td>
-                        <td class="border-b border-slate-300"><div class="bg-green-100 text-green-800 w-fit px-1 rounded m-auto">Done</div></td>
-                        <td class="border-b border-slate-300 border-r"></td>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">{{waste.id}}</div></td>
+                        <td class="border-b border-slate-300">{{waste.type}}</td>
+                        <td class="border-b border-slate-300">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.employee.profile.name}}<br>{{waste.employee.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.dropdown_date}}</td>
+                        <td class="border-b border-slate-300 border-r">
+                            {% if waste.dropdown_done %}
+                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Dropdown Done</button>
+                            {% else %}
+                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Dropdown Not Done</button>
+                            {% endif %}
+                        </td>
                     </tr>
                     {% endfor %} 
                 </tbody>
