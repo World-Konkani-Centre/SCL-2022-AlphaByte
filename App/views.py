@@ -1,20 +1,32 @@
 from datetime import datetime, timedelta
-from tokenize import group
+from django.utils import timezone
+import razorpay
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group,User
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 import uuid
 
-
+<<<<<<< HEAD
 from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
 from .models import Profile,Waste,Subscription
 
 import razorpay
+=======
+from django.views.generic.edit import FormView
+from django.views.decorators.csrf import csrf_protect
+from django.utils.translation import gettext_lazy as _
+from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
+from .decorators import allowed_user, unauthenticated_user
+from .forms import (AddWasteForm, CreateUserForm, ProfileUpdateForm,
+                    ProfImageUpdateForm, UserUpdateForm)
+from .models import Profile, Subscription, Waste
+>>>>>>> 1660365bb02aedaa96a12181e6996e1f8fb0a839
 
 
 def grouplist(user):
@@ -197,29 +209,60 @@ def subscriptions(request):
     groups = grouplist(request.user)
     subscription = Subscription.objects.filter(name=request.user).first()
     payment = []
-    date = datetime.date(datetime.now())
+    showPrem = showBasic = True
     if subscription.paid:
-        if  datetime.date(subscription.subscription_ends) >= date:
+        if subscription.suscription_end <= timezone.now():
             subscription.paid = False
             subscription.save()
     if request.method == 'POST':
-        print(request.POST)
-        name = request.POST.get('name')
-        amount = int(request.POST.get('amount'))*100
-        client = razorpay.Client(auth=("rzp_test_eqkG4IC5vE1kO0", "mwlBEHjhFJHsxPvbu2T9f9tz"))
-        payment = client.order.create({ "amount": amount, "currency": "INR", "payment_capture":"1" })
-        subscription.subscription_date = datetime.now()
-        subscription.subscription_ends = datetime.now()+timedelta(days=1)
+        name= request.POST.get('name')
+        amount = int(request.POST.get('amount'))*100   
+        if amount==2400000:
+            showBasic=False
+        else:
+            showPrem=False 
+        client = razorpay.Client(auth=('rzp_test_zdPB2yUq5SbCeW','TvzdDOGzQz7Xlj42qppCZVs6'))
+        payment = client.order.create({"amount":amount,"currency":"INR","payment_capture":"1"})
+        subscription.suscription_date = timezone.now()
+        subscription.suscription_end = timezone.now()+ timedelta(days=365)
         subscription.subscription_id = payment['id']
         subscription.amount = amount
         subscription.save()
-    context = {'groups':groups,'payment':payment}
+    if subscription.paid:
+        duration=subscription.suscription_end-timezone.now()
+        hours=0
+        if duration.days<=0:
+            seconds=duration.total_seconds()
+            hours=seconds/3600
+        if subscription.amount==2400000:
+            showBasic=False
+        else:
+            showPrem=False
+        context = { 'payment':payment,
+                    'showBasic':showBasic,
+                    'showPrem':showPrem,
+                    'paid':subscription.paid,
+                    'days1':duration.days%10,
+                    'days2':int((duration.days/10)%10),
+                    'days3':int((duration.days/100)%10),
+                    'time1':int(hours%10),
+                    'time2':int((hours/10)%10),
+                    'date':subscription.suscription_date.date(),
+                    'end':subscription.suscription_end.date()
+                }
+    else:
+        context = {'payment':payment,
+                   'showBasic':showBasic,
+                   'showPrem':showPrem,
+                   'paid':subscription.paid,
+                  }
     return render(request,'App/subscriptions.html',context)
+    
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
 @csrf_exempt
-def sucesspayment(request):
+def successpayment(request):
     if request.method == 'POST':
         a = request.POST
         order_id = ""
@@ -231,7 +274,7 @@ def sucesspayment(request):
         if user.subscription_id == order_id:
             user.paid = True
             user.save()
-    return render(request,"App/sucess.html")
+    return render(request,"App/success.html")
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company','Recycler'])
