@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.utils.crypto import get_random_string
-from django.db.models.fields import CharField
-import uuid
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -28,7 +25,7 @@ class Waste(models.Model):
         BIODEGRADABLE = "BIO-DEGRADABLE","Bio-Degradable"
         PAPER = "PAPER","Paper"
         EWASTE = "E-WASTE","E-Waste"
-    id = models.UUIDField(primary_key=True,unique=True,default=uuid.uuid4)
+    id = models.CharField(primary_key=True,unique=True,max_length=40)
     recycler = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='recycler')
     company = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='company')
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='employee')

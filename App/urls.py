@@ -1,15 +1,13 @@
-from multiprocessing import AuthenticationError
-from django.urls import path
-from django.contrib import admin
 from . import views
 from django.contrib.auth import views as auth_views
-from django.urls import include, path, re_path
+from django.urls import path
 
 urlpatterns = [
     path('', views.home,name='home'),
     path('report/',views.report,name='report'),
     path('addWaste/',views.addWaste,name='addwaste'),
     path('schedule/',views.schedule,name='schedule'),
+    path('manage/',views.manager,name='manager'),
     path('login/',views.loginPage,name='login'),
     path('logout/',views.logOutUser,name='logout'),
     path('register/',views.register,name='register'),

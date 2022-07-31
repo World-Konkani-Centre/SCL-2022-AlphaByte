@@ -5,13 +5,4 @@ from .models import Profile,Subscription
 def User_Profile(sender,instance,created,**kwargs):
     if created:
         Profile.objects.create(user=instance,name=instance.username)
-
 post_save.connect(User_Profile,sender=User)
-
-
-def User_subscription(sender,instance,created,**kwargs):
-    if created:
-        if 'Recycler' in instance.groups.all():
-            Subscription.objects.create(user=instance,name=instance.username)
-
-post_save.connect(User_subscription,sender=User)
