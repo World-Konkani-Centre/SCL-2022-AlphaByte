@@ -15,9 +15,11 @@
     <div class="content bg-slate-900 p-24">
         <div class="min-w-full font-space">
             <h1 class="text-green-300 text-7xl font-bold ">Hello,{{user.profile.name}}</h1>
-            <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To/From Warehouse</div>
+            <!-- <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To/From Warehouse</div> -->
         </div>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold mt-[75px]">Update Pickup Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
@@ -55,16 +57,6 @@
                     {% endfor %} 
                 </tbody>
             </table>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-            <script>
-                $(function () {
-                $('.switch').on('click',function(){
-                    $('.switch').toggleClass('hidden');
-                    if ($('#id_pickup_done').is('checked')){$('#id_pickup_done').prop('checked',false);}
-                    else{($('#id_pickup_done').prop('checked',true));}    
-                });
-                });
-            </script>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if Pwastes_today.has_previous %}
                 <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
@@ -77,7 +69,9 @@
                 {% endif %}
             </div>
         </div>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Update Dropdown Details</h3>
+        <div class="Table mb-[75px] min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
@@ -115,16 +109,6 @@
                     {% endfor %} 
                 </tbody>
             </table>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-            <script>
-                $(function () {
-                $('.switch').on('click',function(){
-                    $('.switch').toggleClass('hidden');
-                    if ($('#id_pickup_done').is('checked')){$('#id_pickup_done').prop('checked',false);}
-                    else{($('#id_pickup_done').prop('checked',true));}    
-                });
-                });
-            </script>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if Dwastes_today.has_previous %}
                 <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
@@ -137,7 +121,9 @@
                 {% endif %}
             </div>
         </div>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mt-[30px]">
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Pickup Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
@@ -180,7 +166,9 @@
                 {% endif %}
             </div>
         </div>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mt-[30px]">
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Dropdown Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
