@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta
 from django.utils import timezone
-import razorpay
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
@@ -11,22 +10,11 @@ from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 import uuid
 
-<<<<<<< HEAD
 from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
 from .models import Profile,Waste,Subscription
 
 import razorpay
-=======
-from django.views.generic.edit import FormView
-from django.views.decorators.csrf import csrf_protect
-from django.utils.translation import gettext_lazy as _
-from .forms import AddWasteForm, CreateUserForm,UserUpdateForm,ProfileUpdateForm,ProfImageUpdateForm
-from .decorators import allowed_user, unauthenticated_user
-from .forms import (AddWasteForm, CreateUserForm, ProfileUpdateForm,
-                    ProfImageUpdateForm, UserUpdateForm)
-from .models import Profile, Subscription, Waste
->>>>>>> 1660365bb02aedaa96a12181e6996e1f8fb0a839
 
 
 def grouplist(user):
@@ -47,7 +35,7 @@ def register(request):
             user=form.save()
             username = form.cleaned_data.get('username')
             user.groups.add(request.POST.get('group'))
-            if request.POST.get('group') is '3':
+            if request.POST.get('group') == '3':
                 subUser = Subscription(name = user)
                 print(subUser)
                 subUser.save()
@@ -211,7 +199,7 @@ def subscriptions(request):
     payment = []
     showPrem = showBasic = True
     if subscription.paid:
-        if subscription.suscription_end <= timezone.now():
+        if subscription.subscription_end <= timezone.now():
             subscription.paid = False
             subscription.save()
     if request.method == 'POST':
@@ -223,13 +211,13 @@ def subscriptions(request):
             showPrem=False 
         client = razorpay.Client(auth=('rzp_test_zdPB2yUq5SbCeW','TvzdDOGzQz7Xlj42qppCZVs6'))
         payment = client.order.create({"amount":amount,"currency":"INR","payment_capture":"1"})
-        subscription.suscription_date = timezone.now()
-        subscription.suscription_end = timezone.now()+ timedelta(days=365)
+        subscription.subscription_date = datetime.now()
+        subscription.subscription_end = datetime.now()+ timedelta(days=365)
         subscription.subscription_id = payment['id']
         subscription.amount = amount
         subscription.save()
     if subscription.paid:
-        duration=subscription.suscription_end-timezone.now()
+        duration=subscription.subscription_end-timezone.now()
         hours=0
         if duration.days<=0:
             seconds=duration.total_seconds()
@@ -247,14 +235,16 @@ def subscriptions(request):
                     'days3':int((duration.days/100)%10),
                     'time1':int(hours%10),
                     'time2':int((hours/10)%10),
-                    'date':subscription.suscription_date.date(),
-                    'end':subscription.suscription_end.date()
+                    'date':subscription.subscription_date.date(),
+                    'end':subscription.subscription_end.date(),
+                    'groups':groups
                 }
     else:
         context = {'payment':payment,
                    'showBasic':showBasic,
                    'showPrem':showPrem,
                    'paid':subscription.paid,
+                   'groups':groups
                   }
     return render(request,'App/subscriptions.html',context)
     
