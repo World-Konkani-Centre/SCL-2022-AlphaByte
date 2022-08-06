@@ -15,7 +15,6 @@
     <div class="content bg-slate-900 p-24">
         <div class="min-w-full font-space">
             <h1 class="text-green-300 text-7xl font-bold ">Hello,{{user.profile.name}}</h1>
-            <!-- <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To/From Warehouse</div> -->
         </div>
 
         <h3 class="text-white text-[1.5rem] font-inter font-bold mt-[75px]">Update Pickup Details</h3>
@@ -41,16 +40,20 @@
                         <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
                         <td class="border-b border-slate-300">{{waste.company.profile.state}}</td>
                         <td class="border-b border-slate-300"><label for="id_pickup_done">
-                            <button type="button" class="switch hidden px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">pickup_done</button>
-                            <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">pickup_not_done</button>
+                            {% if waste.pickup_done %}
+                            <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Pickup Done</button>
+                            {% else %}
+                            <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Pickup Not Done</button>
+                            {% endif %}
                         </label></td>
                         <td class="border-b border-slate-300 border-r">
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 <input type="text" name="id" id="id_id" value="{{waste.id}}" hidden>
-                                <input type="checkbox" name="pickup_done" id="id_pickup_done">
+                                <label for="id_pickup_done" class="text-[0.8rem]">Pickup Done: </label>
+                                <input type="checkbox" name="pickup_done" id="id_pickup_done" {% if waste.pickup_done %} checked {% endif %}>
                                 <input type="checkbox" name="dropdown_done" id="id_dropdown_done" hidden>
-                                <button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Submit</button>
+                                <br><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Submit</button>
                             </form>
                         </td>
                     </tr>
@@ -64,58 +67,6 @@
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{Pwastes_today.number}} of {{Pwastes_today.paginator.num_pages}}</button>
                 {% if Pwastes_today.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>
-        </div>
-
-        <h3 class="text-white text-[1.5rem] font-inter font-bold">Update Dropdown Details</h3>
-        <div class="Table mb-[75px] min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
-            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
-                <thead class="bg-slate-300">
-                    <tr>
-                        <th class="rounded-tl-xl">ID</th>
-                        <th>Company Name</th>
-                        <th>Type/Weight</th>
-                        <th>Location</th>
-                        <th>Map Location</th>
-                        <th>Status</th>
-                        <th class="rounded-tr-xl">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for waste in Dwastes_today %}
-                    <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.name}}<br>{{waste.recycler.profile.phone}}</td>
-                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.state}}</td>
-                        <td class="border-b border-slate-300"><label for="id_pickup_done">
-                            <button type="button" class="switch hidden px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">dropdown_done</button>
-                            <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">dropdown_not_done</button>
-                        </label></td>
-                        <td class="border-b border-slate-300 border-r">
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                <input type="text" name="id" id="id_id" value="{{waste.id}}" hidden>
-                                <input type="checkbox" name="dropdown_done" id="id_dropdown_done">
-                                <input type="checkbox" name="pickup_done" id="id_pickup_done" checked hidden>
-                                <button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Submit</button>
-                            </form>
-                        </td>
-                    </tr>
-                    {% endfor %} 
-                </tbody>
-            </table>
-            <div class="w-full text-[1 rem] h-5 my-4 text-center">
-                {% if Dwastes_today.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{Dwastes_today.number}} of {{Dwastes_today.paginator.num_pages}}</button>
-                {% if Dwastes_today.has_next %}
                 <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
                 <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
@@ -145,9 +96,9 @@
                         <td class="border-b border-slate-300">{{waste.company.profile.state}}</td>
                         <td class="border-b border-slate-300 border-r">
                             {% if waste.pickup_done %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">pickup_done</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Pickup Done</button>
                             {% else %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">pickup_not_done</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Pickup Not Done</button>
                             {% endif %}
                         </td>
                     </tr>
@@ -167,6 +118,61 @@
             </div>
         </div>
 
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Update Dropdown Details</h3>
+        <div class="Table mb-[75px] min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl">ID</th>
+                        <th>Company Name</th>
+                        <th>Type/Weight</th>
+                        <th>Location</th>
+                        <th>Map Location</th>
+                        <th>Status</th>
+                        <th class="rounded-tr-xl">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for waste in Dwastes_today %}
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="border-b border-slate-300">{{waste.recycler.profile.name}}<br>{{waste.recycler.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
+                        <td class="border-b border-slate-300">{{waste.recycler.profile.state}}</td>
+                        <td class="border-b border-slate-300"><label for="id_pickup_done">
+                            {% if waste.dropdown_done %}
+                            <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Dropdown Done</button>
+                            {% else %}
+                            <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Dropdown Not Done</button>
+                            {% endif %}
+                        </label></td>
+                        <td class="border-b border-slate-300 border-r">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="text" name="id" id="id_id" value="{{waste.id}}" hidden>
+                                <label class="text-[0.8rem]" for="id_dropdown_done">Dropdown Done:</label><input type="checkbox" name="dropdown_done" id="id_dropdown_done" {% if waste.dropdown_done %} checked {% endif %}>
+                                <input type="checkbox" name="pickup_done" id="id_pickup_done" checked hidden>
+                                <br><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Submit</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+            <div class="w-full text-[1 rem] h-5 my-4 text-center">
+                {% if Dwastes_today.has_previous %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                {% endif %}
+                <button class="p-[5px] m-[5px]" type="button">Page {{Dwastes_today.number}} of {{Dwastes_today.paginator.num_pages}}</button>
+                {% if Dwastes_today.has_next %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                {% endif %}
+            </div>
+        </div>
+ 
         <h3 class="text-white text-[1.5rem] font-inter font-bold">Dropdown Details</h3>
         <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
@@ -190,9 +196,9 @@
                         <td class="border-b border-slate-300">{{waste.recycler.profile.state}}</td>
                         <td class="border-b border-slate-300 border-r">
                             {% if waste.dropdown_done %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">dropdown_done</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Dropdown Done</button>
                             {% else %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">dropdown_not_done</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Dropdown Not Done</button>
                             {% endif %}
                         </td>
                     </tr>

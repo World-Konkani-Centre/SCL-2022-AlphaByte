@@ -37,7 +37,7 @@ class Waste(models.Model):
     type = models.CharField(_("Types"),max_length=50,choices=Types.choices)
     pickup_done = models.BooleanField(default=False)
     dropdown_done = models.BooleanField(default=False)
-    def __uuid__(self):
+    def __str__(self):
         return self.id
 
 #RazorPay Order Schema

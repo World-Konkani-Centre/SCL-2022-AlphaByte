@@ -24,6 +24,14 @@ def grouplist(user):
             groups.append(user.groups.all()[i].name)
     return groups
 
+def checkWaste(type,date,user):
+    user = Waste.objects.filter(company = user)
+    dateSort = user.filter(entry_date=date)
+    if dateSort is not None:
+        typeSort = dateSort.filter(type = type).first()
+        if typeSort is not None:
+            return typeSort.id
+    return None
 
 
 @unauthenticated_user
@@ -42,7 +50,7 @@ def register(request):
             messages.success(request,'Account was created for '+ username)
             return redirect('login')
     context = {'form':form}
-    return render(request,'App/register.html',context)
+    return render(request,'App/auth/register.html',context)
 
 @unauthenticated_user
 def loginPage(request):
@@ -57,7 +65,7 @@ def loginPage(request):
             else:
                 return redirect('home')
     context = {}
-    return render(request,'App/login.html',context)
+    return render(request,'App/auth/login.html',context)
 
 @login_required(login_url='login')
 def updateInfo(request):
@@ -71,7 +79,7 @@ def updateInfo(request):
     else:
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {'groups':groups,'p_form':p_form}
-    return render(request,'App/register_update.html',context)
+    return render(request,'App/auth/register_update.html',context)
 
 def logOutUser(request):
     logout(request)
@@ -102,7 +110,7 @@ def ProfilePage(request):
         img_form = ProfImageUpdateForm(instance=request.user.profile)
         p_form = ProfileUpdateForm(instance=request.user.profile)
     context = {'groups':groups,'p_form':p_form,'img_form':img_form}
-    return render(request,'App/profileUpdate.html',context)
+    return render(request,'App/profile/profileUpdate.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Employee'])
@@ -129,7 +137,7 @@ def report(request):
             form.save()
             return redirect('report')  
     context = {'groups':groups,'Pwastes_today':Pwastes_today,'Dwastes_today':Dwastes_today,'Pwastes':Pwastes,'Dwastes':Dwastes}
-    return render(request,'App/employee.html',context)
+    return render(request,'App/tables/employee.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
@@ -140,7 +148,7 @@ def schedule(request):
     W = Paginator(all_wastes,10)
     wastes = W.get_page(request.GET.get('page'))
     context = {'groups':groups,'wastes':wastes}
-    return render(request,'App/recyclecomp.html',context)
+    return render(request,'App/tables/recyclecomp.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company'])
@@ -152,14 +160,21 @@ def addWaste(request):
     wastes = W.get_page(request.GET.get('page'))
     addWasteForm = AddWasteForm()
     uid = uuid.uuid1()
-    date = datetime.date(datetime.now())
+    date = str(datetime.date(datetime.now()))
     if request.method == 'POST':
-        form = AddWasteForm(request.POST)  
-        if form.is_valid():
-            form.save()
+        form = AddWasteForm(request.POST)
+        exist = checkWaste(request.POST.get('type'),date,request.user)
+        if exist is None:
+            if form.is_valid():
+                form.save()
+                return redirect('addwaste')
+        else:
+            updateWaste = Waste.objects.filter(id = exist).first()
+            updateWaste.weight = updateWaste.weight + int(request.POST.get('weight'))
+            updateWaste.save()
             return redirect('addwaste')
     context = {'groups':groups,'addWasteForm':addWasteForm,'wastes':wastes,'uuid':uid,'date':date}
-    return render(request,'App/wasteprod.html',context)
+    return render(request,'App/tables/wasteprod.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Manager'])
@@ -189,7 +204,7 @@ def manager(request):
                 form.save()
                 return redirect('manager')
     context = {'groups':groups,'update_pickup':update_pickup,'pickup':pickup,'update_dropdown':update_dropdown,'dropdown':dropdown,'employees':employees,'recyclers':recyclers,'Waste':UWaste}
-    return render(request,'App/manager.html',context)
+    return render(request,'App/tables/manager.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
@@ -246,7 +261,7 @@ def subscriptions(request):
                    'paid':subscription.paid,
                    'groups':groups
                   }
-    return render(request,'App/subscriptions.html',context)
+    return render(request,'App/profile/subscriptions.html',context)
     
 
 @login_required(login_url='login')
@@ -264,11 +279,18 @@ def successpayment(request):
         if user.subscription_id == order_id:
             user.paid = True
             user.save()
-    return render(request,"App/success.html")
+    return render(request,"App/profile/success.html")
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company','Recycler'])
 def Charts(request):
     groups = grouplist(request.user)
     context = {'groups':groups}
-    return render(request,'App/charts.html',context)
+    return render(request,'App/profile/charts.html',context)
+
+@login_required(login_url='login')
+@allowed_user(allowed_roles=['admin','Company'])
+def Rewards(request):
+    groups = grouplist(request.user)
+    context = {'groups':groups}
+    return render(request,'App/profile/rewards.html',context)
