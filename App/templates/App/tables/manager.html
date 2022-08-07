@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Shipments</title>    
+</head>
+
+{% extends 'App/base.html' %}
+{%load static%}
+
+<body>
+    {% block content %}
+    <div class="content bg-slate-900 p-24">
+        <div class="min-w-full font-space">
+            <h1 class="text-green-300 text-7xl font-bold ">Hello,{{user.profile.name}}</h1>
+            <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Manage Shipments</div>
+        </div>
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold mt-[75px]">Update Pickup Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl">ID</th>
+                        <th>Company Name</th>
+                        <th>Type/Weight</th>
+                        <th>Location</th>
+                        <th>Entry Date</th>
+                        <th class="rounded-tr-xl">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for waste in update_pickup %}
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="border-b border-slate-300">{{waste.company.profile.name}}<br>{{waste.company.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300">{{waste.entry_date}}</td>
+                        <td class="border-b border-slate-300 border-r"><form action="" method="POST">{% csrf_token %}<input type="text" name="id" id="id_id" value="{{waste.id}}" hidden><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Update</button></form></td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+            <div class="w-full text-[1 rem] h-5 my-4 text-center">
+                {% if update_pickup.has_previous %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                {% endif %}
+                <button class="p-[5px] m-[5px]" type="button">Page {{update_pickup.number}} of {{update_pickup.paginator.num_pages}}</button>
+                {% if update_pickup.has_next %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                {% endif %}
+            </div>
+        </div>
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Pickup Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl">ID</th>
+                        <th>Company Name</th>
+                        <th>Type/Weight</th>
+                        <th>Location</th>
+                        <th>Emloyee Details</th>
+                        <th>Pickup Date</th>
+                        <th class="rounded-tr-xl">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for waste in pickup %}
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="border-b border-slate-300">{{waste.company.profile.name}}<br>{{waste.company.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300">{{waste.employee.profile.name}}<br>{{waste.employee.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.pickup_date}}</td>
+                        <td class="border-b border-slate-300 border-r">
+                            {% if waste.pickup_done %}
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Pickup Done</button>
+                            {% else %}
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Pickup Not Done</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+            <div class="w-full text-[1 rem] h-5 my-4 text-center">
+                {% if pickup.has_previous %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                {% endif %}
+                <button class="p-[5px] m-[5px]" type="button">Page {{pickup.number}} of {{pickup.paginator.num_pages}}</button>
+                {% if pickup.has_next %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                {% endif %}
+            </div>
+        </div>
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Update Dropdown Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl">ID</th>
+                        <th>Type/Weight</th>
+                        <th>Pickup Date</th>
+                        <th class="rounded-tr-xl">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for waste in update_dropdown %}
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="border-b border-slate-300">{{waste.company.profile.name}}<br>{{waste.company.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300 border-r"><form action="" method="POST">{% csrf_token %}<input type="text" name="id" id="id_id" value="{{waste.id}}" hidden><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Update</button></form></td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+            <div class="w-full text-[1 rem] h-5 my-4 text-center">
+                {% if update_dropdown.has_previous %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                {% endif %}
+                <button class="p-[5px] m-[5px]" type="button">Page {{update_dropdown.number}} of {{update_dropdown.paginator.num_pages}}</button>
+                {% if update_dropdown.has_next %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                {% endif %}
+            </div>
+        </div>
+
+        <h3 class="text-white text-[1.5rem] font-inter font-bold">Dropdown Details</h3>
+        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+                <thead class="bg-slate-300">
+                    <tr>
+                        <th class="rounded-tl-xl">ID</th>
+                        <th>Type/Weight</th>
+                        <th>Recycler Details</th>
+                        <th>Location</th>
+                        <th>Employee Details</th>
+                        <th>Dropdown Date</th>
+                        <th class="rounded-tr-xl">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for waste in dropdown %}
+                    <tr>
+                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
+                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="border-b border-slate-300">{{waste.recycler.profile.name}}<br>{{waste.recycler.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
+                        <td class="border-b border-slate-300">{{waste.employee.profile.name}}<br>{{waste.employee.profile.phone}}</td>
+                        <td class="border-b border-slate-300">{{waste.dropdown_date}}</td>
+                        <td class="border-b border-slate-300 border-r">
+                            {% if waste.dropdown_done %}
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Dropdown Done</button>
+                            {% else %}
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Dropdown Not Done</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+            <div class="w-full text-[1 rem] h-5 my-4 text-center">
+                {% if dropdown.has_previous %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                {% endif %}
+                <button class="p-[5px] m-[5px]" type="button">Page {{dropdown.number}} of {{dropdown.paginator.num_pages}}</button>
+                {% if dropdown.has_next %}
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    
+    
+    {% if Waste %}
+    <div id="modal" class="fixed top-0 w-full h-screen flex bg-[#00000090] z-[999] ">
+        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
+            <div class="modal-content w-full">
+            <div class="modal-header">
+                <button class="absolute top-[10px] right-[10px] closeModalCrop" ><i class="bi bi-x-lg text-black text-[20px]"></i></button>
+                <h2 class="text-center text-[1.2rem]">Update PickUp Info</h2>
+            </div>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div><label for="id_id">ID:</label><input type="text" name="id" id="id_id" value="{{Waste.id}}"></div>
+                {% if Waste.pickup_done %}
+                <div>type/weight:{{Waste.type}}{{Waste.weight}}</div>
+                <div><label for="id_recycler">Employee:</label><select name="recycler" id="id_recycler">
+                    <option value="None">---------</option>
+                    {% for recycler in recyclers%}
+                    <option value="{{recycler.id}}">{{recycler.profile.name}}</option>
+                    {% endfor %}
+                </select></div>
+                <div><label for="id_employee">Employee:</label><select name="employee" id="id_employee">
+                    <option value="None">---------</option>
+                    {% for employee in employees%}
+                    <option value="{{employee.id}}">{{employee.profile.name}}</option>
+                    {% endfor %}
+                </select></div>
+                <input type="text" name="pickup_date" id="id_pickup_date" value="{{Waste.pickup_date}}" hidden>
+                <div><label for="id_dropdown_date">Dropdown Date:</label><input type="date" name="dropdown_date" id="id_dropdown_date"></div>
+                {% else %}
+                <div>company:{{Waste.company}}</div>
+                <div>type/weight:{{Waste.type}}{{Waste.weight}}</div>
+                <div>location:{{Waste.company.profile.location}}{{Waste.company.profile.street}}{{Waste.company.profile.city}}{{Waste.company.profile.state}} </div>
+                <div>entry date:{{Waste.entry_date}}</div>
+                <div><label for="id_employee">Employee:</label><select name="employee" id="id_employee">
+                    <option value="None">---------</option>
+                    {% for employee in employees%}
+                    <option value="{{employee.id}}">{{employee.profile.name}}</option>
+                    {% endfor %}
+                </select></div>
+                <div><label for="id_pickup_date">Pickup Date:</label><input type="date" name="pickup_date" id="id_pickup_date"></div>
+                <input type="text" value="{{Waste.recycler}}" hidden>
+                <input type="date" value="{{Waste.dropdown_date}}" hidden>
+                {% endif %}
+                <input type="submit" name="submit" class="border-[1px] bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white rounded-lg p-[3px]">
+                <button type="button" class="border-[1px] bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white rounded-lg p-[3px]">Cancel</button>
+            </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    {% endblock %}
+</body>
+</html>

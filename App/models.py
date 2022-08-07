@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django.utils.crypto import get_random_string
-from django.db.models.fields import CharField
-import uuid
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -28,7 +25,7 @@ class Waste(models.Model):
         BIODEGRADABLE = "BIO-DEGRADABLE","Bio-Degradable"
         PAPER = "PAPER","Paper"
         EWASTE = "E-WASTE","E-Waste"
-    id = models.UUIDField(primary_key=True,unique=True,default=uuid.uuid4)
+    id = models.CharField(primary_key=True,unique=True,max_length=40)
     recycler = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='recycler')
     company = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='company')
     employee = models.ForeignKey(User,on_delete=models.SET_NULL,null=True,blank=True,related_name='employee')
@@ -40,7 +37,7 @@ class Waste(models.Model):
     type = models.CharField(_("Types"),max_length=50,choices=Types.choices)
     pickup_done = models.BooleanField(default=False)
     dropdown_done = models.BooleanField(default=False)
-    def __uuid__(self):
+    def __str__(self):
         return self.id
 
 #RazorPay Order Schema
@@ -48,8 +45,8 @@ class Subscription(models.Model):
     name= models.ForeignKey(User,on_delete=models.CASCADE,primary_key=True,unique=True)
     subscription_id = models.CharField(max_length=100,null=True,blank=True)
     paid = models.BooleanField(default=False)
-    suscription_date = models.DateTimeField(blank=True,null=True)
-    suscription_end = models.DateTimeField(blank=True,null=True)
+    subscription_date = models.DateTimeField(blank=True,null=True)
+    subscription_end = models.DateTimeField(blank=True,null=True)
     amount = models.IntegerField(blank=True,null=True)
     def __str__(self):
         return self.name.username
