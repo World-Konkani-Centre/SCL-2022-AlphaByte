@@ -18,13 +18,14 @@
     <div class="bg-slate-900 flex w-full min-h-screen font-inter">
         <ul class="fixed left-[12%] sm:left-[30px] mt-[30px] sm:mt-[75px] flex w-3/4 sm:w-[200px] rounded-lg p-[10px] bg-[#f0f8ff5c] flex-row sm:flex-col">
             <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/User/Profile"><i class="bi bi-person-circle text-[1.35rem] hover:text-fuchsia-600"></i><span class="hidden sm:block mx-[5px] my-auto">Profile</span></a></li>
-            <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/User/Analytics"><i class="bi bi-graph-up text-[1.35rem] hover:text-yellow-400"></i><span class="hidden sm:block mx-[5px] my-auto">Analytics</span></a></li>
-            <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/User/Subscriptions"><i class="bi bi-coin text-[1.35rem] hover:text-lime-500"></i><span class="hidden sm:block mx-[5px] my-auto">Subscription</span></a></li>
+            {% if 'Recycler' in groups or 'Company' in groups %}<li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/User/Analytics"><i class="bi bi-graph-up text-[1.35rem] hover:text-yellow-400"></i><span class="hidden sm:block mx-[5px] my-auto">Analytics</span></a></li>{% endif %}
+            {% if 'Recycler' in groups %}<li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/User/Subscriptions"><i class="bi bi-coin text-[1.35rem] hover:text-lime-500"></i><span class="hidden sm:block mx-[5px] my-auto">Subscription</span></a></li>{% endif %}
+            {% if 'Company' in groups %}<li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/User/Subscriptions"><i class="bi bi-coin text-[1.35rem] hover:text-lime-500"></i><span class="hidden sm:block mx-[5px] my-auto">Rewards</span></a></li>{% endif %}
             <li class="mx-auto sm:my-[15px] flex"><a class="text-white text-[1.1rem] flex" href="/logout/"><i class="bi bi-power text-[1.35rem] hover:text-rose-600"></i><span class="hidden sm:block mx-[5px] my-auto">LogOut</span></a></li>
         </ul>
         
         
-        <div class="ml-[20px] sm:ml-[260px] mr-[20px] sm:mr-[50px] mt-[110px] sm:mt-[77px] rounded-lg flex flex-col w-full  bg-white p-[10px] sm:p-[20px]">
+        <div class="ml-[20px] sm:ml-[260px] mr-[20px] sm:mr-[50px] mt-[110px] mb-[75px] sm:mt-[77px] rounded-lg flex flex-col w-full  bg-white p-[10px] sm:p-[20px]">
         {% block data %}
         {% endblock %}
         </div> 

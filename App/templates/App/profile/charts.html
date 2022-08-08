@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analytics</title>
 </head>
-{% extends 'App/profile.html' %}
+{% extends 'App/profile/profile.html' %}
 {%load static%}
 <body>
     {% block data %}
@@ -25,28 +25,28 @@
           labels: labels,
           datasets: [
             {
-              label: "Steal Waste",
+              label: "Steel",
               backgroundColor: "hsl(200, 82.9%, 67.8%)",
               borderColor: "hsl(200, 82.9%, 67.8%)",
-              data: [0, 10, 5, 2, 20, 30, 25, 10, 30, 20, 40, 35],
+              data: JSON.parse('{{data.Steel}}'),
             },
             {
               label: "Biodegradable Waste",
               backgroundColor: "hsl(100, 82.9%, 67.8%)",
               borderColor: "hsl(100, 82.9%, 67.8%)",
-              data: [12, 14, 20, 18, 16, 22, 30, 26, 28, 24, 32, 34],
+              data: JSON.parse('{{data.Bio}}'),
             },
             {
               label: "Paper Waste",
               backgroundColor: "hsl(45, 82.9%, 67.8%)",
               borderColor: "hsl(45, 82.9%, 67.8%)",
-              data: [2, 8, 6, 8, 4, 12, 20, 16, 24, 20, 30, 24, 22],
+              data: JSON.parse('{{data.Paper}}'),
             },
             {
               label: "E-Waste",
               backgroundColor: "hsl(2, 82.9%, 67.8%)",
               borderColor: "hsl(2, 82.9%, 67.8%)",
-              data: [15, 20, 10, 5, 10, 30, 22, 32, 14, 26, 43, 34],
+              data: JSON.parse('{{data.Ewaste}}'),
             },
           ],
         };

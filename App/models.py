@@ -37,7 +37,7 @@ class Waste(models.Model):
     type = models.CharField(_("Types"),max_length=50,choices=Types.choices)
     pickup_done = models.BooleanField(default=False)
     dropdown_done = models.BooleanField(default=False)
-    def __uuid__(self):
+    def __str__(self):
         return self.id
 
 #RazorPay Order Schema
@@ -45,8 +45,8 @@ class Subscription(models.Model):
     name= models.ForeignKey(User,on_delete=models.CASCADE,primary_key=True,unique=True)
     subscription_id = models.CharField(max_length=100,null=True,blank=True)
     paid = models.BooleanField(default=False)
-    suscription_date = models.DateTimeField(blank=True,null=True)
-    suscription_end = models.DateTimeField(blank=True,null=True)
+    subscription_date = models.DateTimeField(blank=True,null=True)
+    subscription_end = models.DateTimeField(blank=True,null=True)
     amount = models.IntegerField(blank=True,null=True)
     def __str__(self):
         return self.name.username
