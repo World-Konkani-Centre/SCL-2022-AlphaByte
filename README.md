@@ -1,7 +1,17 @@
 # Welcome to UpCycle
- ### Do Something Drastic, Cut the Plastic!
+ ## Do Something Drastic, Cut the Plastic!
+The world as we know it, is constantly evolving. And this evolution comes with its fair share of issues - one of them being sustainability. 
+Despite there being a lot of aspects to sustainability, waste disposal and management is something that is often overlooked. 
+<br>This is what we, at <b>UP-CYCLE</b> aim at solving.<br><br>Not only will we assist your company in disposing of your waste the right way, we will also take care of the logistics, right from storage to transportation. 
+You will have nothing to worry about. With reasonable prices and great benefits, <b>UP-CYCLE</b> is here to flip the narrative.<br><br>So what are you waiting for? Go ahead and plan your waste management, the right way.
+<br><b>Your journey with sustainability begins right here!</b>
+
+ ## Technologies Used
  1. Backend : Django
  2. Frontend : Tailwind
+ 3. Payments : RazorPay
+ 4. Charts :  ChartJs
+ 
  ## Installation
  1. Fork and Clone
 	i.  Fork SCL-2022-AlphaByte
@@ -40,5 +50,4 @@ Figma Link [UpCycle](https://www.figma.com/file/V4JOy3MOkOD7CRvgZczZPW/UI-AlphaB
 [Shravya Mallya](https://github.com/ShravyaMallya)
 [Sahana Prabhu](https://github.com/Sahanaprabhu14)
 [Namratha Nayak](https://github.com/Namratha-Nayak67)
-[Yash S Prabhudesai](https://github.com/yash123-ysp)
 [Darshan Rao](https://github.com/Dar-2002)

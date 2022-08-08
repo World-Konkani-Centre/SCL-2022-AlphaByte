@@ -13,26 +13,9 @@ import uuid
 from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
 from .models import Profile,Waste,Subscription
+from .functions import chartFunc,checkWaste,grouplist
 
 import razorpay
-
-
-def grouplist(user):
-    groups = []
-    if user.groups.exists():
-        for i in range(len(user.groups.all())):
-            groups.append(user.groups.all()[i].name)
-    return groups
-
-def checkWaste(type,date,user):
-    user = Waste.objects.filter(company = user)
-    dateSort = user.filter(entry_date=date)
-    if dateSort is not None:
-        typeSort = dateSort.filter(type = type).first()
-        if typeSort is not None:
-            return typeSort.id
-    return None
-
 
 @unauthenticated_user
 def register(request):
@@ -131,7 +114,6 @@ def report(request):
     W4 = Paginator(all_wastesD,10)
     Dwastes = W4.get_page(request.GET.get('page'))
     if request.method == 'POST':
-        print(request.POST)
         form = Done(request.POST,instance=Waste.objects.filter(id = request.POST.get('id')).first())
         if form.is_valid():
             form.save()
@@ -195,15 +177,17 @@ def manager(request):
     employees = User.objects.filter(groups='4')
     recyclers = User.objects.filter(groups='3')
     UWaste=[]
+    date=""
     if request.method == 'POST':
         if 'pickup_date' not in request.POST:
             UWaste = Waste.objects.filter(id=request.POST.get('id')).first()
+            date = str(UWaste.pickup_date)
         else:
             form = SetDate(request.POST,instance=Waste.objects.filter(id = request.POST.get('id')).first())
             if form.is_valid():
                 form.save()
                 return redirect('manager')
-    context = {'groups':groups,'update_pickup':update_pickup,'pickup':pickup,'update_dropdown':update_dropdown,'dropdown':dropdown,'employees':employees,'recyclers':recyclers,'Waste':UWaste}
+    context = {'groups':groups,'update_pickup':update_pickup,'pickup':pickup,'date':date,'update_dropdown':update_dropdown,'dropdown':dropdown,'employees':employees,'recyclers':recyclers,'Waste':UWaste}
     return render(request,'App/tables/manager.html',context)
 
 @login_required(login_url='login')
@@ -285,7 +269,11 @@ def successpayment(request):
 @allowed_user(allowed_roles=['admin','Company','Recycler'])
 def Charts(request):
     groups = grouplist(request.user)
-    context = {'groups':groups}
+    types = ['STEEL','E-WASTE','BIO-DEGRADABLE','PAPER']
+    wastedata = Waste.objects.filter(company=request.user)
+    data1 = chartFunc(wastedata,types)
+    data = {'Steel':data1[0],'Ewaste':data1[1],'Bio':data1[2],'Paper':data1[3]}
+    context = {'groups':groups,'data':data}
     return render(request,'App/profile/charts.html',context)
 
 @login_required(login_url='login')
