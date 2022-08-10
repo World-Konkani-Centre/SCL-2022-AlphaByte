@@ -282,3 +282,7 @@ def Rewards(request):
     groups = grouplist(request.user)
     context = {'groups':groups}
     return render(request,'App/profile/rewards.html',context)
+
+
+def error_404(request, exception):
+    return render(request, 'App/404.html')
