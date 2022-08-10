@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/4.1.0/cropper.min.js" integrity="sha512-E+gDQcIvNXE60SjCS38ysf1mGh4ObBpKcUOp0oEaHQHQAdaN2p7GelOpgEdpTuCLoIJyLkNXiqFZbyD9Ak/Ygw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-{% extends 'App/profile.html' %}
+{% extends 'App/profile/profile.html' %}
 {%load static%}
 
 <body>
@@ -52,7 +52,7 @@
 
     
 
-    <div class="fixed top-0 w-full h-screen flex bg-[#00000090] z-[999] hidden" id="modalCrop">
+    <div class="fixed left-0 top-0 w-full h-screen flex bg-[#00000090] z-[999] hidden" id="modalCrop">
         <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
             <div class="modal-content w-full">
             <div class="modal-header">

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+</head>
+{% extends 'App/profile/profile.html' %}
+{%load static%}
+<body>
+    {% block data %}
+    <div class="shadow-lg rounded-lg overflow-hidden">
+        <div class="py-3 px-5 bg-gray-50">Company name</div>
+        <canvas class="p-10" id="chartLine"></canvas>
+      </div>
+      
+      <!-- Required chart.js -->
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <!-- Chart line -->
+      <script>
+        const labels = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
+        const data = {
+          labels: labels,
+          datasets: [
+            {
+              label: "Steel",
+              backgroundColor: "hsl(200, 82.9%, 67.8%)",
+              borderColor: "hsl(200, 82.9%, 67.8%)",
+              data: JSON.parse('{{data.Steel}}'),
+            },
+            {
+              label: "Biodegradable Waste",
+              backgroundColor: "hsl(100, 82.9%, 67.8%)",
+              borderColor: "hsl(100, 82.9%, 67.8%)",
+              data: JSON.parse('{{data.Bio}}'),
+            },
+            {
+              label: "Paper Waste",
+              backgroundColor: "hsl(45, 82.9%, 67.8%)",
+              borderColor: "hsl(45, 82.9%, 67.8%)",
+              data: JSON.parse('{{data.Paper}}'),
+            },
+            {
+              label: "E-Waste",
+              backgroundColor: "hsl(2, 82.9%, 67.8%)",
+              borderColor: "hsl(2, 82.9%, 67.8%)",
+              data: JSON.parse('{{data.Ewaste}}'),
+            },
+          ],
+        };
+      
+        const configLineChart = {
+          type: "line",
+          data,
+          options: {},
+        };
+      
+        var chartLine = new Chart(
+          document.getElementById("chartLine"),
+          configLineChart
+        );
+      </script>
+    {% endblock %}
+</body>
+</html>

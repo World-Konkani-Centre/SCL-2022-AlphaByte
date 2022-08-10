@@ -47,22 +47,12 @@ class AddWasteForm(ModelForm):
         model = Waste
         fields = ['id','company','type','weight','entry_date']
 
-class PickUpDate(ModelForm):
+class SetDate(ModelForm):
     class Meta:
         model = Waste
-        fields = ['employee','entry_date']
+        fields = ['id','employee','pickup_date','recycler','dropdown_date']
 
-class DropdownDate(ModelForm):
+class Done(ModelForm):
     class Meta:
         model = Waste
-        fields = ['employee','recycler','dropdown_date']
-
-class PickUpDone(ModelForm):
-    class Meta:
-        model = Waste
-        fields = ['id','pickup_done']
-
-class DropdownDone(ModelForm):
-    class Meta:
-        model = Waste
-        fields = ['id','dropdown_done']
+        fields = ['id','pickup_done','dropdown_done']

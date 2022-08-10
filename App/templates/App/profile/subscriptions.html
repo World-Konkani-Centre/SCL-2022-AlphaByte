@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriptions</title>
+</head>
+{% extends 'App/profile/profile.html' %}
+{%load static%}
+<body>
+    {% block data %}
+    <h2 class="text-5xl text-center font-space py-2">Subscriptions</h2>
+    {%if paid%}
+        <div class="flex flex-col align-center justify-center items-center gap-2">
+            <img src="{% static '/IMGS/recycling-bro.png' %}" class="w-64 h-64"/>
+            <div class="flex gap-2 align-center justify-center items-center">
+                <h1 class="text-3xl text-center font-space py-2 mt-4 mr-8">Your Subscription Ends In:</h1>
+                {% if days3 or days2 or days1 %}
+                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ days3 }}</div></div>
+                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ days2 }}</div></div>
+                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ days1 }}</div></div>
+                <h1 class="text-3xl text-center font-space py-2">Days</h1>
+                {% endif %}
+                {% if time2 or time1 %}
+                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ time2 }}</div></div>
+                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ time1 }}</div></div>
+                <h1 class="text-3xl text-center font-space py-2">Hours</h1>
+                {% endif %}
+                
+            
+            </div>
+        </div>
+        <h2 class="text-4xl text-center font-space py-6">Subscription Details</h2>
+        <div class="flex gap-4 w-full h-full justify-center align-center">
+            {% if showBasic%}
+            <div class="w-full p-8 bg-slate-900 rounded-lg">
+                <div class="flex flex-row place-content-between">
+                    <h2 class="text-2xl font-space py-2 text-slate-50">Basic Plan</h2>
+                    <div class="p-2 h-16 w-16 rounded-full bg-gray-500"></div>    
+                </div>  
+                <h1 class="text-lg font-space py-2 text-slate-50">Subscription Start Date:<span class="text-green-300 ml-5">{{date}}</span></h1>
+                <h1 class="text-lg font-space py-2 text-slate-50">Subscription End Date:<span class="text-green-300 ml-5">{{end}}</span></h1>
+            </div>
+            {% endif %}
+            {% if showPrem%}
+        <div class="w-full p-8 bg-slate-900 rounded-lg">
+            <div class="flex flex-row place-content-between">
+                <h2 class="text-2xl font-space py-2 text-slate-50">Premium Plan</h2>
+                <div class="p-2 h-16 w-16 rounded-full bg-amber-300"></div>    
+            </div>  
+            <h1 class="text-lg font-space py-2 text-slate-50">Subscription Start Date:<span class="text-green-300 ml-5">{{date}}</span></h1>
+            <h1 class="text-lg font-space py-2 text-slate-50">Subscription End Date:<span class="text-green-300 ml-5">{{end}}</span></h1>
+        </div>
+        {% endif %}
+        </div>
+    </div>
+    {% else %}
+    <div class="flex flex-col items-center gap-2 justify-center">
+        <img src="{% static '/IMGS/recycling-bro.png' %}" class="w-64 h-64"/>
+    {% if payment %}
+        <h2 class="text-4xl text-center font-space py-6">Packages</h2>
+        <h2 class="text-3xl text-center font-space py-6">Selected Package</h2>
+    {% else %}
+        <h1 class="text-4xl font-space py-2">You Are Not Subscribed To Our Services</h1>
+        <h2 class="text-3xl text-center font-space py-6">Packages</h2>
+    {% endif %}
+    </div>
+    
+    <div class="flex gap-4 w-full h-full justify-center align-center">
+        {% if showBasic%}
+        <div class="w-2/5 p-8 bg-slate-900 rounded-lg">
+            <div class="flex flex-row place-content-between">
+                <h2 class="text-2xl font-space py-2 text-slate-50">Basic Plan</h2>
+                <div class="p-2 h-16 w-16 rounded-full bg-gray-500"></div>    
+            </div>
+            <ul class="text-lg list-disc mx-2 font-space py-2 text-slate-50">
+                <li>Abcd</li>
+                <li>efgh</li>
+                <li>ijkl</li>
+                <li>mnop</li>
+            </ul>
+            {% if payment %}
+            <button class="w-full h-12 mt-8 bg-green-300 hover:bg-green-400 text-slate-900 font-bold font-space rounded-md" id="Basic">Pay 4500/-</button>
+            <button type="button" class="w-full h-12 mt-8 bg-blue-300 hover:bg-blue-400 text-slate-900 font-bold font-space rounded-md" id="Change">Change Plan</button>
+            {% else %}
+            <button class="w-full h-12 mt-8 bg-green-300 hover:bg-green-400 text-slate-900 font-bold font-space rounded-md" id="Basic">Rs.4500/-</button>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if showPrem%}
+        <div class="w-2/5 p-8 bg-slate-900 rounded-lg">
+            <div class="flex flex-row place-content-between">
+                <h2 class="text-2xl font-space py-2 text-slate-50">Premium Plan</h2>
+                <div class="p-2 h-16 w-16 rounded-full bg-amber-300"></div>    
+            </div>
+            <ul class="text-lg list-disc mx-2 font-space py-2 text-slate-50">
+                <li>Abcd</li>
+                <li>efgh</li>
+                <li>ijkl</li>
+                <li>mnop</li>
+            </ul>
+            {% if payment %}
+            <button class="w-full h-12 mt-8 bg-green-300 hover:bg-green-400 text-slate-900 font-bold font-space rounded-md" id="Premium">Pay 24000/-</button>
+            <button type="button" class="w-full h-12 mt-8 bg-blue-300 hover:bg-blue-400 text-slate-900 font-bold font-space rounded-md" id="Change">Change Plan</button>
+            {% else %}
+            <button class="w-full h-12 mt-8 bg-green-300 hover:bg-green-400 text-slate-900 font-bold font-space rounded-md" id="Premium">Rs.24000/-</button>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="flex fixed top-0 left-0 w-full h-screen bg-[#00000080] z-[990] hidden" id="modalPayment">
+        <div class="m-auto min-w-1/5 min-h-12 bg-slate-300 rounded-md p-10">
+            <form action="" class="flex flex-col justify-center items-center align-center text-md text-center font-space" method="POST">
+                <h1 class="text-xl text-slate-900 mb-8">Verify The Details</h1>
+                {% csrf_token %}
+                <div class="mb-3 w-full flex flex-row place-content-between">
+                  <label for="name">Username:</label>
+                  <input type="name" name="name" class="border pointer-events-none border-slate-900 rounded ml-4 indent-4" id="name" aria-describedby="emailHelp" value="{{user.username}}">
+                </div>
+                <div class="mb-3 w-full flex flex-row place-content-between">
+                  <label for="amount">Amount:</label>
+                  <input type="number" name="amount" class="border pointer-events-none border-slate-900 rounded ml-4 indent-4" id="amount">
+                </div>
+                <div class="mb-3 w-full flex flex-row place-content-between">
+                    <label for="plan">Plan:</label>
+                    <input type="text" name="plan" class="border pointer-events-none border-slate-900 rounded ml-4 mb-8 indent-4" id="plan">
+                </div>
+                <div class="flex flex-col gap-4 w-full">
+                {% if payment %}
+                <button type="button" class="h-12 w-full px-5 text-slate-900 rounded-md bg-green-400 hover:bg-green-500" id="Pay">Pay Via Razorpay</button>
+                {%else%}
+                <button type="submit" class="h-12 w-full px-5 bg-green-400 hover:bg-green-500 text-slate-900 rounded-md font-space text-black">Verify Details</button>
+                {% endif %}
+                <button type="button" class="h-12 w-full px-5 bg-red-400 hover:bg-red-500 text-slate-900 rounded-md font-space text-black" id="cancel">Cancel</button>
+                </div>
+            </form>
+            {% if payment %}
+            <form action="/User/Success/" method="POST" id="form">
+                {%csrf_token%}
+                <script src="https://checkout.razorpay.com/v1/checkout.js"    
+                    data-key="rzp_test_zdPB2yUq5SbCeW"  
+                    data-amount="{{payment.amount}}"
+                    data-currency="INR"
+                    data-order_id="{{payment.id}}"   
+                    data-buttontext=""  
+                    data-name="Upcycle Corp"    
+                    data-description="Your Step Towards Sustainability."    
+                    data-image="{% static '/IMGS/Upcycle.png' %}"    
+                    data-prefill.name="{{user.username}}"    
+                    data-prefill.email="{{user.email}}"   
+                    data-theme.color="#F37254">
+                </script>
+            </form>
+            {% endif %}
+            
+        </div>
+    </div>
+    {% endif %}
+    
+    <script>
+        $(function () {
+            $("#Premium").click(function (){
+                $("#modalPayment").toggleClass("hidden");
+                $("#amount").val(24000);
+                $("#plan").val("Premium");
+            });
+        });
+        $(function () {
+            $("#Basic").click(function (){
+                $("#modalPayment").toggleClass("hidden");
+                $("#amount").val(4500);
+                $("#plan").val("Basic");
+            });
+        });
+        $(function () {
+            $("#Change").click(function (){
+                window.location.replace('/User/Subscriptions');
+            });
+        });
+        $(function () {
+            $("#cancel").click(function (){
+                $("#modalPayment").toggleClass("hidden");
+            });
+        });
+        $(function () {
+            $("#Pay").click(function (){
+                $("#form").submit();
+            });
+        });
+    </script>
+    
+    {% endblock %}
+</body>
+</html>
+
