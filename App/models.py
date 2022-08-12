@@ -15,6 +15,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=30,blank=True,null=True)
     state = models.CharField(max_length=30,blank=True,null=True)
     phone = PhoneNumberField(blank=True,null=True)
+    is_email_verified = models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
@@ -48,5 +49,6 @@ class Subscription(models.Model):
     subscription_date = models.DateTimeField(blank=True,null=True)
     subscription_end = models.DateTimeField(blank=True,null=True)
     amount = models.IntegerField(blank=True,null=True)
+    rewardClaimed = models.IntegerField(default=0)
     def __str__(self):
         return self.name.username

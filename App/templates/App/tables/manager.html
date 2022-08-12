@@ -46,13 +46,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if update_pickup.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{update_pickup.number}} of {{update_pickup.paginator.num_pages}}</button>
                 {% if update_pickup.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -93,13 +93,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if pickup.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{pickup.number}} of {{pickup.paginator.num_pages}}</button>
                 {% if pickup.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -128,13 +128,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if update_dropdown.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{update_dropdown.number}} of {{update_dropdown.paginator.num_pages}}</button>
                 {% if update_dropdown.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -175,13 +175,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if dropdown.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{dropdown.number}} of {{dropdown.paginator.num_pages}}</button>
                 {% if dropdown.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>

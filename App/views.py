@@ -13,7 +13,7 @@ import uuid
 from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
 from .models import Profile,Waste,Subscription
-from .functions import chartFunc,checkWaste,grouplist
+from .functions import *
 
 import razorpay
 
@@ -26,10 +26,9 @@ def register(request):
             user=form.save()
             username = form.cleaned_data.get('username')
             user.groups.add(request.POST.get('group'))
-            if request.POST.get('group') == '3':
+            if request.POST.get('group') == '2' or request.POST.get('group') == '3':
                 subUser = Subscription(name = user)
-                print(subUser)
-                subUser.save()
+                subUser.save()             
             messages.success(request,'Account was created for '+ username)
             return redirect('login')
     context = {'form':form}
@@ -103,16 +102,16 @@ def report(request):
     all_wastes = Waste.objects.filter(employee = user)
     wastesP = all_wastes.filter(pickup_date = datetime.date(datetime.now()))
     W1 = Paginator(wastesP,10)
-    Pwastes_today = W1.get_page(request.GET.get('page'))
+    Pwastes_today = W1.get_page(request.GET.get('page1'))
     wastesD = all_wastes.filter(dropdown_date = datetime.date(datetime.now()))
     W2 = Paginator(wastesD,10)
-    Dwastes_today = W2.get_page(request.GET.get('page'))
+    Dwastes_today = W2.get_page(request.GET.get('page2'))
     all_wastesP = all_wastes.filter(dropdown_done = False)
     W3 = Paginator(all_wastesP,10)
-    Pwastes = W3.get_page(request.GET.get('page'))
+    Pwastes = W3.get_page(request.GET.get('page3'))
     all_wastesD = all_wastes.filter(pickup_done = True)
     W4 = Paginator(all_wastesD,10)
-    Dwastes = W4.get_page(request.GET.get('page'))
+    Dwastes = W4.get_page(request.GET.get('page4'))
     if request.method == 'POST':
         form = Done(request.POST,instance=Waste.objects.filter(id = request.POST.get('id')).first())
         if form.is_valid():
@@ -149,12 +148,11 @@ def addWaste(request):
         if exist is None:
             if form.is_valid():
                 form.save()
-                return redirect('addwaste')
         else:
             updateWaste = Waste.objects.filter(id = exist).first()
             updateWaste.weight = updateWaste.weight + int(request.POST.get('weight'))
             updateWaste.save()
-            return redirect('addwaste')
+        return redirect('addwaste')
     context = {'groups':groups,'addWasteForm':addWasteForm,'wastes':wastes,'uuid':uid,'date':date}
     return render(request,'App/tables/wasteprod.html',context)
 
@@ -165,15 +163,15 @@ def manager(request):
     all_wastes_pickup = Waste.objects.filter(pickup_done=False)
     wastes_pickup = all_wastes_pickup.filter(pickup_date=None).order_by('entry_date')
     W1 = Paginator(wastes_pickup,10)
-    update_pickup = W1.get_page(request.GET.get('page'))
+    update_pickup = W1.get_page(request.GET.get('page1'))
     W2 = Paginator(all_wastes_pickup,10)
-    pickup = W2.get_page(request.GET.get('page'))
+    pickup = W2.get_page(request.GET.get('page2'))
     all_wastes_dropdown = Waste.objects.filter(pickup_done=True)
     wastes_dropdown = all_wastes_dropdown.filter(dropdown_date=None).order_by('pickup_date')
     W3 = Paginator(wastes_dropdown,10)
-    update_dropdown = W3.get_page(request.GET.get('page'))
+    update_dropdown = W3.get_page(request.GET.get('page3'))
     W4 = Paginator(all_wastes_dropdown,10)
-    dropdown = W4.get_page(request.GET.get('page'))
+    dropdown = W4.get_page(request.GET.get('page4'))
     employees = User.objects.filter(groups='4')
     recyclers = User.objects.filter(groups='3')
     UWaste=[]
@@ -269,16 +267,29 @@ def successpayment(request):
 @allowed_user(allowed_roles=['admin','Company','Recycler'])
 def Charts(request):
     groups = grouplist(request.user)
-    types = ['STEEL','E-WASTE','BIO-DEGRADABLE','PAPER']
     wastedata = Waste.objects.filter(company=request.user)
-    data1 = chartFunc(wastedata,types)
+    data1 = chartFunc(wastedata)
     data = {'Steel':data1[0],'Ewaste':data1[1],'Bio':data1[2],'Paper':data1[3]}
     context = {'groups':groups,'data':data}
     return render(request,'App/profile/charts.html',context)
 
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company'])
-def Rewards(request):
+def RewardPage(request):
     groups = grouplist(request.user)
-    context = {'groups':groups}
+    userdata = Subscription.objects.filter(name=request.user).first()
+    if request.method == 'POST':
+        if userdata.amount == 450000:
+            var = 7
+        else:
+            var = 28
+        nd = var*int(request.POST.get('rewardamt'))
+        userdata.subscription_end += timedelta(days=nd)
+        userdata.rewardClaimed += int(request.POST.get('rewardamt'))
+        userdata.save()
+        return redirect('rewards')
+    else:
+        data = checkRewards(request.user)
+        reward = data['preReward'] - userdata.rewardClaimed
+        context = {'groups':groups,'data':data['data'],'reward':reward}
     return render(request,'App/profile/rewards.html',context)
