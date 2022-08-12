@@ -46,6 +46,8 @@ def send_action_email(user,request):
     email = EmailMessage(subject=email_subject,body=email_body ,from_email=settings.EMAIL_HOST_USER,to=[user.email])
     EmailThread(email).start()
 
+
+# Register User View
 @unauthenticated_user
 def register(request):
     form  = CreateUserForm()
@@ -65,6 +67,8 @@ def register(request):
     context = {'form':form}
     return render(request,'App/auth/register.html',context)
 
+
+#Login User View
 @unauthenticated_user
 def loginPage(request):
     if request.method == 'POST':
@@ -99,6 +103,8 @@ def activate_user(request,uidb64,token):
         return redirect('login')
     return render(request,'auth/activateFailed.html',{"user":user})
 
+
+# Primary Update of User Infoformation
 @login_required(login_url='login')
 def updateInfo(request):
     groups = grouplist(request.user)
@@ -113,10 +119,14 @@ def updateInfo(request):
     context = {'groups':groups,'p_form':p_form}
     return render(request,'App/auth/register_update.html',context)
 
+
+# Logout User
 def logOutUser(request):
     logout(request)
     return redirect('login')
 
+
+# Basic views 
 def home(request):
     groups = grouplist(request.user)
     context = {'groups':groups}
@@ -127,6 +137,8 @@ def Awareness(request):
     context = {'groups':groups}
     return render(request,'App/awareness.html',context)
 
+
+#Profile view
 @login_required(login_url='login')
 def ProfilePage(request):
     groups = grouplist(request.user)
@@ -144,6 +156,8 @@ def ProfilePage(request):
     context = {'groups':groups,'p_form':p_form,'img_form':img_form}
     return render(request,'App/profile/profileUpdate.html',context)
 
+
+# Employee Report view
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Employee'])
 def report(request):
@@ -170,9 +184,13 @@ def report(request):
     context = {'groups':groups,'Pwastes_today':Pwastes_today,'Dwastes_today':Dwastes_today,'Pwastes':Pwastes,'Dwastes':Dwastes}
     return render(request,'App/tables/employee.html',context)
 
+
+# Recycler Schedule View
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
 def schedule(request):
+    if not request.user.subscription.paid:
+        return redirect('subscription')
     groups = grouplist(request.user)
     user = User.objects.get(username = request.user.username)
     all_wastes = Waste.objects.filter(recycler = user).order_by('dropdown_date')
@@ -181,10 +199,14 @@ def schedule(request):
     context = {'groups':groups,'wastes':wastes}
     return render(request,'App/tables/recyclecomp.html',context)
 
+
+# Company Add Waste View
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company'])
 def addWaste(request):
     groups = grouplist(request.user)
+    if not request.user.subscription.paid:
+        return redirect('subscription')
     user = User.objects.get(username = request.user.username)
     all_wastes = Waste.objects.filter(company = user).order_by('-entry_date')
     W = Paginator(all_wastes,10)
@@ -206,6 +228,8 @@ def addWaste(request):
     context = {'groups':groups,'addWasteForm':addWasteForm,'wastes':wastes,'uuid':uid,'date':date}
     return render(request,'App/tables/wasteprod.html',context)
 
+
+# Manager Update View
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Manager'])
 def manager(request):
@@ -238,6 +262,8 @@ def manager(request):
     context = {'groups':groups,'update_pickup':update_pickup,'pickup':pickup,'date':date,'update_dropdown':update_dropdown,'dropdown':dropdown,'employees':employees,'recyclers':recyclers,'Waste':UWaste}
     return render(request,'App/tables/manager.html',context)
 
+
+# Subscriptions View
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler','Company'])
 def subscriptions(request):
@@ -256,7 +282,7 @@ def subscriptions(request):
             showBasic=False
         else:
             showPrem=False 
-        client = razorpay.Client(auth=('rzp_test_zdPB2yUq5SbCeW','TvzdDOGzQz7Xlj42qppCZVs6'))
+        client = razorpay.Client(auth=(settings.RAZORPAY_KEY,settings.RAZORPAY_SECRET))
         payment = client.order.create({"amount":amount,"currency":"INR","payment_capture":"1"})
         subscription.subscription_date = datetime.now()
         subscription.subscription_end = datetime.now()+ timedelta(days=365)
@@ -284,6 +310,7 @@ def subscriptions(request):
                     'time2':int((hours/10)%10),
                     'date':subscription.subscription_date.date(),
                     'end':subscription.subscription_end.date(),
+                    'key':settings.RAZORPAY_KEY,
                     'groups':groups
                 }
     else:
@@ -291,11 +318,11 @@ def subscriptions(request):
                    'showBasic':showBasic,
                    'showPrem':showPrem,
                    'paid':subscription.paid,
+                   'key':settings.RAZORPAY_KEY,
                    'groups':groups
                   }
     return render(request,'App/profile/subscriptions.html',context)
     
-
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
 @csrf_exempt
@@ -313,6 +340,8 @@ def successpayment(request):
             user.save()
     return render(request,"App/profile/success.html")
 
+
+# User Analytics View
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company','Recycler'])
 def Charts(request):
@@ -323,6 +352,8 @@ def Charts(request):
     context = {'groups':groups,'data':data}
     return render(request,'App/profile/charts.html',context)
 
+
+# User Rewards View
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Company','Recycler'])
 def RewardPage(request):
@@ -344,5 +375,7 @@ def RewardPage(request):
         context = {'groups':groups,'data':data['data'],'reward':reward}
     return render(request,'App/profile/rewards.html',context)
 
+
+# 404 error page view
 def error_404(request, exception):
     return render(request, 'App/404.html')
