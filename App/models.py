@@ -15,6 +15,7 @@ class Profile(models.Model):
     city = models.CharField(max_length=30,blank=True,null=True)
     state = models.CharField(max_length=30,blank=True,null=True)
     phone = PhoneNumberField(blank=True,null=True)
+    is_email_verified=models.BooleanField(default=False)
     def __str__(self):
         return self.name
 
