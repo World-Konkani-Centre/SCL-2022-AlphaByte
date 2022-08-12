@@ -1,4 +1,3 @@
-from datetime import datetime, timedelta
 from django.utils import timezone
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
@@ -8,14 +7,44 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group,User
 from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import  urlsafe_base64_encode,urlsafe_base64_decode
+from django.utils.encoding import force_bytes,force_str,DjangoUnicodeDecodeError
+from django.core.mail import EmailMessage
+from django.conf import settings
 import uuid
+import threading
+from datetime import datetime, timedelta
+from audioop import reverse
+
 
 from .forms import AddWasteForm,CreateUserForm,ProfileUpdateForm,ProfImageUpdateForm,Done,SetDate
 from .decorators import allowed_user, unauthenticated_user
 from .models import Profile,Waste,Subscription
 from .functions import *
+from .utils import generate_token
 
 import razorpay
+
+class EmailThread(threading.Thread):
+    def __init__(self, email):
+        self.email = email
+        threading.Thread.__init__(self)
+    def run(self):
+        self.email.send()
+
+def send_action_email(user,request):
+    current_site=get_current_site(request)
+    email_subject='Activate your account'
+    email_body=render_to_string('App/auth/activate.html',{
+        'user':user,
+        'domain':current_site,
+        'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+        'token':generate_token.make_token(user)
+    })
+    email = EmailMessage(subject=email_subject,body=email_body ,from_email=settings.EMAIL_HOST_USER,to=[user.email])
+    EmailThread(email).start()
 
 @unauthenticated_user
 def register(request):
@@ -28,8 +57,10 @@ def register(request):
             user.groups.add(request.POST.get('group'))
             if request.POST.get('group') == '2' or request.POST.get('group') == '3':
                 subUser = Subscription(name = user)
-                subUser.save()             
+                subUser.save()
+            send_action_email(user,request)
             messages.success(request,'Account was created for '+ username)
+            messages.success(request,'Mail has been sent to your email to verify your email! Check Spam if not Inbox!!')
             return redirect('login')
     context = {'form':form}
     return render(request,'App/auth/register.html',context)
@@ -40,6 +71,11 @@ def loginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request,username=username,password=password)
+        if not user.profile.is_email_verified:
+            messages.add_message(request,messages.ERROR,'Email not verified,please check your email inbox')
+            messages.success(request,'Mail has been sent to your email to verify your email! Check Spam if not Inbox!!')
+            send_action_email(user,request)
+            return redirect('login')
         if user is not None:
             login(request,user)
             if user.profile.location is None:
@@ -48,6 +84,20 @@ def loginPage(request):
                 return redirect('home')
     context = {}
     return render(request,'App/auth/login.html',context)
+
+def activate_user(request,uidb64,token):
+    try:
+        uid=force_str(urlsafe_base64_decode(uidb64))
+        user=User.objects.get(pk=uid)
+    except Exception as e:
+        user=None
+    if user and generate_token.check_token(user,token):
+        prof = Profile.objects.filter(user=user).first()
+        prof.is_email_verified = True
+        prof.save()
+        messages.add_message(request,messages.SUCCESS,'Email verified you can login now')
+        return redirect('login')
+    return render(request,'auth/activateFailed.html',{"user":user})
 
 @login_required(login_url='login')
 def updateInfo(request):
@@ -189,7 +239,7 @@ def manager(request):
     return render(request,'App/tables/manager.html',context)
 
 @login_required(login_url='login')
-@allowed_user(allowed_roles=['admin','Recycler'])
+@allowed_user(allowed_roles=['admin','Recycler','Company'])
 def subscriptions(request):
     groups = grouplist(request.user)
     subscription = Subscription.objects.filter(name=request.user).first()
@@ -274,7 +324,7 @@ def Charts(request):
     return render(request,'App/profile/charts.html',context)
 
 @login_required(login_url='login')
-@allowed_user(allowed_roles=['admin','Company'])
+@allowed_user(allowed_roles=['admin','Company','Recycler'])
 def RewardPage(request):
     groups = grouplist(request.user)
     userdata = Subscription.objects.filter(name=request.user).first()
@@ -293,3 +343,6 @@ def RewardPage(request):
         reward = data['preReward'] - userdata.rewardClaimed
         context = {'groups':groups,'data':data['data'],'reward':reward}
     return render(request,'App/profile/rewards.html',context)
+
+def error_404(request, exception):
+    return render(request, 'App/404.html')
