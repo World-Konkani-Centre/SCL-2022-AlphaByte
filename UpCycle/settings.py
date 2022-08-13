@@ -149,9 +149,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = env("EMAIL_USERNAME")
-EMAIL_HOST_PASSWORD = env("EMAIL_PASSWORD")
+EMAIL_HOST_USER = 'alphabyte22@gmail.com'
+EMAIL_HOST_PASSWORD = 'vdjuqnxcfbhqngqo'
 
 #RazorPay Configuration
-RAZORPAY_KEY = env("RAZORPAY_KEY")
-RAZORPAY_SECRET = env("RAZORPAY_SECRET") 
+RAZORPAY_KEY = 'rzp_test_AT6XnhK0IMQ7ym'
+RAZORPAY_SECRET ='67ZqUkEDPghRFk1a4Qt7BEsl'
