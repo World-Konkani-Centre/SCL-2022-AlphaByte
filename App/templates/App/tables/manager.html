@@ -46,13 +46,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if update_pickup.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{update_pickup.number}} of {{update_pickup.paginator.num_pages}}</button>
                 {% if update_pickup.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -93,13 +93,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if pickup.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{pickup.number}} of {{pickup.paginator.num_pages}}</button>
                 {% if pickup.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -119,9 +119,8 @@
                     {% for waste in update_dropdown %}
                     <tr>
                         <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.name}}<br>{{waste.company.profile.phone}}</td>
                         <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300">{{waste.pickup_date}}</td>
                         <td class="border-b border-slate-300 border-r"><form action="" method="POST">{% csrf_token %}<input type="text" name="id" id="id_id" value="{{waste.id}}" hidden><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Update</button></form></td>
                     </tr>
                     {% endfor %} 
@@ -129,13 +128,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if update_dropdown.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{update_dropdown.number}} of {{update_dropdown.paginator.num_pages}}</button>
                 {% if update_dropdown.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -176,13 +175,13 @@
             </table>
             <div class="w-full text-[1 rem] h-5 my-4 text-center">
                 {% if dropdown.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
                 {% endif %}
                 <button class="p-[5px] m-[5px]" type="button">Page {{dropdown.number}} of {{dropdown.paginator.num_pages}}</button>
                 {% if dropdown.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
                 {% endif %}
             </div>
         </div>
@@ -195,7 +194,7 @@
         <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
             <div class="modal-content w-full">
             <div class="modal-header">
-                <button class="absolute top-[10px] right-[10px] closeModalCrop" ><i class="bi bi-x-lg text-black text-[20px]"></i></button>
+                <button class="absolute top-[10px] right-[10px] closeModal" ><i class="bi bi-x-lg text-black text-[20px]"></i></button>
                 <h2 class="text-center text-[1.2rem]">Update PickUp Info</h2>
             </div>
             <form action="" method="POST">
@@ -203,7 +202,7 @@
                 <div><label for="id_id">ID:</label><input type="text" name="id" id="id_id" value="{{Waste.id}}"></div>
                 {% if Waste.pickup_done %}
                 <div>type/weight:{{Waste.type}}{{Waste.weight}}</div>
-                <div><label for="id_recycler">Employee:</label><select name="recycler" id="id_recycler">
+                <div><label for="id_recycler">Recycler:</label><select name="recycler" id="id_recycler">
                     <option value="None">---------</option>
                     {% for recycler in recyclers%}
                     <option value="{{recycler.id}}">{{recycler.profile.name}}</option>
@@ -215,7 +214,7 @@
                     <option value="{{employee.id}}">{{employee.profile.name}}</option>
                     {% endfor %}
                 </select></div>
-                <input type="text" name="pickup_date" id="id_pickup_date" value="{{Waste.pickup_date}}" hidden>
+                <input type="text" name="pickup_date" id="id_pickup_date" value="{{date}}" hidden>
                 <div><label for="id_dropdown_date">Dropdown Date:</label><input type="date" name="dropdown_date" id="id_dropdown_date"></div>
                 {% else %}
                 <div>company:{{Waste.company}}</div>
@@ -233,13 +232,22 @@
                 <input type="date" value="{{Waste.dropdown_date}}" hidden>
                 {% endif %}
                 <input type="submit" name="submit" class="border-[1px] bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white rounded-lg p-[3px]">
-                <button type="button" class="border-[1px] bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white rounded-lg p-[3px]">Cancel</button>
+                <button type="button" class="closeModal border-[1px] bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white rounded-lg p-[3px]">Cancel</button>
             </form>
             </div>
         </div>
     </div>
     {% endif %}
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+        $(".closeModal").click(function () {
+            $("#modal").addClass("hidden");
+        });
+        });
+    </script>
+
     {% endblock %}
 </body>
 </html>
