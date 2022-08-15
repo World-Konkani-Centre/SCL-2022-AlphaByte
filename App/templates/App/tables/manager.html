@@ -195,48 +195,72 @@
     
     {% if Waste %}
     <div id="modal" class="fixed top-0 w-full h-screen flex bg-[#00000090] z-[999] ">
-        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg">
+        <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] h-[500px] bg-white rounded-lg font-space">
             <div class="modal-content w-full">
             <div class="modal-header">
                 <button class="absolute top-[10px] right-[10px] closeModal" ><i class="bi bi-x-lg text-black text-[20px]"></i></button>
                 <h2 class="text-center text-[1.2rem]">Update PickUp Info</h2>
             </div>
-            <form action="" method="POST">
+            <form action="" method="POST" class="flex flex-col">
                 {% csrf_token %}
-                <div><label for="id_id">ID:</label><input type="text" name="id" id="id_id" value="{{Waste.id}}"></div>
+                <div class="my-6">
+                    <label for="id_id">ID:</label>
+                    <br>
+                    <input type="text" name="id" id="id_id" value="{{Waste.id}}" hidden>{{Waste.id}}</input>
+                </div>
                 {% if Waste.pickup_done %}
-                <div>type/weight:{{Waste.type}}{{Waste.weight}}</div>
-                <div><label for="id_recycler">Recycler:</label><select name="recycler" id="id_recycler">
-                    <option value="None">---------</option>
-                    {% for recycler in recyclers%}
-                    <option value="{{recycler.id}}">{{recycler.profile.name}}</option>
-                    {% endfor %}
-                </select></div>
-                <div><label for="id_employee">Employee:</label><select name="employee" id="id_employee">
-                    <option value="None">---------</option>
-                    {% for employee in employees%}
-                    <option value="{{employee.id}}">{{employee.profile.name}}</option>
-                    {% endfor %}
-                </select></div>
+                <div>Type/Weight:<span class="font-bold ml-3 md:ml-14">{{Waste.type}}</span><br><span class="ml-32 md:ml-40">( {{Waste.weight}} Kg)</span></div>
+                <br>
+                <div>
+                    <label for="id_recycler">Select Recycler:</label>
+                    <select name="recycler" id="id_recycler" class="border-slate-900 border rounded-lg w-[240px] indent-4 my-2 md:ml-[72px]">
+                        <option value="None">---------</option>
+                        {% for recycler in recyclers%}
+                        <option value="{{recycler.id}}">{{recycler.profile.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="id_employee">Select Employee:</label>
+                    <select name="employee" id="id_employee" class="border-slate-900 border rounded-lg w-[240px] indent-4 my-2 md:ml-16">
+                        <option value="None">---------</option>
+                        {% for employee in employees%}
+                        <option value="{{employee.id}}">{{employee.profile.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
                 <input type="text" name="pickup_date" id="id_pickup_date" value="{{date}}" hidden>
-                <div><label for="id_dropdown_date">Dropdown Date:</label><input type="date" name="dropdown_date" id="id_dropdown_date"></div>
+                <div>
+                    <label for="id_dropdown_date">Delivery Date:</label>
+                    <input type="date" name="dropdown_date" id="id_dropdown_date" class="ml-1 md:ml-[140px]">
+                </div>
                 {% else %}
-                <div>company:{{Waste.company}}</div>
-                <div>type/weight:{{Waste.type}}{{Waste.weight}}</div>
-                <div>location:{{Waste.company.profile.location}}{{Waste.company.profile.street}}{{Waste.company.profile.city}}{{Waste.company.profile.state}} </div>
-                <div>entry date:{{Waste.entry_date}}</div>
-                <div><label for="id_employee">Employee:</label><select name="employee" id="id_employee">
-                    <option value="None">---------</option>
-                    {% for employee in employees%}
-                    <option value="{{employee.id}}">{{employee.profile.name}}</option>
-                    {% endfor %}
-                </select></div>
-                <div><label for="id_pickup_date">Pickup Date:</label><input type="date" name="pickup_date" id="id_pickup_date"></div>
+                <div>Company:<span class="ml-10 md:ml-20">{{Waste.company}}</span></div>
+                <div>Type/Weight:<span class="ml-4 md:ml-14 font-bold">{{Waste.type}}</span><br><span class="ml-32 md:ml-40">( {{Waste.weight}} Kg)</span></div>
+                <div>Location:<span class="ml-10 md:ml-[72px]">{{Waste.company.profile.location}},{{Waste.company.profile.street}},</span><br><span class="ml-28 md:ml-36">{{Waste.company.profile.city}},</span><br><span class="ml-28 md:ml-36">{{Waste.company.profile.state}}</span></div>
+                <div>Entry Date:<span class="ml-6 md:ml-14 font-bold">{{Waste.entry_date}}</span></div>
+                <br>
+                <div>
+                    <label for="id_employee">Select Employee:</label>
+                    <select name="employee" id="id_employee" class="border-slate-900 border rounded-lg w-[175px] indent-4 my-2 md:ml-16">
+                        <option value="None">---------</option>
+                        {% for employee in employees%}
+                        <option value="{{employee.id}}">{{employee.profile.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="my-5">
+                    <label for="id_pickup_date">Pickup Date:</label>
+                    <input type="date" name="pickup_date" id="id_pickup_date" class="ml-3 md:ml-[115px]">
+                </div>
                 <input type="text" value="{{Waste.recycler}}" hidden>
                 <input type="date" value="{{Waste.dropdown_date}}" hidden>
                 {% endif %}
-                <input type="submit" name="submit" class="border-[1px] bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white rounded-lg p-[3px]">
-                <button type="button" class="closeModal border-[1px] bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white rounded-lg p-[3px]">Cancel</button>
+                <br>
+                <div class="flex flex-row gap-5 items-center place-content-center">
+                    <input type="submit" name="submit" class="border-[1px] bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white rounded-lg p-[3px] w-1/3">
+                    <button type="button" class="closeModal border-[1px] bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white rounded-lg p-[3px] w-1/3">Cancel</button>
+                </div>
             </form>
             </div>
         </div>
