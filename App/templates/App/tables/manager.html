@@ -34,15 +34,15 @@
                     {% for waste in update_pickup %}
                     <tr>
                         <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.company.profile.name}}</span><br>{{waste.company.profile.phone}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.company.profile.name}}</span><br>{{waste.company.profile.phone}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.type}}<br><span class="font-bold">{{waste.weight}}</span></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.company.profile.location}},{{waste.company.profile.street}}<br>{{waste.company.profile.city}}</td>
                         <td class="border-b border-slate-300 h-20 w-max">{{waste.entry_date}}</td>
-                        <td class="border-b border-slate-300 border-r">
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 <input type="text" name="id" id="id_id" value="{{waste.id}}" hidden>
-                                <button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Update</button>
+                                <button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px] w-max">Update</button>
                             </form>
                         </td>
                     </tr>
@@ -80,16 +80,16 @@
                     {% for waste in pickup %}
                     <tr>
                         <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.company.profile.name}}</span><br>{{waste.company.profile.phone}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.company.profile.name}}</span><br>{{waste.company.profile.phone}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.type}}<br><span class="font-bold">{{waste.weight}}</span></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.company.profile.location}},{{waste.company.profile.street}}<br>{{waste.company.profile.city}}</td>
                         <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.employee.profile.name}}</span><br>{{waste.employee.profile.phone}}</td>
                         <td class="border-b border-slate-300 h-20 w-max">{{waste.pickup_date}}</td>
-                        <td class="border-b border-slate-300 border-r">
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             {% if waste.pickup_done %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Picked Up</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800 w-max">Picked Up</button>
                             {% else %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Not Picked Up</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800 w-max">Not Picked Up</button>
                             {% endif %}
                         </td>
                     </tr>
@@ -124,9 +124,9 @@
                     {% for waste in update_dropdown %}
                     <tr>
                         <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.pickup_date}}</td>
-                        <td class="border-b border-slate-300 border-r"><form action="" method="POST">{% csrf_token %}<input type="text" name="id" id="id_id" value="{{waste.id}}" hidden><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Update</button></form></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.type}}<br><span class="font-bold">{{waste.weight}}</span></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.pickup_date}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max border-r"><form action="" method="POST">{% csrf_token %}<input type="text" name="id" id="id_id" value="{{waste.id}}" hidden><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Update</button></form></td>
                     </tr>
                     {% endfor %} 
                 </tbody>
@@ -162,16 +162,16 @@
                     {% for waste in dropdown %}
                     <tr>
                         <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.recycler.profile.name}}</span><br>{{waste.recycler.profile.phone}}</td>
-                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.type}}<br><span class="font-bold">{{waste.weight}}</span></td>
+                        <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.recycler.profile.name}}</span><br>{{waste.recycler.profile.phone}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}}<br>{{waste.recycler.profile.city}}</td>
                         <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.employee.profile.name}}</span><br>{{waste.employee.profile.phone}}</td>
                         <td class="border-b border-slate-300 h-20 w-max">{{waste.dropdown_date}}</td>
-                        <td class="border-b border-slate-300 border-r">
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             {% if waste.dropdown_done %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Delivered</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800 w-max">Delivered</button>
                             {% else %}
-                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800">Not Delivered</button>
+                            <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-red-200 text-red-800 border-[1px] border-red-800 w-max">Not Delivered</button>
                             {% endif %}
                         </td>
                     </tr>

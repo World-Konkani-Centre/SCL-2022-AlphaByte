@@ -33,15 +33,15 @@
                     {% for waste in wastes %}
                     <tr>
                         <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full"><div class="font-bold">{{waste.id}}</div></td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
-                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.employee.profile.name}}</span><br>{{waste.employee.profile.phone}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.type}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.employee.profile.name}}</span><br>{{waste.employee.profile.phone}}</td>
                         <td class="border-b border-slate-300 h-20 w-max">{{waste.dropdown_date}}</td>
-                        <td class="border-b border-slate-300 h-20 w-max">
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             {% if waste.dropdown_done %}
-                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Delivered</button>
+                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Delivered</button>
                             {% else %}
-                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Not Delivered</button>
+                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Not Delivered</button>
                             {% endif %}
                         </td>
                     </tr>

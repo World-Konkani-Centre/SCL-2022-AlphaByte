@@ -34,12 +34,12 @@
                     {% for waste in wastes %}
                     <tr>
                         <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><div class="font-bold mr-2">{{waste.type}}</div></td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.entry_date}}</td>
-                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max"><div class="font-bold mr-2">{{waste.type}}</div></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.entry_date}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
                         <td class="border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
                         <td class="border-b border-slate-300 h-20 w-max">{{waste.pickup_date}}</td>
-                        <td class="border-b border-slate-300 border-r h-20">
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             {% if waste.pickup_done %}
                             <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-900 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Picked Up</button>
                             {% else %}
