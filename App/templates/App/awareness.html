@@ -14,35 +14,45 @@
 
 <body class="bg-black">
     {% block content %}
-  <div class="bg-slate-900 flex w-full min-h-screen flex-col">
-    <div class="text-white text-[1.1rem]">
+  <div class="bg-slate-900 flex w-full min-h-screen flex-col font-space">
+    <div class="text-white text-sm md:text-lg lg:text-xl">
       <div class="flex flex-wrap">
-      <img  class="max-w-[80%] mx-auto md:max-w-[45%] my-auto" src="{% static '/IMGS/logo1.png' %}" alt="">
-      <div class="md:max-w-[55%] px-[25px]">
-        <h1 class="text-green-300 text-6xl p-8">Giving back to the Community</h1><p>
-        Effective communication between waste management organisations and citizens is essential to the efficient operation of waste management services. Citizens need to know what services are available to them, and the schedule and requirements of that service, in order for those services to be efficiently used. Citizens are also more likely to undertake waste sorting and recycling activities if they know what happens to waste that is sent for recycling, and the associated environmental benefits.
-        An effective way to improve attitudes towards waste reuse and recycling is to integrate waste management education into school curriculum and particularly teaching children about the causes and consequences of waste disposal and highlighting the importance of waste prevention, reuse and recycling. This is one of the things that we aim to do.
-        </p><button class="bg-green-300 text-blackd py-2 px-4 rounded my-8 mx-8">Join us!</button></div>
-      </div>
+        <img  class="max-w-[80%] mx-auto lg:max-w-[45%] my-auto" src="{% static '/IMGS/logo1.png' %}" alt="">
+          <div class="lg:max-w-[55%] lg:px-10 px-3">
+            <h1 class="text-green-300 text-3xl md:text-5xl lg:text-7xl px-3 py-7 lg:p-5">Giving back to the Community</h1>
+            <p>
+            Effective communication between waste management organisations and citizens is essential to the efficient operation of waste management services. Citizens need to know what services are available to them, and the schedule and requirements of that service, in order for those services to be efficiently used. Citizens are also more likely to undertake waste sorting and recycling activities if they know what happens to waste that is sent for recycling, and the associated environmental benefits.
+            </p>
+            <button class="bg-green-300 hover:bg-green-400 text-slate-900 py-2 px-4 rounded my-5">Join Us!</button>
+          </div>
+          <p class="px-3 lg:px-16 my-5">
+            An effective way to improve attitudes towards waste reuse and recycling is to integrate waste management education into school curriculum and particularly teaching children about the causes and consequences of waste disposal and highlighting the importance of waste prevention, reuse and recycling. This is one of the things that we aim to do.</p>
+      </div>  
       <div class="mb-[75px]"> 
-      <p class="mx-[50px]">Best practice in awareness-raising is to effectively encourage waste prevention, reuse and recycling behaviour within the waste collection catchment area. Ultimately, this should translate into improved performance across key waste generation and separation indicators. Particular emphasis is placed on reaching all stakeholders, including non-native speakers via multilingual or pictorial communication ad via school activities.</p>
-      <br>
-      <ul class="list-none mx-[50px]"> Best practices for awareness-raising campaigns need to:
-      <li>Ensure continuity, consistency, complementarity and clarity of all communications with well-defined aims and objectives;</li>
-      <li>create clear messages appropriate to, and directed at, well-defined target audiences;</li>
-      <li>ensure efficient delivery through the integration of activities and clear lines of responsibility.</li>
-      </ul><br>
-      <p class="mx-[50px]">Well designed and developed awareness campaigns may contribute to the overcome of the two main barriers to recycling; the lack of knowledge where information about proper waste segregation is communicated to the citizens and changing attitudes and perceptions and keep people motivated to avoid and sort waste. We hope to bridge this very gap with UpCycle.</p>
+        <p class="mx-3 lg:mx-16">Best practice in awareness-raising is to effectively encourage waste prevention, reuse and recycling behaviour within the waste collection catchment area. Ultimately, this should translate into improved performance across key waste generation and separation indicators. Particular emphasis is placed on reaching all stakeholders, including non-native speakers via multilingual or pictorial communication ad via school activities.</p>
+        <br>
+        <ul class="list-disc mx-7 lg:mx-16"> Best practices for awareness-raising campaigns need to:
+          <li>Ensure continuity, consistency, complementarity and clarity of all communications with well-defined aims and objectives;</li>
+          <li>create clear messages appropriate to, and directed at, well-defined target audiences;</li>
+          <li>ensure efficient delivery through the integration of activities and clear lines of responsibility.</li>
+        </ul>
+        <br>
+        <p class="mx-3 lg:mx-16">Well designed and developed awareness campaigns may contribute to the overcome of the two main barriers to recycling; the lack of knowledge where information about proper waste segregation is communicated to the citizens and changing attitudes and perceptions and keep people motivated to avoid and sort waste. We hope to bridge this very gap with UpCycle.</p>
       </div>
     </div>
-    <div class=" px-6 text-white"><hr><br><br></div>
-    <div class="flex flex-wrap">
-      <div class="text-white shadow-lg border-2 px-6 py-4 rounded max-w-[175px] sm:max-w-[250px] mx-[15px] sm:mx-[25px] my-[25px]"><div class="font-bold text-xl mb-2 text-white">Step 1 </div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-      <div class="text-white shadow-lg border-2 px-6 py-4 rounded max-w-[175px] sm:max-w-[250px] mx-[15px] sm:mx-[25px] my-[25px]"><div class="font-bold text-xl mb-2 text-white">Step 2</div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-      <div class="text-white shadow-lg border-2 px-6 py-4 rounded max-w-[175px] sm:max-w-[250px] mx-[15px] sm:mx-[25px] my-[25px]"><div class="font-bold text-xl mb-2 text-white">Step 3</div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-      <div class="text-white shadow-lg border-2 px-6 py-4 rounded max-w-[175px] sm:max-w-[250px] mx-[15px] sm:mx-[25px] my-[25px]"><div class="font-bold text-xl mb-2 text-white">Step 4</div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-    </div>
+    <hr class="border-white">
+      <div class="flex flex-col lg:flex-row items-center place-content-center gap-4">
+        <div class="flex flex-col md:flex-row items-center place-content-around gap-2 lg:gap-6">
+          <div class="text-white shadow-lg border-2 px-6 py-4 rounded w-60 md:w-72 lg:w-60 mx-auto my-5 md:mt-10 md:mb-4 lg:mt-[25px] lg:mb-10"><div class="font-bold text-xl mb-2 text-white">Step 1 </div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+          <div class="text-white shadow-lg border-2 px-6 py-4 rounded w-60 md:w-72 lg:w-60 mx-auto my-5 md:mt-10 md:mb-4 lg:mt-[25px] lg:mb-10"><div class="font-bold text-xl mb-2 text-white">Step 2</div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+        <div class="flex flex-col md:flex-row items-center place-content-around gap-2 lg:gap-6">
+          <div class="text-white shadow-lg border-2 px-6 py-4 rounded w-60 md:w-72 lg:w-60 mx-auto my-5 md:mb-10 md:mt-4 lg:mt-[25px] lg:mb-10"><div class="font-bold text-xl mb-2 text-white">Step 3</div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+          <div class="text-white shadow-lg border-2 px-6 py-4 rounded w-60 md:w-72 lg:w-60 mx-auto my-5 md:mb-10 md:mt-4 lg:mt-[25px] lg:mb-10"><div class="font-bold text-xl mb-2 text-white">Step 4</div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        </div>
+      </div>
   </div>
     {% endblock %}
 </body>
 </html>
+

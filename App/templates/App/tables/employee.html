@@ -12,34 +12,34 @@
 
 <body>
     {% block content %}
-    <div class="content bg-slate-900 p-24">
-        <div class="min-w-full font-space">
-            <h1 class="text-green-300 text-7xl font-bold ">Hello,{{user.profile.name}}</h1>
+    <div class="content bg-slate-900 p-5 md:p-10 lg:p-24">
+        <div class="min-w-full font-space mr-2 flex flex-col w-full lg:w-4/5">
+            <h1 class="text-green-300 text-3xl md:text-5xl lg:text-7xl font-bold mr-2 mb-10">Hello,{{user.profile.name}}</h1>
         </div>
 
-        <h3 class="text-white text-[1.5rem] font-inter font-bold mt-[75px]">Update Pickup Details</h3>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
-            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+        <h3 class="text-white text-lg md:text-xl lg:text-3xl mr-2 mb-5 font-space">PickUp Schedule</h3>
+        <div class="Table w-full lg:min-w-4/5 p-1 lg:p-2 bg-slate-50 rounded-2xl overflow-auto lg:overflow-hidden">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-xs lg:text-sm opacity-90 text-center font-inter mr-2">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl">ID</th>
-                        <th>Company Name</th>
-                        <th>Type/Weight</th>
-                        <th>Location</th>
-                        <th>Map Location</th>
-                        <th>Status</th>
-                        <th class="rounded-tr-xl">Action</th>
+                        <th class="rounded-tl-xl px-4 py-1 w-min md:w-max">ID</th>
+                        <th class="px-4 py-1">Company Name</th>
+                        <th class="px-4 py-1">Type/Weight</th>
+                        <th class="px-4 py-1">Location</th>
+                        <th class="px-4 py-1">Map Location</th>
+                        <th class="px-4 py-1">Status</th>
+                        <th class="rounded-tr-xl px-4 py-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in Pwastes_today %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.name}}<br>{{waste.company.profile.phone}}</td>
-                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.state}}</td>
-                        <td class="border-b border-slate-300"><label for="id_pickup_done">
+                        <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.company.profile.name}}</span><br>{{waste.company.profile.phone}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.company.profile.state}}</td>
+                        <td class="border-b border-slate-300 border-r"><label for="id_pickup_done">
                             {% if waste.pickup_done %}
                             <button type="button" class="switch px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Pickup Done</button>
                             {% else %}
@@ -60,40 +60,40 @@
                     {% endfor %} 
                 </tbody>
             </table>
-            <div class="w-full text-[1 rem] h-5 my-4 text-center">
-                {% if Pwastes_today.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page1=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{Pwastes_today.number}} of {{Pwastes_today.paginator.num_pages}}</button>
-                {% if Pwastes_today.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>
+        </div>
+        <div class="w-full text-[1rem] h-5 text-center text-white text-lg md:text-xl lg:text-2xl mb-20 font-space">
+            {% if Pwastes_today.has_previous %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page1=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+            {% endif %}
+            <button class="p-[5px] m-[5px]" type="button">Page {{Pwastes_today.number}} of {{Pwastes_today.paginator.num_pages}}</button>
+            {% if Pwastes_today.has_next %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page1={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+            {% endif %}
         </div>
 
-        <h3 class="text-white text-[1.5rem] font-inter font-bold">Pickup Details</h3>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto mb-[75px]">
+        <h3 class="text-white text-lg md:text-xl lg:text-3xl mr-2 mb-5 font-space">PickUp Status</h3>
+        <div class="Table w-full lg:min-w-4/5 p-1 lg:p-2 bg-slate-50 rounded-2xl overflow-auto lg:overflow-hidden">
             <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl">ID</th>
-                        <th>Company Name</th>
-                        <th>Type/Weight</th>
-                        <th>Location</th>
-                        <th>Map Location</th>
-                        <th class="rounded-tr-xl">Status</th>
+                        <th class="rounded-tl-xl px-4 py-1 w-min md:w-max">ID</th>
+                        <th class="px-4 py-1">Company Name</th>
+                        <th class="px-4 py-1">Type/Weight</th>
+                        <th class="px-4 py-1">Location</th>
+                        <th class="px-4 py-1">Map Location</th>
+                        <th class="rounded-tr-xl px-4 py-1">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in Pwastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.name}}<br>{{waste.company.profile.phone}}</td>
-                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
-                        <td class="border-b border-slate-300">{{waste.company.profile.state}}</td>
+                        <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.company.profile.name}}</span><br>{{waste.company.profile.phone}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.company.profile.location}},{{waste.company.profile.street}},{{waste.company.profile.city}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.company.profile.state}}</td>
                         <td class="border-b border-slate-300 border-r">
                             {% if waste.pickup_done %}
                             <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Pickup Done</button>
@@ -105,40 +105,40 @@
                     {% endfor %} 
                 </tbody>
             </table>
-            <div class="w-full text-[1 rem] h-5 my-4 text-center">
-                {% if Pwastes.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page3=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{Pwastes.number}} of {{Pwastes.paginator.num_pages}}</button>
-                {% if Pwastes.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>
+        </div>
+        <div class="w-full text-[1rem] h-5 text-center text-white text-lg md:text-xl lg:text-2xl mb-20 font-space">
+            {% if Pwastes.has_previous %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page3=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+            {% endif %}
+            <button class="p-[5px] m-[5px]" type="button">Page {{Pwastes.number}} of {{Pwastes.paginator.num_pages}}</button>
+            {% if Pwastes.has_next %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page3={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+            {% endif %}
         </div>
 
-        <h3 class="text-white text-[1.5rem] font-inter font-bold">Update Dropdown Details</h3>
-        <div class="Table mb-[75px] min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
-            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+        <h3 class="text-white text-lg md:text-xl lg:text-3xl mr-2 mb-5 font-space">Deliveries Scheduled</h3>
+        <div class="Table w-full lg:min-w-4/5 p-1 lg:p-2 bg-slate-50 rounded-2xl overflow-auto lg:overflow-hidden">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-xs lg:text-sm opacity-90 text-center font-inter mr-2">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl">ID</th>
-                        <th>Company Name</th>
-                        <th>Type/Weight</th>
-                        <th>Location</th>
-                        <th>Map Location</th>
-                        <th>Status</th>
-                        <th class="rounded-tr-xl">Action</th>
+                        <th class="rounded-tl-xl px-4 py-1 w-min md:w-max">ID</th>
+                        <th class="px-4 py-1">Company Name</th>
+                        <th class="px-4 py-1">Type/Weight</th>
+                        <th class="px-4 py-1">Location</th>
+                        <th class="px-4 py-1">Map Location</th>
+                        <th class="px-4 py-1">Status</th>
+                        <th class="rounded-tr-xl px-4 py-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in Dwastes_today %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.name}}<br>{{waste.recycler.profile.phone}}</td>
-                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
+                        <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.recycler.profile.name}}</span><br>{{waste.recycler.profile.phone}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
                         <td class="border-b border-slate-300">{{waste.recycler.profile.state}}</td>
                         <td class="border-b border-slate-300"><label for="id_pickup_done">
                             {% if waste.dropdown_done %}
@@ -160,40 +160,40 @@
                     {% endfor %} 
                 </tbody>
             </table>
-            <div class="w-full text-[1 rem] h-5 my-4 text-center">
-                {% if Dwastes_today.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page2=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{Dwastes_today.number}} of {{Dwastes_today.paginator.num_pages}}</button>
-                {% if Dwastes_today.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>
+        </div>
+        <div class="w-full text-[1rem] h-5 text-center text-white text-lg md:text-xl lg:text-2xl mb-20 font-space">
+            {% if Dwastes_today.has_previous %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page2=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+            {% endif %}
+            <button class="p-[5px] m-[5px]" type="button">Page {{Dwastes_today.number}} of {{Dwastes_today.paginator.num_pages}}</button>
+            {% if Dwastes_today.has_next %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page2={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+            {% endif %}
         </div>
  
-        <h3 class="text-white text-[1.5rem] font-inter font-bold">Dropdown Details</h3>
-        <div class="Table min-w-1/2 p-2 bg-slate-50 rounded-2xl overflow-auto">
-            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+        <h3 class="text-white text-lg md:text-xl lg:text-3xl mr-2 mb-5 font-space">Delivery Status</h3>
+        <div class="Table w-full lg:min-w-4/5 p-1 lg:p-2 bg-slate-50 rounded-2xl overflow-auto lg:overflow-hidden">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-xs lg:text-sm opacity-90 text-center font-inter mr-2">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl">ID</th>
-                        <th>Company Name</th>
-                        <th>Type/Weight</th>
-                        <th>Location</th>
-                        <th>Map Location</th>
-                        <th class="rounded-tr-xl">Status</th>
+                        <th class="rounded-tl-xl px-4 py-1 w-min md:w-max">ID</th>
+                        <th class="px-4 py-1">Company Name</th>
+                        <th class="px-4 py-1">Type/Weight</th>
+                        <th class="px-4 py-1">Location</th>
+                        <th class="px-4 py-1">Map Location</th>
+                        <th class="rounded-tr-xl px-4 py-1">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in Dwastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l">{{waste.id}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.name}}<br>{{waste.recycler.profile.phone}}</td>
-                        <td class="border-b border-slate-300">{{waste.type}} - {{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
-                        <td class="border-b border-slate-300">{{waste.recycler.profile.state}}</td>
+                        <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.recycler.profile.name}}</span><br>{{waste.recycler.profile.phone}}</td>
+                        <td class="text-center px-4 py-1 border-b border-slate-300 h-20 w-max">{{waste.type}} - {{waste.weight}}</td>
+                        <td class="text-center py-1 border-b border-slate-300 h-20 w-max">{{waste.recycler.profile.location}},{{waste.recycler.profile.street}},{{waste.recycler.profile.city}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.recycler.profile.state}}</td>
                         <td class="border-b border-slate-300 border-r">
                             {% if waste.dropdown_done %}
                             <button type="button" class="px-[5px] py-[3px] my-[3px] rounded-[5px] bg-green-200 text-green-800 border-[1px] border-green-800">Dropdown Done</button>
@@ -205,17 +205,17 @@
                     {% endfor %} 
                 </tbody>
             </table>
-            <div class="w-full text-[1 rem] h-5 my-4 text-center">
-                {% if Dwastes.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page4=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{Dwastes.number}} of {{Dwastes.paginator.num_pages}}</button>
-                {% if Dwastes.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>
+        </div>
+        <div class="w-full text-[1rem] h-5 text-center text-white text-lg md:text-xl lg:text-2xl mb-20 font-space">
+            {% if Dwastes.has_previous %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page4=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+            {% endif %}
+            <button class="p-[5px] m-[5px]" type="button">Page {{Dwastes.number}} of {{Dwastes.paginator.num_pages}}</button>
+            {% if Dwastes.has_next %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page4={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+            {% endif %}
         </div>
     </div>
     {% endblock %}
