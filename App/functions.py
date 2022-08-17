@@ -1,7 +1,11 @@
 from .models import Waste
 from django.contrib.auth.models import Group,User
 
-def chartFunc(wastedata,types):
+
+
+types = ['STEEL','E-WASTE','BIO-DEGRADABLE','PAPER']
+
+def chartFunc(wastedata):
     data=[[],[],[],[]]
     for i in range(0,4):
         for j in range(0,12):
@@ -53,3 +57,26 @@ def checkWaste(type,date,user):
         if typeSort is not None:
             return typeSort.id
     return None
+
+def checkRewards(user):
+    data = [0,0,0,0]
+    if user.groups.all()[1].name == 'Recycler':
+        all_wastes = Waste.objects.filter(recycler=user,dropdown_done=True)
+    elif user.groups.all()[1].name == 'Company':
+        all_wastes = Waste.objects.filter(company=user,pickup_done=True)
+    for waste in all_wastes:
+        if waste.type == types[0]:
+            data[0] += int(waste.weight)
+        elif waste.type == types[1]:
+            data[1] += int(waste.weight)
+        elif waste.type == types[2]:
+            data[2] += int(waste.weight)
+        else:
+            data[3] += int(waste.weight)
+    disdata = [0,0,0,0]
+    preReward = 0
+    for i in range(4):
+        disdata[i] = data[i]%100
+        preReward += int(data[i]/100)
+    dicts = {'data':disdata,'preReward':preReward}
+    return dicts

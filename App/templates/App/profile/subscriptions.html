@@ -140,7 +140,7 @@
             <form action="/User/Success/" method="POST" id="form">
                 {%csrf_token%}
                 <script src="https://checkout.razorpay.com/v1/checkout.js"    
-                    data-key="rzp_test_zdPB2yUq5SbCeW"  
+                    data-key="{{key}}"  
                     data-amount="{{payment.amount}}"
                     data-currency="INR"
                     data-order_id="{{payment.id}}"   
