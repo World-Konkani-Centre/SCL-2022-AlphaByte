@@ -189,8 +189,9 @@ def report(request):
 @login_required(login_url='login')
 @allowed_user(allowed_roles=['admin','Recycler'])
 def schedule(request):
-    if not request.user.subscription.paid:
-        return redirect('subscription')
+    sub = Subscription.objects.filter(name = request.user).first()
+    if not sub.paid:
+        return redirect('subscriptions')
     groups = grouplist(request.user)
     user = User.objects.get(username = request.user.username)
     all_wastes = Waste.objects.filter(recycler = user).order_by('dropdown_date')
@@ -205,8 +206,9 @@ def schedule(request):
 @allowed_user(allowed_roles=['admin','Company'])
 def addWaste(request):
     groups = grouplist(request.user)
-    if not request.user.subscription.paid:
-        return redirect('subscription')
+    sub = Subscription.objects.filter(name = request.user).first()
+    if not sub.paid:
+        return redirect('subscriptions')
     user = User.objects.get(username = request.user.username)
     all_wastes = Waste.objects.filter(company = user).order_by('-entry_date')
     W = Paginator(all_wastes,10)
@@ -324,7 +326,7 @@ def subscriptions(request):
     return render(request,'App/profile/subscriptions.html',context)
     
 @login_required(login_url='login')
-@allowed_user(allowed_roles=['admin','Recycler'])
+@allowed_user(allowed_roles=['admin','Recycler','Company'])
 @csrf_exempt
 def successpayment(request):
     if request.method == 'POST':

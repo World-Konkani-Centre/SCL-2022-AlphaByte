@@ -12,155 +12,171 @@
 
 <body>
     {% block content %}
-    <div class="content bg-slate-900 p-24">
-        <div class="min-w-full font-space my-24">
-            <h1 class="text-green-300 text-7xl font-bold ">Hello, {{user.profile.name}}</h1>
-            <button type="button" class="closeAddWaste my-9 w-fit bg-green-300 px-2 rounded-md absolute right-24">Add Items For Recycling</button>
+    <div class="content bg-slate-900 min-h-screen p-5 md:p-10 lg:p-24">
+        <div class="min-w-full font-space mr-2 flex flex-col w-full lg:w-4/5">
+            <h1 class="text-green-300 text-3xl md:text-5xl lg:text-7xl font-bold mr-2 ">Hello, {{user.profile.name}}</h1>
+            <button type="button" class="closeAddWaste my-9 w-fit bg-green-300 px-2 rounded-md">Add Items For Recycling</button>
         </div>
-        <div class="Table min-w-4/5 p-2 bg-slate-50 rounded-2xl overflow-auto">
-            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+        <div class="Table w-full lg:min-w-4/5 p-1 lg:p-2 bg-slate-50 rounded-2xl overflow-auto lg:overflow-hidden">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-xs lg:text-sm opacity-90 text-center font-inter mr-2">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl text-center px-4 py-1 w-[150px] md:w-[300px]">ID</th>
+                        <th class="rounded-tl-xl px-4 py-1 w-min md:w-max">ID</th>
                         <th class="px-4 py-1">Type</th>
                         <th class="px-4 py-1">Entry Date</th>
-                        <th>Quantity</th>
-                        <th>Approx. Price</th>
-                        <th>Pickup Date</th>
-                        <th class="rounded-tr-xl">Action</th>
+                        <th class="px-4 py-1">Quantity</th>
+                        <th class="px-4 py-1">Approx. Price</th>
+                        <th class="px-4 py-1">Pickup Date</th>
+                        <th class="rounded-tr-xl px-4 py-1">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in wastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l flex">{{waste.id}}</td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300"><div class="font-bold">{{waste.type}}</div></td>
-                        <td class="text-center px-4 py-1 border-b border-slate-300">{{waste.entry_date}}</td>
-                        <td class="text-center py-1 border-b border-slate-300">{{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.pickup_date}}</td>
-                        <td class="border-b border-slate-300 border-r">
+                        <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full">{{waste.id}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max"><div class="font-bold mr-2">{{waste.type}}</div></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.entry_date}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.pickup_date}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             {% if waste.pickup_done %}
-                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Picked Up</button>
+                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-900 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Picked Up</button>
                             {% else %}
-                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Not Picked Up</button>
+                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-900 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Not Picked Up</button>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %} 
                 </tbody>
-            </table>
-            <div class="w-full text-[1rem] h-5 my-4 text-center">
-                {% if wastes.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{wastes.number}} of {{wastes.paginator.num_pages}}</button>
-                {% if wastes.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>   
+            </table> 
         </div>
-        <div class="flex flex-wrap gap-8 my-8 mt-16 justify-center">
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+        <div class="w-full text-[1rem] h-5 text-center text-white text-lg md:text-xl lg:text-2xl font-space">
+            {% if wastes.has_previous %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+            {% endif %}
+            <button class="p-[5px] m-[5px]" type="button">Page {{wastes.number}} of {{wastes.paginator.num_pages}}</button>
+            {% if wastes.has_next %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+            {% endif %}
+        </div>   
+        <h1 class="text-lg md:text-xl lg:text-3xl text-slate-50 font-spac mr-2e mt-10 lg:mt-24 text-center hidden">Approx Prices</h1>
+        <div class="flex flex-wrap gap-8 my-8 mt-16 justify-center font-spac mr-2e hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
-                <div class="bg-slate-300 text-slate-900 h-60 min-w-[224px] max-w-[224px] rounded-2xl mb-5">
-                    <div class="relative bg-zinc-50 w-4/5 h-32 mx-auto bottom-7 rounded-2xl overflow-hidden">
+                <div class="bg-slate-300 text-slate-900 h-32 w-[120px] md:h-48 md:w-[224px] lg:h-60 rounded-2xl mb-2 lg:mb-5">
+                    <div class="relative bg-zinc-50 w-4/5 h-20 md:h-32 lg:h-32 mx-auto bottom-5 lg:bottom-7 rounded-2xl overflow-hidden">
                         <img src="{% static '/IMGS/Paper.jpg' %}" class="h-full"/>
                     </div>
-                    <h3 class="block text-center text-green-800 text-2xl mb-3">Paper</h3>
-                    <p class="block text-center text-slate-800 text-lg">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
+                    <h3 class="relative bottom-5 lg:bottom-2 text-center text-green-800 text-md md:text-lg lg:text-2xl mt-2">Paper</h3>
+                    <p class="relative bottom-5 lg:bottom-2 text-center text-slate-800 text-sm md:text-md lg:text-2xl">Price: <span id="price" class="slashed-zero">20</span> per Kg</p>
                 </div>
         </div>
     </div>
     
 
-    <div class="flex fixed top-0 left-0 w-full h-screen bg-[#00000080] z-[990] hidden" id="modalAddWaste">
+    <div class="flex fixed top-0 left-0 w-full h-screen bg-[#00000080] z-[990] hidden font-space mr-2" id="modalAddWaste">
         <div class="relative flex m-auto p-[20px] w-[300px] sm:w-[600px] bg-white rounded-lg">
             <button type="button" class="closeAddWaste absolute top-[10px] sm:top-[20px] right-[10px] sm:right-[20px] text-black"><i class="bi bi-x-lg text-[1.25rem]"></i></button>
-            <form action="" method="POST" class="w-full">
+            <form action="" method="POST" class="w-full md:w-5/6 md:mx-auto">
                 {% csrf_token %}
-                <h1 class="text-center text-forestgreen text-[2rem] mb-[20px]">Add Waste</h1>
-                <div class="mb-[25px] text-[1.05rem]"><label class="font-bold" for="id_id">ID:</label><input type="text" name="id" id="id_id" value="{{uuid}}" hidden> {{uuid}} </div>
-                <div class="mb-[25px] text-[1.05rem] flex flex-wrap space-between">
-                    <div class="mb-[10px] mr-[30px]"><label class="font-bold" for="id_company">Company Name:</label><input type="text" name="company" id="id_company" value="{{user.id}}" hidden> <span>{{user.username}}</span></div> 
-                    <div><label class="font-bold" for="id_entry_date">Date:</label><input type="date" id="id_entry_date" name="entry_date" value="{{date}}" hidden> <span>{{date}}</span></div>
+                <h1 class="text-center text-forestgreen text-[2rem] mb-[10px]">Add Waste</h1>
+                <div class="mb-[10px] text-[1.05rem]">
+                    <label class="font-bold mr-2" for="id_id">ID:</label>
+                    <input type="text" name="id" id="id_id" value="{{uuid}}" hidden>{{uuid}}<input/>
                 </div>
-                <div class="mb-[25px] text-[1.05rem] flex flex-wrap space-between">
-                    <div class="mb-[10px] mr-[40px]"><label class="font-bold" for="id_weight">Weight:</label><input class="w-[150px] border-none outline-none" type="number" step="0.5" name="weight" id="id_weight"></div>
-                    <div><label class="font-bold" for="id_type">Type:</label><select name="type" id="id_type" class="border-none outline-none">
-                    <option value="-------" selected>-------</option>
-                    <option value="STEEL">Steel</option>
-                    <option value="BIO-DEGRADABLE">Bio-Degradable</option>
-                    <option value="PAPER">Paper</option>
-                    <option value="E-WASTE">E-Waste</option>
-                    </select></div>
+                <div class="mb-[10px] text-[1.05rem] flex flex-wrap space-between">
+                    <div class="mb-[10px] mr-[40px]">
+                        <label class="font-bold mr-2" for="id_company">Company Name:</label>
+                        <input type="text" name="company" id="id_company" value="{{user.id}}" hidden><span>{{user.username}}</span></input>
+                    </div> 
+                    <div>
+                        <label class="font-bold mr-2" for="id_entry_date">Date:</label>
+                        <input type="date" id="id_entry_date" name="entry_date" value="{{date}}" hidden> <span>{{date}}</span></input>
+                    </div>
                 </div>
-                <div class="flex my-[25px] w-full">
-                <button type="submit" class="mx-auto border-[1px] hover:bg-green-800 border-green-800 text-green-800 hover:text-white bg-white px-[5px] py-[3px] text-[1rem] rounded-[3px]">Submit</button>
-                <button type="reset" class="closeAddWaste mx-auto border-[1px] hover:bg-red-800 border-red-800 text-red-800 hover:text-white bg-white px-[5px] py-[3px] text-[1rem] rounded-[3px]">Cancel</button>
+                <div class="mb-[20px] text-[1.05rem] flex flex-wrap space-between">
+                    <div class="mb-[10px] mr-[110px]">
+                        <label class="font-bold mr-2" for="id_weight">Weight:</label><br>
+                        <input class="w-[150px] border-slate-900 border rounded-lg indent-4" type="number" step="0.5" name="weight" id="id_weight">
+                    </div>
+                    <div>
+                        <label class="font-bold mr-2" for="id_type">Type:</label><br>
+                        <select name="type" id="id_type" class="border-slate-900 border rounded-lg w-[175px] indent-4">
+                            <option value="-------" selected>-------</option>
+                            <option value="STEEL">Steel</option>
+                            <option value="BIO-DEGRADABLE">Bio-Degradable</option>
+                            <option value="PAPER">Paper</option>
+                            <option value="E-WASTE">E-Waste</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex flex-row w-3/4 lg:w-1/2 mx-auto">
+                    <button type="submit" class="mx-auto border-[1px] hover:bg-green-800 border-green-800 text-green-800 hover:text-white bg-white px-[5px] py-[3px] text-[1rem] rounded-[3px]">Submit</button>
+                    <button type="reset" class="closeAddWaste mx-auto border-[1px] hover:bg-red-800 border-red-800 text-red-800 hover:text-white bg-white px-[5px] py-[3px] text-[1rem] rounded-[3px]">Cancel</button>
                 </div>
             </form>
         </div>
