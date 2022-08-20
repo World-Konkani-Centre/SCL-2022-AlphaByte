@@ -32,10 +32,11 @@
 {%load static%}
 <body>
     <div class="flex flex-col place-content-center items-center min-h-screen min-w-screen bg-slate-900">
-        <h1 class="text-[100px] text-green-300 font-space">Oops!</h1><br>
-        <h3 class="text-[20px] text-green-300 font-space">404 - PAGE NOT FOUND</h3><br>
-        <h3 class="text-center text-green-300 font-space">The page you are looking for might have been removed<br> had its name changed or is temporarily unavailable.</h3>
-        <a href="/" class="text-center my-9 w-fit bg-green-300 px-2 rounded-md">Click Here To Continue Your Journey Towards Sustainability.</a>
+        <h1 class="text-xl md:text-3xl lg:text-5xl py-2 lg:py-10 text-center text-green-300 font-space">Oops!</h1><br>
+        <img src="{% static 'IMGS/failed.png'%}" class="w-32 md:w-64 lg:w-96 h-auto mx-auto mb-4"/>
+        <h3 class="text-xl md:text-2xl lg:text-3xl py-2 lg:py-10 text-center text-green-300 font-space">404 - PAGE NOT FOUND</h3><br>
+        <h3 class="text-lg md:text-xl lg:text-2xl text-center text-green-300 font-space">The page you are looking for might have been removed<br> had its name changed or is being Upcycled.</h3>
+        <a href="/" class="text-center my-9 w-fit bg-green-300 px-2 rounded-md">Click Here To Return To Home Page</a>
     </div>
 </body>
 </html>

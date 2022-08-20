@@ -10,6 +10,24 @@
 {%load static%}
 <body>
     {% block data %}
+    
+    <div>
+        <h1>Steel:{{data.0}}</h1>
+        <h1>E-Waste:{{data.1}}</h1>
+        <h1>Bio-Degradable:{{data.2}}</h1>
+        <h1>Paper:{{data.3}}</h1>
+        <h1>Rewards to Be Claimed:{{reward}}</h1>
+    </div>
+    {% if reward %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="number" name="rewardamt" id="id_rewardamt" value="{{reward}}" hidden>
+        <button type="submit">Claim Reward</button>
+    </form>
+    {% else %}
+    <button type="button">Claim Reward</button>
+    {% endif %}
+    
     {% endblock %}
 </body>
 </html>

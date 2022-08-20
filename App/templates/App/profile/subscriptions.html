@@ -10,75 +10,78 @@
 {%load static%}
 <body>
     {% block data %}
-    <h2 class="text-5xl text-center font-space py-2">Subscriptions</h2>
+    <h2 class="text-xl md:text-3xl lg:text-5xl text-center font-space py-2">Subscriptions</h2>
     {%if paid%}
         <div class="flex flex-col align-center justify-center items-center gap-2">
-            <img src="{% static '/IMGS/recycling-bro.png' %}" class="w-64 h-64"/>
-            <div class="flex gap-2 align-center justify-center items-center">
-                <h1 class="text-3xl text-center font-space py-2 mt-4 mr-8">Your Subscription Ends In:</h1>
+            <img src="{% static '/IMGS/recycling-bro.png' %}" class="w-32 md:w-64 h-auto"/>
+            <div class="flex flex-col lg:flex-row gap-2 align-center justify-center items-center">
+                <h1 class="text-lg md:text-xl lg:text-3xl text-center font-space py-2 mt-4 lg:mr-8">Your Subscription Ends In:</h1>
                 {% if days3 or days2 or days1 %}
-                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ days3 }}</div></div>
-                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ days2 }}</div></div>
-                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ days1 }}</div></div>
-                <h1 class="text-3xl text-center font-space py-2">Days</h1>
+                <div class="flex flex-row gap-1">
+                <div class="w-16 h-20 md:h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-xl md:text-2xl text-black">{{ days3 }}</div></div>
+                <div class="w-16 h-20 md:h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-xl md:text-2xl text-black">{{ days2 }}</div></div>
+                <div class="w-16 h-20 md:h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-xl md:text-2xl text-black">{{ days1 }}</div></div>
+                </div>
+                <h1 class="text-lg md:text-xl lg:text-3xl text-center font-space py-2 lg:ml-3">Days</h1>
                 {% endif %}
                 {% if time2 or time1 %}
-                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ time2 }}</div></div>
-                <div class="w-16 h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-2xl text-black">{{ time1 }}</div></div>
-                <h1 class="text-3xl text-center font-space py-2">Hours</h1>
+                <div class="flex flex-row gap-1">
+                <div class="w-16 h-20 md:h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-xl md:text-2xl text-black">{{ time2 }}</div></div>
+                <div class="w-16 h-20 md:h-24 bg-slate-500 rounded flex items-center justify-center bg-opacity-20 backdrop-filter backdrop-blur-lg"><div class="font-space text-xl md:text-2xl text-black">{{ time1 }}</div></div>
+                </div>
+                <h1 class="text-lg md:text-xl lg:text-3xl text-center font-space py-2 lg:ml-3">Hours</h1>
                 {% endif %}
-                
-            
             </div>
         </div>
-        <h2 class="text-4xl text-center font-space py-6">Subscription Details</h2>
+        <h2 class="text-xl md:text-2xl lg:text-4xl text-center font-space py-6">Subscription Details</h2>
         <div class="flex gap-4 w-full h-full justify-center align-center">
             {% if showBasic%}
             <div class="w-full p-8 bg-slate-900 rounded-lg">
                 <div class="flex flex-row place-content-between">
-                    <h2 class="text-2xl font-space py-2 text-slate-50">Basic Plan</h2>
+                    <h2 class="text-lg lg:text-2xl font-space py-2 text-slate-50">Basic Plan</h2>
                     <div class="p-2 h-16 w-16 rounded-full bg-gray-500"></div>    
                 </div>  
-                <h1 class="text-lg font-space py-2 text-slate-50">Subscription Start Date:<span class="text-green-300 ml-5">{{date}}</span></h1>
-                <h1 class="text-lg font-space py-2 text-slate-50">Subscription End Date:<span class="text-green-300 ml-5">{{end}}</span></h1>
+                <br>
+                <h1 class="text-md md:text-lg font-space py-2 text-slate-50">Subscription Start Date:<br><span class="text-green-300 ml-10">{{date}}</span></h1>
+                <h1 class="text-md md:text-lg font-space py-2 text-slate-50">Subscription End Date:<br><span class="text-green-300 ml-10">{{end}}</span></h1>
             </div>
             {% endif %}
             {% if showPrem%}
         <div class="w-full p-8 bg-slate-900 rounded-lg">
             <div class="flex flex-row place-content-between">
-                <h2 class="text-2xl font-space py-2 text-slate-50">Premium Plan</h2>
+                <h2 class="text-lg lg:text-2xl font-space py-2 text-slate-50">Premium Plan</h2>
                 <div class="p-2 h-16 w-16 rounded-full bg-amber-300"></div>    
             </div>  
-            <h1 class="text-lg font-space py-2 text-slate-50">Subscription Start Date:<span class="text-green-300 ml-5">{{date}}</span></h1>
-            <h1 class="text-lg font-space py-2 text-slate-50">Subscription End Date:<span class="text-green-300 ml-5">{{end}}</span></h1>
+            <br>
+            <h1 class="text-md md:text-lg font-space py-2 text-slate-50">Subscription Start Date:<br><span class="text-green-300 ml-10">{{date}}</span></h1>
+            <h1 class="text-md md:text-lg font-space py-2 text-slate-50">Subscription End Date:<br><span class="text-green-300 ml-10">{{end}}</span></h1>
         </div>
         {% endif %}
         </div>
     </div>
     {% else %}
     <div class="flex flex-col items-center gap-2 justify-center">
-        <img src="{% static '/IMGS/recycling-bro.png' %}" class="w-64 h-64"/>
-    {% if payment %}
-        <h2 class="text-4xl text-center font-space py-6">Packages</h2>
-        <h2 class="text-3xl text-center font-space py-6">Selected Package</h2>
-    {% else %}
-        <h1 class="text-4xl font-space py-2">You Are Not Subscribed To Our Services</h1>
-        <h2 class="text-3xl text-center font-space py-6">Packages</h2>
-    {% endif %}
+        <img src="{% static '/IMGS/recycling-bro.png' %}" class="w-32 md:w-64 h-auto"/>
+        {% if payment %}
+        <h2 class="text-xl md:text-2xl lg:text-4xl text-center font-space py-2 lg:py-6">Packages</h2>
+        <h2 class="sm:text-lg md:text-xl lg:text-3xl text-center font-space py-2 lg:py-6">Selected Package</h2>
+        {% else %}
+        <h1 class="text-xl md:text-2xl lg:text-4xl text-center font-space py-2">You Are Not Subscribed To Our Services</h1>
+        <h2 class="sm:text-lg md:text-xl lg:text-3xl text-center font-space py-3 lg:py-6">Packages</h2>
+        {% endif %}
     </div>
     
-    <div class="flex gap-4 w-full h-full justify-center align-center">
+    <div class="flex flex-col lg:flex-row gap-4 w-full h-full place-content-center items-center">
         {% if showBasic%}
-        <div class="w-2/5 p-8 bg-slate-900 rounded-lg">
+        <div class="w-full md:w-2/3 lg:w-2/5 p-8 bg-slate-900 rounded-lg">
             <div class="flex flex-row place-content-between">
-                <h2 class="text-2xl font-space py-2 text-slate-50">Basic Plan</h2>
+                <h2 class="text-lg lg:text-xl font-space py-2 text-slate-50">Basic Plan</h2>
                 <div class="p-2 h-16 w-16 rounded-full bg-gray-500"></div>    
             </div>
-            <ul class="text-lg list-disc mx-2 font-space py-2 text-slate-50">
-                <li>Abcd</li>
-                <li>efgh</li>
-                <li>ijkl</li>
-                <li>mnop</li>
+            <ul class="text-md lg:text-lg list-disc mx-2 font-space py-2 text-slate-50">
+                <li>Weekly waste pickup</li>
+                <li>Hassle free waste storage</li>
+                <li>24x7 customer support and shipment tracking</li>
             </ul>
             {% if payment %}
             <button class="w-full h-12 mt-8 bg-green-300 hover:bg-green-400 text-slate-900 font-bold font-space rounded-md" id="Basic">Pay 4500/-</button>
@@ -89,16 +92,15 @@
         </div>
         {% endif %}
         {% if showPrem%}
-        <div class="w-2/5 p-8 bg-slate-900 rounded-lg">
+        <div class="w-full md:w-2/3 lg:w-2/5 p-8 bg-slate-900 rounded-lg">
             <div class="flex flex-row place-content-between">
-                <h2 class="text-2xl font-space py-2 text-slate-50">Premium Plan</h2>
+                <h2 class="text-lg lg:text-xl font-space py-2 text-slate-50">Premium Plan</h2>
                 <div class="p-2 h-16 w-16 rounded-full bg-amber-300"></div>    
             </div>
-            <ul class="text-lg list-disc mx-2 font-space py-2 text-slate-50">
-                <li>Abcd</li>
-                <li>efgh</li>
-                <li>ijkl</li>
-                <li>mnop</li>
+            <ul class="text-md lg:text-lg list-disc mx-2 font-space py-2 text-slate-50">
+                <li>Flexible waste pickup and storage</li>
+                <li>24x7 customer support and shipment tracking</li>
+                <li>Rewards</li>
             </ul>
             {% if payment %}
             <button class="w-full h-12 mt-8 bg-green-300 hover:bg-green-400 text-slate-900 font-bold font-space rounded-md" id="Premium">Pay 24000/-</button>
@@ -111,9 +113,9 @@
     </div>
 
     <div class="flex fixed top-0 left-0 w-full h-screen bg-[#00000080] z-[990] hidden" id="modalPayment">
-        <div class="m-auto min-w-1/5 min-h-12 bg-slate-300 rounded-md p-10">
+        <div class="m-auto w-fit min-h-12 bg-slate-300 rounded-md px-2 py-10 md:px-5 lg:p-10">
             <form action="" class="flex flex-col justify-center items-center align-center text-md text-center font-space" method="POST">
-                <h1 class="text-xl text-slate-900 mb-8">Verify The Details</h1>
+                <h1 class="text-md lg:text-xl text-slate-900 mb-8">Verify The Details</h1>
                 {% csrf_token %}
                 <div class="mb-3 w-full flex flex-row place-content-between">
                   <label for="name">Username:</label>
@@ -129,18 +131,18 @@
                 </div>
                 <div class="flex flex-col gap-4 w-full">
                 {% if payment %}
-                <button type="button" class="h-12 w-full px-5 text-slate-900 rounded-md bg-green-400 hover:bg-green-500" id="Pay">Pay Via Razorpay</button>
+                <button type="button" class="h-12 w-5/6 self-center px-5 text-slate-900 rounded-md bg-green-400 hover:bg-green-500" id="Pay">Pay Via Razorpay</button>
                 {%else%}
-                <button type="submit" class="h-12 w-full px-5 bg-green-400 hover:bg-green-500 text-slate-900 rounded-md font-space text-black">Verify Details</button>
+                <button type="submit" class="h-12 w-5/6 self-center px-5 bg-green-400 hover:bg-green-500 text-slate-900 rounded-md font-space text-black">Verify Details</button>
                 {% endif %}
-                <button type="button" class="h-12 w-full px-5 bg-red-400 hover:bg-red-500 text-slate-900 rounded-md font-space text-black" id="cancel">Cancel</button>
+                <button type="button" class="h-12 w-5/6 self-center px-5 bg-red-400 hover:bg-red-500 text-slate-900 rounded-md font-space text-black" id="cancel">Cancel</button>
                 </div>
             </form>
             {% if payment %}
             <form action="/User/Success/" method="POST" id="form">
                 {%csrf_token%}
                 <script src="https://checkout.razorpay.com/v1/checkout.js"    
-                    data-key="rzp_test_zdPB2yUq5SbCeW"  
+                    data-key="{{key}}"  
                     data-amount="{{payment.amount}}"
                     data-currency="INR"
                     data-order_id="{{payment.id}}"   
