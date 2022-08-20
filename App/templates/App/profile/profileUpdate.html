@@ -16,20 +16,44 @@
 <body>
     {% block data %}
         <div class="flex relative">
-            <button class="absolute top-[8px] right-[8px] p-[5px] rounded-md text-white bg-slate-900 text-[1.25rem] md:text-[1.5rem] closeUpdate"><i class="bi bi-pencil-square"></i></button>
-            <div class="my-auto w-[50px] h-[50px] sm:w-[75px] sm:h-[75px] md:w-[100px] md:h-[100px] bg-slate-900 flex rounded-full overflow-hidden"><img src="{{user.profile.profile_pic.url}}" alt="" class="w-full"></div>
+            <button class="font-semibold w-[100px] absolute top-[8px] right-[7px] p-[3px] rounded-md text-white  bg-lightgreen text-[1.9rem] md:text-[1.2rem] closeUpdate"><i class="bi-pen" style='color:white'></i> Edit</button>
+            <div class="my-auto w-[50px] h-[50px] sm:w-[75px] sm:h-[75px] md:w-[150px] md:h-[150px] bg-slate-900 flex rounded-full overflow-hidden"><img src="{{user.profile.profile_pic.url}}" alt="" class="w-full"></div>
             <div class="ml-[10px] sm:ml-[20px] md:ml-[30px] my-auto"><h1 class="text-[1.25rem] sm:text-[1.5rem]">{{user.username}}</h1><h3 class="text-[1rem] sm:text-[1.25rem]">{{user.email}}</h3></div>
         </div>
+        
 
-            <div class="flex flex-col">
-                <div>{{user.profile.name}}</div>
-                <div>{{user.profile.about}}</div>
-                <div>{{user.profile.location}}</div>
-                <div>{{user.profile.street}}</div>
-                <div>{{user.profile.city}}</div>
-                <div>{{user.profile.state}}</div>
-                <div>{{user.profile.phone}}</div>
+            <div class="flex flex-col items-center place-content-center p-14">
+                <div class="flex  w-1/2 m-4">
+                    <label for="id_name" class="w-1/2">Name</label> 
+                    <p >{{user.profile.name}}</p>
+
+                </div>
+                <div class="flex  w-1/2 m-4">
+                    <label for="id_about" class="w-1/2">About</label>
+                    <p >{{user.profile.about}}</p>
+                </div>
+                <div class="flex  w-1/2 m-4">
+                    <label for="id_location" class="w-1/2">Location</label>
+                    <p >{{user.profile.location}}</p>
+                </div>
+                <div class="flex  w-1/2 m-4">
+                    <label for="id_street" class="w-1/2">Street</label>
+                    <p >{{user.profile.street}}</p>
+                </div>
+                <div class="flex  w-1/2 m-4 ">
+                    <label for="id_city" class="w-1/2" >City</label>
+                    <p >{{user.profile.city}}</p>
+                </div>
+                <div class="flex  w-1/2 m-4">
+                    <label for="id_state" class="w-1/2">State</label>
+                    <p >{{user.profile.state}}</p>
+                </div>
+                <div class="flex  w-1/2 m-4">
+                    <label for="id_phone" class="w-1/2">Phone No</label>
+                    <p >{{user.profile.phone}}</p>
+                </div>
             </div>
+    
 
             <div class="relative bg-slate-900 text-white p-[10px] hidden" id="Update">
                 <button class="absolute top-[10px] right-[10px] closeUpdate hidden" ><i class="bi bi-x-lg text-white text-[1.5rem]"></i></button>

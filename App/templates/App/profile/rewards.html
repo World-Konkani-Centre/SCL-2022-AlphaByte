@@ -10,13 +10,62 @@
 {%load static%}
 <body>
     {% block data %}
+    <div class="flex justify-center">
+        <h1 class="flex place-content-center items-center m-auto bg-green-300 w-[300px] rounded-2xl h-10">Rewards to Be Claimed:{{reward}}</h1>
+    </div>
     
-    <div>
-        <h1>Steel:{{data.0}}</h1>
-        <h1>E-Waste:{{data.1}}</h1>
-        <h1>Bio-Degradable:{{data.2}}</h1>
-        <h1>Paper:{{data.3}}</h1>
-        <h1>Rewards to Be Claimed:{{reward}}</h1>
+    <div class="flex flex-row items-center justify-evenly p-10">
+        <div class="w-12 h-64 rounded-2xl dark:bg-violet-200 relative ">
+            <div class=" w-12 h-40 bg-blue-600 rounded-2xl dark:bg-violet-600 absolute bottom-0" id="abc">
+                <h3 class="text-center">{{data.0}}</h3>
+                <h3 class="text-center">S</h3>
+                <h3 class="text-center">t</h3>
+                <h3 class="text-center">e</h3>
+                <h3 class="text-center">e</h3>
+                <h3 class="text-center">l</h3>
+            </div> 
+        </div>
+        <div>
+        <div class="w-12 h-64 rounded-2xl dark:bg-green-200 relative">
+            <div class="w-12 h-40 bg-blue-600 rounded-2xl dark:bg-green-600 absolute bottom-0">
+                <h3 class="text-center">{{data.1}}</h3>
+                <h3 class="text-center">E</h3>
+                <h3 class="text-center">W</h3>
+                <h3 class="text-center">a</h3>
+                <h3 class="text-center">s</h3>
+                <h3 class="text-center">t</h3>
+                <h3 class="text-center">e</h3>
+            </div>
+        </div>
+        </div>
+        <div class="w-12 h-64 rounded-2xl dark:bg-red-200 relative">
+            <div class="w-12 h-40 bg-blue-600 rounded-2xl dark:bg-red-600 absolute bottom-0">
+                <h3 class="text-center">{{data.2}}</h3>
+                <h3 class="text-center">B</h3>
+                <h3 class="text-center">i</h3>
+                <h3 class="text-center">o</h3>
+                <h3 class="text-center">D</h3>
+                <h3 class="text-center">e</h3>
+                <h3 class="text-center">g</h3>
+                <h3 class="text-center">r</h3>
+                <h3 class="text-center">a</h3>
+                <h3 class="text-center">d</h3>
+                <h3 class="text-center">a</h3>
+                <h3 class="text-center">b</h3>
+                <h3 class="text-center">l</h3>
+                <h3 class="text-center">e</h3>
+            </div>
+        </div>
+        <div class="w-12 h-64 rounded-2xl dark:bg-sky-200 relative">
+            <div class=" w-12 h-40 bg-blue-600 rounded-2xl dark:bg-sky-600 absolute bottom-0">
+                <h3 class="flex items-center justify-center w-full">{{data.3}}</h3>
+                <h3 class="flex items-center justify-center w-full">P</h3>
+                <h3 class="flex items-center justify-center w-full">a</h3>
+                <h3 class="flex items-center justify-center w-full">p</h3>
+                <h3 class="flex items-center justify-center w-full">e</h3>
+                <h3 class="flex items-center justify-center w-full">r</h3>
+            </div>
+        </div>    
     </div>
     {% if reward %}
     <form action="" method="POST">
@@ -25,8 +74,11 @@
         <button type="submit">Claim Reward</button>
     </form>
     {% else %}
-    <button type="button">Claim Reward</button>
+    <div class="flex justify-center">
+        <button class=" text-center justify-center bg-green-300  w-[200px] rounded-2xl h-10 " type="button">Claim Reward</button>
+    </div>
     {% endif %}
+    
     
     {% endblock %}
 </body>
