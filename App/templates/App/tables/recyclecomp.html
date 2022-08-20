@@ -12,54 +12,53 @@
 
 <body>
     {% block content %}
-    <div class="content bg-slate-900 p-24">
-        <div class="min-w-full font-space">
-            <h1 class="text-green-300 text-7xl font-bold ">{{user.profile.name}}</h1>
+    <div class="content bg-slate-900 min-h-screen p-5 md:p-10 lg:p-24">
+        <div class="min-w-full font-space mr-2 flex flex-col w-full lg:w-4/5">
+            <h1 class="text-green-300 text-3xl md:text-5xl lg:text-7xl font-bold mr-2">{{user.profile.name}}</h1>
             <div class="my-9 w-fit bg-green-300 px-2 rounded-md">Shipments To Arrive</div>
         </div>
-        <div class="Table min-w-4/5 p-2 bg-slate-50 rounded-2xl overflow-auto">
-            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-sm opacity-90 text-center font-inter">
+        <div class="Table w-full lg:min-w-4/5 p-1 lg:p-2 bg-slate-50 rounded-2xl overflow-auto lg:overflow-hidden">
+            <table class="relative border-separate border-spacing-0 table-auto min-w-full bg-slate-50 text-xs lg:text-sm opacity-90 text-center font-inter mr-2">
                 <thead class="bg-slate-300">
                     <tr>
-                        <th class="rounded-tl-xl">ID</th>
-                        <th>Type</th>
-                        <th>Quantity</th>
-                        <th>Employee Info</th>
-                        <th>Dropdown Date</th>
-                        <th class="rounded-tr-xl">Status</th>
+                        <th class="rounded-tl-xl px-4 py-1 w-min md:w-max">ID</th>
+                        <th class="px-4 py-1">Type</th>
+                        <th class="px-4 py-1">Quantity</th>
+                        <th class="px-4 py-1">Employee Info</th>
+                        <th class="px-4 py-1">Dropdown Date</th>
+                        <th class="rounded-tr-xl px-4 py-1">Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for waste in wastes %}
                     <tr>
-                        <td class="text-left px-4 py-1 border-b border-slate-300 border-l"><div class="font-bold">{{waste.id}}</div></td>
-                        <td class="border-b border-slate-300">{{waste.type}}</td>
-                        <td class="border-b border-slate-300">{{waste.weight}}</td>
-                        <td class="border-b border-slate-300">{{waste.employee.profile.name}}<br>{{waste.employee.profile.phone}}</td>
-                        <td class="border-b border-slate-300">{{waste.dropdown_date}}</td>
-                        <td class="border-b border-slate-300 border-r">
+                        <td class="place-content-center px-4 py-1 border-b border-slate-300 border-l flex items-center h-20 w-min md:w-full"><div class="font-bold">{{waste.id}}</div></td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.type}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.weight}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max"><span class="font-bold">{{waste.employee.profile.name}}</span><br>{{waste.employee.profile.phone}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max">{{waste.dropdown_date}}</td>
+                        <td class="border-b border-slate-300 h-20 w-max border-r">
                             {% if waste.dropdown_done %}
-                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Dropdown Done</button>
+                            <button type="button" disabled class="bg-green-200 border-[1px] border-green-800 text-green-800 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Delivered</button>
                             {% else %}
-                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px]" >Dropdown Not Done</button>
+                            <button type="button" disabled class="bg-red-200 border-[1px] border-red-800 text-red-800 rounded-[3px] px-[3px] py-[2px] my-[3px] w-max" >Not Delivered</button>
                             {% endif %}
                         </td>
                     </tr>
                     {% endfor %} 
                 </tbody>
             </table>
-            <div class="w-full text-[1 rem] h-5 my-4 text-center">
-                {% if wastes.has_previous %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
-                {% endif %}
-                <button class="p-[5px] m-[5px]" type="button">Page {{wastes.number}} of {{wastes.paginator.num_pages}}</button>
-                {% if wastes.has_next %}
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
-                <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
-                {% endif %}
-            </div>
-            
+        </div>
+        <div class="w-full text-[1rem] h-5 text-center text-white text-lg md:text-xl lg:text-2xl font-space">
+            {% if wastes.has_previous %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page=1"><i class="bi bi-chevron-double-left"></i>First</a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.previous_page_number}}"><i class="bi bi-chevron-left"></i>Previous</a></button>
+            {% endif %}
+            <button class="p-[5px] m-[5px]" type="button">Page {{wastes.number}} of {{wastes.paginator.num_pages}}</button>
+            {% if wastes.has_next %}
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.next_page_number}}">Next<i class="bi bi-chevron-right"></i></a></button>
+            <button class="p-[5px] m-[5px]" type="button"><a href="?page={{wastes.paginator.num_pages}}">Last<i class="bi bi-chevron-double-right"></i></a></button>
+            {% endif %}
         </div>
     </div>
     {% endblock %}
