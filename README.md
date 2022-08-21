@@ -35,7 +35,6 @@ You will have nothing to worry about. With reasonable prices and great benefits,
 		<span>ChartJS</span>
 	</div>
 </div>
-
  
  ## Installation
  1. Fork and Clone
