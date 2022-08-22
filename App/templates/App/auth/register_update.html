@@ -41,35 +41,38 @@
         <h1 class="text-[1.5rem] text-lightgreen sm:text-[2.3rem] font-bold text-center font-space">Update Profile</h1>
         <table class="table-auto text-[1.1rem] mx-auto mt-[50px] gap-y-[20px]">
             <tr>
-                <td><label for="id_name">Name:</label></td>
-                <td><input class="bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px] w-[280px] md:w-[300px]" type="text" name="name" id="id_name" value="{{user.profile.name}}" required maxlength="50"></td>
+                <td class="text-left"><label for="id_name">Name:</label></td>
+                <td><input class="bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px] w-[200px] md:w-[300px]" type="text" name="name" id="id_name" value="{{user.profile.name}}" required maxlength="50"></td>
             </tr>
             <tr>
-                <td><label for="id_about">About:</label></td>
-                <td><textarea class="w-[280px] md:w-[300px] h-[100px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="about" id="id_about">{{user.profile.about}}</textarea></td>
+                <td class="text-left"><label for="id_about">About:</label></td>
+                <td><textarea class="w-[200px] md:w-[300px] h-[100px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="about" id="id_about">{{user.profile.about}}</textarea></td>
             </tr>
             <tr>
-                <td><label for="id_location">Location:</label></td>
-                <td><input class="w-[280px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="location" type="text" id="id_location" value="{{user.profile.location}}"></td>
+                <td class="text-left"><label for="id_location">Location:</label></td>
+                <td><input class="w-[200px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="location" type="text" id="id_location" value="{{user.profile.location}}"></td>
             </tr>
             <tr>
-                <td><label for="id_street">Street:</label></td>
-                <td><input class="w-[280px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="street" type="text" id="id_street" value="{{user.profile.street}}"></td>
+                <td class="text-left"><label for="id_street">Street:</label></td>
+                <td><input class="w-[200px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="street" type="text" id="id_street" value="{{user.profile.street}}"></td>
             </tr>
             <tr>
-                <td><label for="id_city">City:</label></td>
-                <td><input class="w-[280px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="city" type="text" id="id_city" value="{{user.profile.city}}"></td>
+                <td class="text-left"><label for="id_city">City:</label></td>
+                <td><input class="w-[200px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="city" type="text" id="id_city" value="{{user.profile.city}}"></td>
             </tr>
             <tr>
-                <td><label for="id_state">State:</label></td>
-                <td><input class="w-[280px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="state" type="text" id="id_state" value="{{user.profile.state}}"></td>
+                <td class="text-left"><label for="id_state">State:</label></td>
+                <td><input class="w-[200px] md:w-[300px] bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px]" name="state" type="text" id="id_state" value="{{user.profile.state}}"></td>
             </tr>
             <tr>
-                <td><label for="id_phone">Phone</label></td>
-                <td><input class="bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px] w-[280px] md:w-[300px]" type="tel" name="phone" value="{{user.profile.phone}}" id="id_phone"></td>
+                <td class="text-left"><label for="id_phone">Phone</label></td>
+                <td><input class="bg-[#f0f8ff5c] rounded-md text-[0.9rem] p-[5px] w-[200px] md:w-[300px]" type="tel" name="phone" value="{{user.profile.phone}}" id="id_phone"></td>
             </tr>
         </table>
-        <div class="flex w-full my-[15px]"><button class="mx-auto bg-white text-green-600 border-green-600 hover:bg-green-600 hover:text-white ease-in-out rounded-lg p-[3px] border-2" type="submit">Update</button><button class="mx-auto ease-in-out bg-white text-rose-600 border-rose-600 hover:bg-rose-600 hover:text-white border-2 p-[3px] rounded-lg" type="reset">Cancel</button></div>
+        <div class="flex w-full my-[15px]">
+            <button class="mx-auto bg-green-600 text-white border-green-600 hover:bg-green-500 hover:text-white ease-in-out rounded-lg px-[10px] border-2" type="submit">Update</button>
+            <button class="mx-auto ease-in-out bg-rose-600 text-white border-rose-600 hover:bg-rose-500 hover:text-white border-2 px-[10px] rounded-lg" type="reset">Cancel</button>
+        </div>
     </form>
     </div>  
 </body>
