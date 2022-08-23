@@ -111,7 +111,7 @@ You will have nothing to worry about. With reasonable prices and great benefits,
 	<a href="https://github.com/satviknayak">Satvik S Nayak</a>
 </td>
 <td>
-	<div align="center"><img height="75px" src="https://user-images.githubusercontent.com/88571833/185797882-d47954f9-5eec-4c4f-aeae-b13e8a76902d.png"></div>
+	<div align="center"><img height="75px" src="https://user-images.githubusercontent.com/88571833/186163998-a9ac5e0f-4342-41b9-bfcf-bceee659399c.png"></div>
 	<a href="https://github.com/ShravyaMallya">Shravya Mallya</a>
 </td>
 <td>
