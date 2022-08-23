@@ -151,7 +151,7 @@
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 <input type="text" name="id" id="id_id" value="{{waste.id}}" hidden>
-                                <label class="text-[0.8rem]" for="id_dropdown_done">Dropdown Done:</label><input type="checkbox" name="dropdown_done" id="id_dropdown_done" {% if waste.dropdown_done %} checked {% endif %}>
+                                <label class="text-[0.8rem]" for="id_dropdown_done">Delivery Done:</label><input type="checkbox" name="dropdown_done" id="id_dropdown_done" {% if waste.dropdown_done %} checked {% endif %}>
                                 <input type="checkbox" name="pickup_done" id="id_pickup_done" checked hidden>
                                 <br><button type="submit" class="px-[5px] py-[3px] my-[3px] bg-green-200 border-green-800 text-green-800 border-[1px] rounded-[3px]">Submit</button>
                             </form>
