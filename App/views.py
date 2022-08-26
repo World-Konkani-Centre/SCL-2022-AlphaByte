@@ -75,17 +75,21 @@ def loginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request,username=username,password=password)
-        if not user.profile.is_email_verified:
-            messages.add_message(request,messages.ERROR,'Email not verified,please check your email inbox')
-            messages.success(request,'Mail has been sent to your email to verify your email! Check Spam if not Inbox!!')
-            send_action_email(user,request)
-            return redirect('login')
         if user is not None:
-            login(request,user)
-            if user.profile.location is None:
-                return redirect('updateInfo')
+            if not user.profile.is_email_verified:
+                messages.add_message(request,messages.ERROR,'Email not verified,please check your email inbox')
+                messages.success(request,'Mail has been sent to your email to verify your email! Check Spam if not Inbox!!')
+                send_action_email(user,request)
+                return redirect('login')
             else:
-                return redirect('home')
+                login(request,user)
+                if user.profile.location is None:
+                    return redirect('updateInfo')
+                else:
+                    return redirect('home')
+        else:
+            messages.add_message(request,messages.ERROR,'Wrong credentials!')
+            return redirect('login')
     context = {}
     return render(request,'App/auth/login.html',context)
 
