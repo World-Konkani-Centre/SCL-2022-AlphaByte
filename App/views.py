@@ -86,6 +86,9 @@ def loginPage(request):
                 return redirect('updateInfo')
             else:
                 return redirect('home')
+        else:
+            messages.add_message(request,'Wrong credentials!')
+            return redirect('login')
     context = {}
     return render(request,'App/auth/login.html',context)
 
